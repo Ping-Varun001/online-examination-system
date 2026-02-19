@@ -106,6 +106,9 @@ if DATABASE_URL:
         conn_max_age=600,
         ssl_require=True
     )
+    DATABASES['default']['OPTIONS'] = {
+        'options': '-c timezone=UTC'
+    }
 
 # -----------------------------
 # PASSWORD VALIDATION
@@ -121,7 +124,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # INTERNATIONALIZATION
 # -----------------------------
 LANGUAGE_CODE = 'en-us'
-TIME_ZONE = 'Asia/Kolkata'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 USE_L10N = True
@@ -162,11 +165,3 @@ EMAIL_RECEIVING_USER = [
     os.environ.get('EMAIL_RECEIVING_USER', EMAIL_HOST_USER)
 ]
 
-# -----------------------------
-# Timezone for PostgreSQL
-# -----------------------------
-
-from django.db.backends.postgresql.base import DatabaseWrapper
-
-DatabaseWrapper.timezone = 'UTC'
-DatabaseWrapper.timezone_name = 'UTC'
