@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <style>
+    body {
+      background-color: #f5f7fa;
+    }
+
+    .status-container {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .status-card {
+      background: #ffffff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      max-width: 700px;
+      width: 100%;
+    }
+
+    .status-card h1 {
+      font-size: 28px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .status-message {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.7;
+      margin-bottom: 25px;
+    }
+
+    .status-message b {
+      color: #dc3545;
+    }
+
+    .btn-danger {
+      border-radius: 4px;
+      padding: 10px 24px;
+    }
+
+    @media (max-width: 576px) {
+      .status-card {
+        padding: 25px;
+      }
+
+      .status-card h1 {
+        font-size: 22px;
+      }
+    }
+    .back-btn {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.back-btn i {
+  margin-right: 6px;
+}
+
+.back-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
+}
+  </style>
+</head>
+
+<body>
+
+{% include "exam/navbar.html" %}
+<!-- Back Button -->
+<div class="container mt-4">
+  <button onclick="history.back()" class="back-btn">
+    <i class="fa fa-arrow-left"></i> Back
+  </button>
+</div>
+<div class="status-container">
+  <div class="status-card">
+
+    <h1>Hello {{ request.user.first_name }},</h1>
+
+    <p class="status-message">
+      Your account has not been <b>activated</b> yet.<br><br>
+      Please wait for approval from the administrator.<br>
+      Once approved, you will be able to access your account.
+    </p>
+
+    <a class="btn btn-danger btn-lg" href="/logout" role="button">
+      Logout
+    </a>
+
+  </div>
+</div>
+
+{% include "exam/footer.html" %}
+
+</body>
+</html>

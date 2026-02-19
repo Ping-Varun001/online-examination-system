@@ -1,0 +1,221 @@
+{% extends 'exam/adminbase.html' %}
+{% block content %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <!-- Font Awesome -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f2f5f9;
+    }
+
+    a {
+      text-decoration: none !important;
+    }
+
+    .student-wrapper {
+      padding: 30px;
+      min-height: 85vh;
+    }
+
+    .student-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-bottom: 30px;
+      color: #2c3e50;
+    }
+
+    /* Card */
+    .student-card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .student-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 25px 55px rgba(0,0,0,0.18);
+    }
+
+    .card-header-custom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .card-header-custom h6 {
+      font-size: 14px;
+      font-weight: 600;
+      color: #6c757d;
+      letter-spacing: 0.6px;
+      margin: 0;
+    }
+
+    .icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      color: #fff;
+    }
+
+    .icon-student {
+      background: linear-gradient(135deg, #6366f1, #818cf8);
+    }
+
+    .icon-marks {
+      background: linear-gradient(135deg, #10b981, #34d399);
+    }
+
+    .card-value {
+      font-size: 32px;
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .card-action {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #2563eb;
+      font-weight: 500;
+    }
+
+    /* Animation */
+    .fade-in {
+      animation: fadeUp 0.7s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .student-wrapper {
+        padding: 20px;
+      }
+    }
+    .back-btn {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.back-btn i {
+  margin-right: 6px;
+}
+
+.back-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
+}
+  </style>
+</head>
+<!-- Back Button -->
+<div class="container mt-4">
+  <button onclick="history.back()" class="back-btn">
+    <i class="fa fa-arrow-left"></i> Back
+  </button>
+</div>
+<div class="student-wrapper">
+  <div class="container-fluid">
+
+    <div class="student-title">Student Dashboard</div>
+
+    <div class="row">
+
+      <!-- Registered Students -->
+      <div class="col-md-6 mb-4 fade-in">
+        <a href="admin-view-student">
+          <div class="student-card">
+            <div class="card-header-custom">
+              <h6>REGISTERED STUDENTS</h6>
+              <div class="icon-box icon-student">
+                <i class="fa fa-user-graduate"></i>
+              </div>
+            </div>
+
+            <div class="card-value count" data-count="{{ total_student }}">0</div>
+            <div class="card-action">View Students →</div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Student Marks -->
+      <div class="col-md-6 mb-4 fade-in">
+        <a href="admin-view-student-marks">
+          <div class="student-card">
+            <div class="card-header-custom">
+              <h6>STUDENT MARKS</h6>
+              <div class="icon-box icon-marks">
+                <i class="fa fa-chart-bar"></i>
+              </div>
+            </div>
+
+            <div class="card-value">
+              View
+            </div>
+            <div class="card-action">Check Marks →</div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Count Animation -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".count").forEach(counter => {
+      const target = +counter.dataset.count;
+      let current = 0;
+      const increment = Math.ceil(target / 40);
+
+      function update() {
+        current += increment;
+        if (current < target) {
+          counter.textContent = current;
+          requestAnimationFrame(update);
+        } else {
+          counter.textContent = target;
+        }
+      }
+      update();
+    });
+  });
+</script>
+
+{% endblock content %}

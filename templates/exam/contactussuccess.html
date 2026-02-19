@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+  <style>
+    body {
+      background-color: #f4f6f9; /* machine / professional bg */
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .success-wrapper {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .success-card {
+      background: #ffffff;
+      padding: 40px 30px;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .success-card h1 {
+      color: #28a745; /* success green */
+      font-weight: 600;
+    }
+
+    .success-card p {
+      color: #555;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  {% include "exam/navbar.html" %}
+
+  <div class="success-wrapper">
+    <div class="success-card">
+
+      <h1 class="display-4">Message Sent Successfully!</h1>
+      <p class="lead mt-3">
+        Thank you for contacting us. We will respond to your message soon.
+      </p>
+
+      <hr>
+
+      <p>Explore other features of the website</p>
+
+      <a class="btn btn-primary btn-lg mt-2" href="/" role="button">
+        Go to Home
+      </a>
+
+    </div>
+  </div>
+
+
+</body>
+
+</html>

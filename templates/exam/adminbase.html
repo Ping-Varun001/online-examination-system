@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f4f6fb;
+    }
+
+    a { text-decoration: none; }
+
+    /* ================= HEADER ================= */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: #111827;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 2000;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .menu-toggle {
+      font-size: 22px;
+      color: #fff;
+      cursor: pointer;
+      display: none;
+    }
+
+    .header h3 {
+      color: #fff;
+      margin: 0;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .logout-btn {
+      background: #ef4444;
+      padding: 8px 18px;
+      border-radius: 20px;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ================= SIDEBAR ================= */
+    .sidebar {
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 240px;
+      height: calc(100vh - 64px);
+      background: #1f2937;
+      padding-top: 20px;
+      transition: transform 0.3s ease;
+      z-index: 1500;
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%);
+    }
+
+    .profile {
+      text-align: center;
+      padding-bottom: 25px;
+    }
+
+    .profile img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #2563eb;
+      margin-bottom: 10px;
+    }
+
+    .profile h4 {
+      color: #fff;
+      margin: 5px 0;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .profile span {
+      font-size: 12px;
+      color: #9ca3af;
+    }
+
+    .menu a {
+      display: flex;
+      align-items: center;
+      padding: 14px 30px;
+      color: #d1d5db;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+
+    .menu a i {
+      width: 22px;
+      margin-right: 12px;
+    }
+
+    .menu a:hover {
+      background: #2563eb;
+      color: #fff;
+    }
+
+    /* ================= CONTENT ================= */
+    .content {
+      margin-left: 240px;
+      margin-top: 64px;
+      padding: 30px;
+      transition: 0.3s;
+    }
+
+    /* ================= MOBILE ================= */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+      }
+
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .content {
+        margin-left: 0;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-left">
+    <span class="menu-toggle" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </span>
+    <h3>Online Examination</h3>
+  </div>
+  <a href="/logout" class="logout-btn">Logout</a>
+</div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="profile">
+    <img src="{% static 'image/admin.png' %}" alt="Admin">
+    <h4>Admin</h4>
+    <span>(Administrator)</span>
+  </div>
+
+  <div class="menu">
+    <a href="/admin-dashboard"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+    <a href="/admin-teacher"><i class="fas fa-chalkboard-teacher"></i>Teachers</a>
+    <a href="/admin-student"><i class="fas fa-user-graduate"></i>Students</a>
+    <a href="/admin-course"><i class="fas fa-book"></i>Courses</a>
+    <a href="/admin-question"><i class="fas fa-question-circle"></i>Questions</a>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+  {% block content %}
+  {% endblock content %}
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,154 @@
+{% extends 'teacher/teacherbase.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+
+  <style>
+    body {
+      background-color: #f5f7fa;
+    }
+
+    a {
+      text-decoration: none !important;
+    }
+
+    .page-container {
+      margin-top: 80px;
+      margin-bottom: 60px;
+    }
+
+    .custom-panel {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      padding: 25px;
+    }
+
+    .panel-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    thead {
+      background-color: #f1f3f6;
+    }
+
+    th {
+      text-align: center;
+      font-weight: 600;
+      color: #444;
+      white-space: nowrap;
+    }
+
+    td {
+      vertical-align: middle !important;
+      text-align: center;
+      color: #555;
+    }
+
+    td.question-col {
+      text-align: left;
+    }
+
+    tbody tr {
+      transition: background 0.2s ease;
+    }
+
+    tbody tr:hover {
+      background-color: #f9fafc;
+    }
+
+    .btn-danger {
+      border-radius: 6px;
+      padding: 5px 10px;
+    }
+
+    @media (max-width: 768px) {
+      .panel-title {
+        font-size: 16px;
+      }
+
+      .custom-panel {
+        padding: 18px;
+      }
+    }
+    .back-btn {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.back-btn i {
+  margin-right: 6px;
+}
+
+.back-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
+}
+  </style>
+</head>
+<!-- Back Button -->
+<div class="container mt-4">
+  <button onclick="history.back()" class="back-btn">
+    <i class="fa fa-arrow-left"></i> Back
+  </button>
+</div>
+<div class="container page-container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-12">
+
+      <div class="custom-panel">
+        <h6 class="panel-title">Available Questions</h6>
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Question</th>
+                <th>Marks</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for c in questions %}
+              <tr>
+                <td class="question-col">{{ c.question }}</td>
+                <td>{{ c.marks }}</td>
+                <td>
+                  <a class="btn btn-danger btn-xs"
+                     href="{% url 'remove-question' c.id %}"
+                     title="Delete Question">
+                    <span class="glyphicon glyphicon-trash"></span>
+                  </a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

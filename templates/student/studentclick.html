@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+    }
+
+    .hero {
+      min-height: 85vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .hero-card {
+      background: #ffffff;
+      padding: 50px 40px;
+      border-radius: 20px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+      max-width: 700px;
+      width: 100%;
+      animation: fadeUp 0.8s ease;
+    }
+
+    .hero-title {
+      font-size: 38px;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 10px;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: #4b5563;
+      margin-bottom: 25px;
+    }
+
+    .hero-text {
+      font-size: 15px;
+      color: #6b7280;
+      margin-bottom: 35px;
+    }
+
+    .btn-group-custom a {
+      margin: 8px;
+      padding: 14px 34px;
+      font-size: 15px;
+      font-weight: 600;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-signup {
+      background: linear-gradient(135deg, #2563eb, #60a5fa);
+      border: none;
+      color: #ffffff;
+    }
+
+    .btn-login {
+      background: linear-gradient(135deg, #10b981, #34d399);
+      border: none;
+      color: #ffffff;
+    }
+
+    .btn-group-custom a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      color: #ffffff;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .hero-title {
+        font-size: 30px;
+      }
+      .hero-card {
+        padding: 40px 25px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+{% include "exam/navbar.html" %}
+
+<div class="hero">
+  <div class="hero-card">
+
+    <h1 class="hero-title">Hello Student 👋</h1>
+    <p class="hero-subtitle">
+      Welcome to the Online Examination System
+    </p>
+
+    <p class="hero-text">
+      Attempt exams, track your performance, and view results — all in one secure platform.
+    </p>
+
+    <div class="btn-group-custom">
+      <a href="studentsignup" class="btn btn-signup">
+        Create Your Account
+      </a>
+      <a href="studentlogin" class="btn btn-login">
+        Login Now
+      </a>
+    </div>
+
+  </div>
+</div>
+
+{% include "exam/footer.html" %}
+
+</body>
+</html>

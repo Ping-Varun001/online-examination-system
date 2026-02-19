@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Teacher Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    body {
+      background: #f1f3f5;
+    }
+
+    a {
+      text-decoration: none;
+    }
+
+    /* ================= HEADER ================= */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 56px;
+      background: #343a40;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 1000;
+    }
+
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .menu-toggle {
+      color: #ffffff;
+      font-size: 22px;
+      cursor: pointer;
+      display: none;
+    }
+
+    .site-title {
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 18px;
+      white-space: nowrap; /* ✅ prevents line break */
+    }
+
+    .logout-btn {
+      white-space: nowrap;
+    }
+
+    /* ================= SIDEBAR ================= */
+    .sidebar {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: 250px;
+      height: calc(100% - 56px);
+      background: #343a40;
+      transition: 0.3s ease;
+      z-index: 999;
+    }
+
+    .sidebar .profile {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .sidebar img {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border: 3px solid #0d6efd;
+    }
+
+    .sidebar h6 {
+      color: #ffffff;
+      margin-bottom: 0;
+    }
+
+    .sidebar small {
+      color: #ced4da;
+    }
+
+    .sidebar a {
+      display: flex;
+      align-items: center;
+      padding: 12px 24px;
+      color: #ffffff;
+      transition: 0.3s;
+      white-space: nowrap;
+    }
+
+    .sidebar a i {
+      width: 22px;
+      margin-right: 12px;
+    }
+
+    .sidebar a:hover {
+      background: #0d6efd;
+      color: #ffffff;
+    }
+
+    /* ================= CONTENT ================= */
+    .content {
+      margin-top: 56px;
+      margin-left: 250px;
+      padding: 25px;
+      transition: 0.3s ease;
+    }
+
+    /* ================= OVERLAY ================= */
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 56px;
+      left: 0;
+      width: 100%;
+      height: calc(100% - 56px);
+      background: rgba(0,0,0,0.4);
+      z-index: 998;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    /* ================= MOBILE ================= */
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: inline-block;
+      }
+
+      .sidebar {
+        left: -250px;
+      }
+
+      .sidebar.active {
+        left: 0;
+      }
+
+      .content {
+        margin-left: 0;
+      }
+
+      .site-title {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+<div class="header">
+  <div class="header-left">
+    <span class="menu-toggle" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </span>
+    <span class="site-title">Online Exam</span>
+  </div>
+
+  <a href="/logout" class="btn btn-danger btn-sm logout-btn">
+    Logout
+  </a>
+</div>
+
+<!-- ================= SIDEBAR ================= -->
+<div class="sidebar" id="sidebar">
+  <div class="profile">
+    <img src="{{ user.teacher.profile_pic.url }}" alt="Profile">
+    <h6>{{ request.user.first_name }}</h6>
+    <small>(Teacher)</small>
+  </div>
+
+  <a href="/teacher/teacher-dashboard" onclick="toggleSidebar()">
+    <i class="fas fa-tachometer-alt"></i> Dashboard
+  </a>
+
+  <a href="/teacher/teacher-exam" onclick="toggleSidebar()">
+    <i class="fas fa-book"></i> Manage Courses
+  </a>
+
+  <a href="/teacher/teacher-question" onclick="toggleSidebar()">
+    <i class="fas fa-question-circle"></i> Manage Questions
+  </a>
+
+  <a href="/teacher/teacher-view-results" onclick="toggleSidebar()">
+  <i class="fas fa-chart-bar"></i>
+  <span>Student Results</span>
+</a>
+</div>
+
+<!-- ================= OVERLAY ================= -->
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- ================= CONTENT ================= -->
+<div class="content">
+  {% block content %}
+  {% endblock content %}
+</div>
+
+<!-- ================= SCRIPT ================= -->
+<script>
+  function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
+  }
+</script>
+
+</body>
+</html>

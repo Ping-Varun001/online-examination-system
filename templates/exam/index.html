@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <title>Online Examination System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Hero Section */
+    #section-jumbotron {
+      background-image: url("{% static 'image/bgimage.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    #section-jumbotron::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+    }
+
+    #section-jumbotron .container {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: #17a2b8;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.2rem, 4vw, 2.2rem);
+    }
+
+    .hero-desc {
+      max-width: 650px;
+      margin: auto;
+      font-size: 1.05rem;
+      opacity: 0.95;
+    }
+
+    /* Card Hover */
+    .feature-card {
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+
+<body>
+
+  {% include "exam/navbar.html" %}
+
+  <!-- HERO SECTION -->
+  <section id="section-jumbotron">
+    <div class="container text-center">
+      <h1 class="hero-title mb-3">Online Examination System</h1>
+
+      <p class="hero-subtitle d-none d-md-block mb-3">
+        Attend your examinations online!
+      </p>
+
+      <p class="hero-desc mb-4">
+        A modern platform that enables students to attend exams securely,
+        efficiently, and from anywhere.
+      </p>
+
+      <a href="/student/studentsignup"
+         class="btn btn-info btn-lg px-5 fw-semibold rounded-pill shadow">
+        <i class="fa fa-graduation-cap"></i> Sign Up as Student
+      </a>
+    </div>
+  </section>
+
+  <!-- FEATURES SECTION -->
+  <section class="py-5 bg-light">
+    <div class="container text-center">
+
+      <h2 class="fw-bold mb-3">Why Choose Our Platform?</h2>
+      <p class="text-muted mb-5">
+        Designed for students and educators with simplicity and security
+      </p>
+
+      <div class="row g-4">
+
+        <div class="col-md-4">
+          <div class="card feature-card border-0 shadow h-100">
+            <div class="card-body">
+              <i class="fa fa-laptop fa-3x text-info mb-3"></i>
+              <h5 class="fw-semibold">Online Exams</h5>
+              <p class="text-muted">
+                Attempt exams anytime from anywhere using any device.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card feature-card border-0 shadow h-100">
+            <div class="card-body">
+              <i class="fa fa-clock-o fa-3x text-info mb-3"></i>
+              <h5 class="fw-semibold">Time Efficient</h5>
+              <p class="text-muted">
+                Automatic timers and smooth exam flow reduce stress.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="card feature-card border-0 shadow h-100">
+            <div class="card-body">
+              <i class="fa fa-bar-chart fa-3x text-info mb-3"></i>
+              <h5 class="fw-semibold">Instant Results</h5>
+              <p class="text-muted">
+                Get fast and transparent results after exam completion.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="mt-5">
+        <a href="/student/studentsignup"
+           class="btn btn-info btn-lg px-5 fw-semibold rounded-pill shadow">
+          Get Started Now
+        </a>
+      </div>
+
+    </div>
+  </section>
+  {% include "exam/contactus.html" %}
+  {% include "exam/footer.html" %}
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

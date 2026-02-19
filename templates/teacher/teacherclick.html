@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    body {
+      font-family: "Inter", "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #eef2f7, #f9fbfd);
+    }
+
+    /* HERO */
+    .hero-section {
+      min-height: 90vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .hero-card {
+      background: #ffffff;
+      padding: 60px 50px;
+      border-radius: 14px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      max-width: 720px;
+      width: 100%;
+      text-align: center;
+      animation: fadeUp 0.8s ease;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: #eef4ff;
+      color: #4c51bf;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 30px;
+      margin-bottom: 18px;
+    }
+
+    .hero-card h1 {
+      font-size: 34px;
+      font-weight: 800;
+      color: #1f2937;
+      margin-bottom: 10px;
+    }
+
+    .hero-card p {
+      color: #4b5563;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+
+    .hero-divider {
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(90deg, #4c51bf, #38bdf8);
+      border-radius: 10px;
+      margin: 30px auto;
+    }
+
+    /* BUTTONS */
+    .hero-actions {
+      margin-top: 35px;
+    }
+
+    .hero-actions a {
+      margin: 10px;
+      padding: 14px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #4c51bf, #667eea);
+      border: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(76, 81, 191, 0.35);
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #10b981, #22c55e);
+      border: none;
+    }
+
+    .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(16, 185, 129, 0.35);
+    }
+
+    /* FEATURES */
+    .hero-features {
+      display: flex;
+      justify-content: center;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .feature {
+      width: 180px;
+      margin: 10px;
+      text-align: center;
+      color: #374151;
+    }
+
+    .feature i {
+      font-size: 28px;
+      color: #4c51bf;
+      margin-bottom: 8px;
+    }
+
+    .feature p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* MOBILE */
+    @media (max-width: 576px) {
+      .hero-card {
+        padding: 35px 25px;
+      }
+
+      .hero-card h1 {
+        font-size: 26px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+{% include "exam/navbar.html" %}
+
+<div class="hero-section">
+  <div class="hero-card">
+
+    <div class="hero-badge">
+      🎓 Teacher Portal
+    </div>
+
+    <h1>Hello Teacher</h1>
+    <p>
+      Welcome to the <b>Online Examination System</b>.<br>
+      Create, manage, and evaluate exams with ease.
+    </p>
+
+    <div class="hero-divider"></div>
+
+    <p>Select an option below to continue</p>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="teachersignup">
+        Create Your Account
+      </a>
+      <a class="btn btn-success" href="teacherlogin">
+        Login Now
+      </a>
+    </div>
+
+    <div class="hero-features">
+      <div class="feature">
+        <i class="fas fa-book"></i>
+        <p>Manage Courses</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-question-circle"></i>
+        <p>Create Questions</p>
+      </div>
+      <div class="feature">
+        <i class="fas fa-chart-line"></i>
+        <p>Track Progress</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% include "exam/footer.html" %}
+
+</body>
+</html>

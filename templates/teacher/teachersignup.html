@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+{% load widget_tweaks %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <style>
+    body {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #eef2f7, #f8fafc);
+    }
+  </style>
+</head>
+
+<body>
+
+{% include "exam/navbar.html" %}
+
+<div class="container py-5">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-lg-9 col-md-11">
+
+      <div class="card shadow-lg border-0 rounded-lg">
+        <div class="card-body p-4 p-md-5">
+
+          <!-- TITLE -->
+          <div class="text-center mb-4">
+            <h3 class="font-weight-bold text-dark">Create Teacher Account</h3>
+            <p class="text-muted mb-0">
+              Join the Online Examination System and manage exams easily
+            </p>
+          </div>
+
+          <!-- FORM -->
+          <form method="POST" autocomplete="off" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <!-- NAME -->
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="font-weight-semibold">First Name</label>
+                {% render_field userForm.first_name|attr:'required:true' class="form-control" placeholder="First Name" %}
+              </div>
+
+              <div class="form-group col-md-6">
+                <label class="font-weight-semibold">Last Name</label>
+                {% render_field userForm.last_name|attr:'required:true' class="form-control" placeholder="Last Name" %}
+              </div>
+            </div>
+
+            <!-- CONTACT -->
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Contact</label>
+                {% render_field teacherForm.mobile|attr:'required:true' class="form-control" placeholder="Contact Number" %}
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Address</label>
+                {% render_field teacherForm.address|attr:'required:true' class="form-control" placeholder="Address" %}
+              </div>
+            </div>
+
+            <!-- LOGIN -->
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label>Username</label>
+                {% render_field userForm.username|attr:'required:true' class="form-control" placeholder="Username" %}
+              </div>
+
+              <div class="form-group col-md-6">
+                <label>Password</label>
+                {% render_field userForm.password|attr:'required:true' class="form-control" placeholder="Password" %}
+              </div>
+            </div>
+
+            <!-- PROFILE PIC -->
+            <div class="form-group">
+              <label>Profile Picture</label>
+              {% render_field teacherForm.profile_pic|attr:'required:true' class="form-control-file" %}
+            </div>
+
+            <!-- BUTTON -->
+            <div class="text-center mt-4">
+              <button type="submit" class="btn btn-success btn-lg px-5">
+                Sign Up
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% include "exam/footer.html" %}
+
+</body>
+</html>

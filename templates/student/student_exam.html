@@ -1,0 +1,194 @@
+{% extends 'student/studentbase.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <!-- Font Awesome -->
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f6fb;
+    }
+
+    a {
+      text-decoration: none !important;
+    }
+
+    .page-wrapper {
+      min-height: 85vh;
+      padding: 30px;
+    }
+
+    .page-title {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      color: #1f2937;
+    }
+
+    .table-card {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 25px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.12);
+      animation: fadeUp 0.6s ease;
+    }
+
+    .table thead {
+      background: linear-gradient(135deg, #2563eb, #60a5fa);
+      color: #ffffff;
+    }
+
+    .table thead th {
+      font-weight: 600;
+      text-align: center;
+      vertical-align: middle;
+      border: none;
+    }
+
+    .table tbody td {
+      text-align: center;
+      vertical-align: middle;
+      border-top: 1px solid #e5e7eb;
+      font-size: 14px;
+    }
+
+    .exam-name {
+      font-weight: 600;
+      color: #111827;
+      text-align: left;
+    }
+
+    .btn-exam {
+      display: inline-flex;
+      /* ✅ keeps icon + text in one line */
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+
+      background: linear-gradient(135deg, #10b981, #34d399);
+      border: none;
+      border-radius: 20px;
+
+      padding: 8px 18px;
+      min-width: 110px;
+      /* ✅ prevents wrapping on mobile */
+
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 600;
+      white-space: nowrap;
+      /* ✅ MOST IMPORTANT */
+
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-exam:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+      color: #ffffff;
+    }
+
+    /* 📱 Mobile fine-tuning */
+    @media (max-width: 480px) {
+      .btn-exam {
+        padding: 6px 14px;
+        font-size: 12px;
+        min-width: 95px;
+      }
+    }
+        @keyframes fadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(25px);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 768px) {
+          .page-wrapper {
+            padding: 20px;
+          }
+        }
+        .back-btn {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.back-btn i {
+  margin-right: 6px;
+}
+
+.back-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
+}
+  </style>
+</head>
+<!-- Back Button -->
+<div class="container mt-4">
+  <button onclick="history.back()" class="back-btn">
+    <i class="fa fa-arrow-left"></i> Back
+  </button>
+</div>
+<div class="page-wrapper">
+  <div class="container-fluid">
+
+    <div class="page-title">Available Exams</div>
+
+    <div class="table-card">
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Exam Name</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for t in courses %}
+            <tr>
+              <td class="exam-name">{{ t.course_name }}</td>
+              <td>
+                <a href="{% url 'take-exam' t.id %}" class="btn-exam">
+                  <i class="fa fa-check-circle"></i> Attend Exam
+                </a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock content %}

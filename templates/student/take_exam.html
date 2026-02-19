@@ -1,0 +1,177 @@
+{% extends 'student/studentbase.html' %}
+{% block content %}
+{% load static %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f4f6fb;
+    }
+
+    .exam-wrapper {
+      min-height: 85vh;
+      padding: 30px;
+    }
+
+    .exam-card {
+      background: #ffffff;
+      border-radius: 22px;
+      padding: 35px;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+      animation: fadeUp 0.6s ease;
+    }
+
+    .exam-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 25px;
+      color: #1f2937;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #2563eb;
+    }
+
+    .info-list li,
+    .rules-list li {
+      margin-bottom: 10px;
+      font-size: 14px;
+      color: #374151;
+    }
+
+    .info-list li strong {
+      color: #111827;
+    }
+
+    .rules-list li span {
+      color: #dc2626;
+      font-weight: 600;
+    }
+
+    .start-btn {
+      margin-top: 25px;
+      padding: 14px 30px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 30px;
+      background: linear-gradient(135deg, #10b981, #34d399);
+      border: none;
+      color: #ffffff;
+      transition: 0.3s ease;
+    }
+
+    .start-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 25px rgba(16,185,129,0.4);
+      color: #ffffff;
+    }
+
+    .exam-footer {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: 500;
+      color: #2563eb;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(25px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 576px) {
+      .exam-card {
+        padding: 25px 20px;
+      }
+    }
+    .back-btn {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.back-btn i {
+  margin-right: 6px;
+}
+
+.back-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
+}
+  </style>
+</head>
+<!-- Back Button -->
+<div class="container mt-4">
+  <button onclick="history.back()" class="back-btn">
+    <i class="fa fa-arrow-left"></i> Back
+  </button>
+</div>
+<div class="exam-wrapper">
+  <div class="container">
+    <div class="exam-card">
+
+      <div class="exam-title">Examination Instructions</div>
+
+      <!-- Exam Details -->
+      <div class="section-title">📘 Exam Details</div>
+      <ul class="info-list">
+        <li><strong>Course:</strong> {{ course.course_name }}</li>
+        <li><strong>Total Questions:</strong> {{ total_questions }}</li>
+        <li><strong>Total Marks:</strong> {{ total_marks }}</li>
+      </ul>
+
+      <!-- Rules -->
+      <div class="section-title">📜 Rules & Guidelines</div>
+      <ul class="rules-list">
+        <li>All questions are MCQ (Multiple Choice Questions).</li>
+        <li><span>Only one option is correct.</span></li>
+        <li>Each question carries different marks.</li>
+        <li>Try to answer all questions within time.</li>
+        <li>Refreshing or navigating back will count as a new attempt.</li>
+        <li>Questions are presented randomly.</li>
+        <li>You can view your marks immediately after submission.</li>
+      </ul>
+
+      <!-- Start Button -->
+      <div class="text-center">
+        <a href="{% url 'start-exam' course.id %}" class="start-btn">
+          Start Examination
+        </a>
+      </div>
+
+      <div class="exam-footer">
+        Best of Luck, Student! 🎯
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

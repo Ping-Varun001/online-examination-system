@@ -1,0 +1,133 @@
+{% extends 'teacher/teacherbase.html' %}
+{% load static %}
+{% block content %}
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #f5f7fa;
+    }
+
+    .page-container {
+      margin-top: 70px;
+      margin-bottom: 50px;
+    }
+
+    .custom-card {
+      background: #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      padding: 20px;
+    }
+
+    .card-title {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    table th {
+      background-color: #f1f3f6;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    table td {
+      text-align: center;
+      vertical-align: middle !important;
+    }
+
+    .btn-view {
+      background: #5bc0de;
+      color: white;
+      border-radius: 4px;
+      padding: 6px 12px;
+    }
+
+    .btn-view:hover {
+      background: #31b0d5;
+      color: white;
+    }
+    .back-btn {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  padding: 8px 18px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #374151;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.back-btn i {
+  margin-right: 6px;
+}
+
+.back-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
+}
+  </style>
+</head>
+<!-- Back Button -->
+<div class="container mt-4">
+  <button onclick="history.back()" class="back-btn">
+    <i class="fa fa-arrow-left"></i> Back
+  </button>
+</div>
+<div class="container page-container">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 col-sm-12">
+      <div class="custom-card">
+
+        <div class="card-title">
+          Student Results
+        </div>
+
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Subject</th>
+                <th>Total Marks</th>
+                <th>Students Attempted</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in course_data %}
+              <tr>
+                <td>{{ item.course.course_name }}</td>
+                <td>{{ item.course.total_marks }}</td>
+                <td>{{ item.attempted }}</td>
+                <td>
+                  <a href="{% url 'teacher_view_subject_results' item.course.id %}"
+                     class="btn btn-view btn-sm">
+                    View Results
+                  </a>
+                </td>
+              </tr>
+              {% empty %}
+              <tr>
+                <td colspan="4">No subjects found</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock content %}

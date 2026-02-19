@@ -1,0 +1,148 @@
+{% extends 'teacher/teacherbase.html' %}
+{% block content %}
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #eef2f7, #f9fbfd);
+      font-family: "Inter", "Segoe UI", sans-serif;
+    }
+
+    .dashboard-container {
+      margin-top: 70px;
+      margin-bottom: 60px;
+    }
+
+    .dashboard-title {
+      text-align: center;
+      font-weight: 700;
+      font-size: 26px;
+      margin-bottom: 40px;
+      color: #1f2937;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+      transition: all 0.3s ease;
+      height: 100%;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    .stat-title {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 8px;
+    }
+
+    .stat-value {
+      font-size: 34px;
+      font-weight: 800;
+      color: #111827;
+    }
+
+    .stat-icon {
+      width: 55px;
+      height: 55px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      color: #ffffff;
+    }
+
+    .icon-student {
+      background: linear-gradient(135deg, #4c51bf, #667eea);
+    }
+
+    .icon-course {
+      background: linear-gradient(135deg, #10b981, #22c55e);
+    }
+
+    .icon-question {
+      background: linear-gradient(135deg, #f59e0b, #f97316);
+    }
+
+    @media (max-width: 768px) {
+      .stat-card {
+        margin-bottom: 20px;
+      }
+
+      .dashboard-title {
+        font-size: 22px;
+      }
+    }
+  </style>
+</head>
+
+<div class="container dashboard-container">
+
+  <h2 class="dashboard-title">Teacher Dashboard</h2>
+
+  <div class="row">
+
+    <div class="col-md-4 col-sm-12 mb-4">
+      <div class="stat-card">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="stat-title">Registered Students</div>
+            <div class="stat-value">{{ total_student }}</div>
+          </div>
+          <div class="stat-icon icon-student">
+            <i class="fas fa-user-graduate"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12 mb-4">
+      <div class="stat-card">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="stat-title">Total Courses</div>
+            <div class="stat-value">{{ total_course }}</div>
+          </div>
+          <div class="stat-icon icon-course">
+            <i class="fas fa-book"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 col-sm-12 mb-4">
+      <div class="stat-card">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <div class="stat-title">Total Questions</div>
+            <div class="stat-value">{{ total_question }}</div>
+          </div>
+          <div class="stat-icon icon-question">
+            <i class="fas fa-question-circle"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+{% endblock content %}
