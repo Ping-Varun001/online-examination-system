@@ -99,9 +99,14 @@ if DATABASE_URL:
             DATABASE_URL,
             conn_max_age=600,
             ssl_require=True,
-            options={"options": "-c timezone=UTC"},
         )
     }
+
+    # Add this ONLY because parse() doesn't accept options
+    DATABASES["default"]["OPTIONS"] = {
+        "options": "-c timezone=UTC"
+    }
+
 else:
     DATABASES = {
         "default": {
