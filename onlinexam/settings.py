@@ -20,12 +20,11 @@ STATIC_DIR = BASE_DIR / 'static'
 # -----------------------------
 # SECURITY
 # -----------------------------
-SECRET_KEY = os.environ.get(
-    'SECRET_KEY',
-    '@k0#p3kidu)yaaa3u1hplxz)f@^6xiy384*(+n@@s5x#1bx@m5'
-)
+import os
 
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key-for-local')
+
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
     'localhost',
