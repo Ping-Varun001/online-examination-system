@@ -106,6 +106,9 @@ if DATABASE_URL:
         conn_max_age=600,
         ssl_require=True
     )
+    DATABASES['default']['OPTIONS'] = {
+        'options': '-c timezone=UTC'
+    }
 
 # -----------------------------
 # PASSWORD VALIDATION
