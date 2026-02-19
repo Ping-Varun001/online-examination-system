@@ -131,7 +131,8 @@ USE_TZ = True
 # STATIC FILES
 # -----------------------------
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [STATIC_DIR]
+if DEBUG:
+    STATICFILES_DIRS = [STATIC_DIR]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # -----------------------------
@@ -157,4 +158,6 @@ EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
-EMAIL_RECEIVING_USER = [EMAIL_HOST_USER]
+EMAIL_RECEIVING_USER = [
+    os.environ.get('EMAIL_RECEIVING_USER', EMAIL_HOST_USER)
+]
