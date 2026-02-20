@@ -48,14 +48,17 @@ def is_teacher(user):
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
 def teacher_dashboard_view(request):
-    dict={
-    
-    'total_course':QMODEL.Course.objects.all().count(),
-    'total_question':QMODEL.Question.objects.all().count(),
-    'total_student':SMODEL.Student.objects.all().count()
 
+    if request.user.is_superuser:
+        return redirect('admin-dashboard')
+
+    dict = {
+        'total_course': QMODEL.Course.objects.all().count(),
+        'total_question': QMODEL.Question.objects.all().count(),
+        'total_student': SMODEL.Student.objects.all().count()
     }
-    return render(request,'teacher/teacher_dashboard.html',context=dict)
+
+    return render(request, 'teacher/teacher_dashboard.html', context=dict)
 
 @login_required(login_url='teacherlogin')
 @user_passes_test(is_teacher)
