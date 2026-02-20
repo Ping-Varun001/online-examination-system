@@ -38,7 +38,32 @@ def afterlogin_view(request):
     else:
         return redirect('admin-dashboard')
 
+from django.contrib.auth import authenticate, login
+from .forms import AdminLoginForm
 
+def adminlogin_view(request):
+    if request.user.is_authenticated:
+        return redirect('afterlogin')
+
+    if request.method == "POST":
+        form = AdminLoginForm(request, data=request.POST)
+
+        if form.is_valid():
+            user = form.get_user()
+
+            # Only allow admins
+            if user.is_staff or user.is_superuser:
+                login(request, user)   # 🔥 THIS WAS MISSING
+                return redirect('afterlogin')
+
+        # invalid credentials
+        return render(request, 'exam/adminlogin.html', {
+            'form': form,
+            'error': 'Invalid username or password'
+        })
+
+    form = AdminLoginForm()
+    return render(request, 'exam/adminlogin.html', {'form': form})
 
 def adminclick_view(request):
     if request.user.is_authenticated:
