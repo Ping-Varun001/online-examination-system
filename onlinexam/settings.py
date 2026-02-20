@@ -101,12 +101,6 @@ if DATABASE_URL:
             ssl_require=True,
         )
     }
-
-    # Add this ONLY because parse() doesn't accept options
-    DATABASES["default"]["OPTIONS"] = {
-        "options": "-c timezone=UTC"
-    }
-
 else:
     DATABASES = {
         "default": {
