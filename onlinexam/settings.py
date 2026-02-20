@@ -27,13 +27,17 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key-for-local')
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = [
+    'online-examination-system-119k.onrender.com',
     'localhost',
     '127.0.0.1',
-    '.onrender.com',
 ]
 
-CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
+CSRF_TRUSTED_ORIGINS = [
+    'https://online-examination-system-119k.onrender.com',
+]
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
 
 # -----------------------------
 # APPLICATIONS
