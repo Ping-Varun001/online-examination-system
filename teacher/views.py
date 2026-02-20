@@ -40,6 +40,9 @@ def teacher_signup_view(request):
 
 
 def is_teacher(user):
+    # allow superuser (admin)
+    if user.is_superuser:
+        return True
     return user.groups.filter(name='TEACHER').exists()
 
 @login_required(login_url='teacherlogin')
