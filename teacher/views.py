@@ -198,3 +198,41 @@ def teacher_view_subject_results(request, pk):
             'results': results
         }
     )
+
+from django.contrib.auth import authenticate, login
+from .forms import TeacherLoginForm
+
+def teacherlogin_view(request):
+    form = TeacherLoginForm()
+
+    if request.method == 'POST':
+        form = TeacherLoginForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+
+            user = authenticate(request, username=username, password=password)
+
+            if user:
+                login(request, user)
+
+                # 🔐 SUPERUSER → ADMIN DASHBOARD
+                if user.is_superuser:
+                    return redirect('admin-dashboard')
+
+                # 👨‍🏫 TEACHER
+                if user.groups.filter(name='TEACHER').exists():
+                    return redirect('teacher-dashboard')
+
+                return render(request, 'teacher/teacherlogin.html', {
+                    'form': form,
+                    'error': 'Not authorized'
+                })
+
+        return render(request, 'teacher/teacherlogin.html', {
+            'form': form,
+            'error': 'Invalid username or password'
+        })
+
+    return render(request, 'teacher/teacherlogin.html', {'form': form})

@@ -15,3 +15,12 @@ class TeacherForm(forms.ModelForm):
         model=models.Teacher
         fields=['address','mobile','profile_pic']
 
+from django import forms
+
+class TeacherLoginForm(forms.Form):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
+    )

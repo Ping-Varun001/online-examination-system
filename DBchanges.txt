@@ -24,3 +24,8 @@ DATABASES = {
 }
 
 e(=(j$oz2=c6!u0h3vklo!m2eed8k+adw7n!@^sv6wb)5^k-d+
+
+        </li>
+        <li class="nav-item">
+          <a href="/adminclick" class="nav-link">Admin</a>
+        </li>
