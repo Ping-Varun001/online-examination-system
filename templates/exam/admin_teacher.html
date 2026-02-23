@@ -51,9 +51,8 @@ body {
   border: none;
   border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  transition: all 0.35s ease;
   overflow: hidden;
-  transition: all 0.3s ease;
-  height: 100%;
 }
 
 .card:hover {
@@ -122,16 +121,50 @@ body {
     font-size: 22px;
   }
 }
+
+
+@media (max-width: 576px) {
+
+  .container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .col-md-4 {
+    width: 100%;
+    max-width: 100%;
+    flex: 0 0 100%;
+    margin-bottom: 20px;
+  }
+
+  .card .card-block {
+    padding: 22px;
+  }
+
+  .order-card h2 {
+    font-size: 20px;
+  }
+
+  .order-card h6 {
+    font-size: 12px;
+  }
+}
 </style>
 
   </head>
 <br><br>
-  <!-- Back Button -->
+<!-- Back Button -->
 <div class="container mt-4">
   <button onclick="history.back()" class="back-btn">
     <i class="fa fa-arrow-left"></i> Back
   </button>
 </div>
+
   <div class="container">
     <div class="row">
       <div class="col-md-4 col-xl-4">

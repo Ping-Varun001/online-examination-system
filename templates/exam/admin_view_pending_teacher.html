@@ -71,14 +71,12 @@
       <tr>
 
         <td> {{t.get_name}}</td>
-        <td>
-  {% if t.profile_pic %}
-    <img src="{{ t.profile_pic.url }}" alt="Profile Pic"
-         width="40" height="40" class="rounded-circle">
-  {% else %}
-    <img src="{% static 'image/teacher_icon.png' %}"
-         width="40" height="40" class="rounded-circle">
-  {% endif %}
+<td>
+  <img src="{% static 'images/teacher.png' %}"
+       alt="Profile Pic"
+       width="40"
+       height="40"
+       class="rounded-circle">
 </td>
         <td>{{t.mobile}}</td>
         <td>{{t.address}}</td>
