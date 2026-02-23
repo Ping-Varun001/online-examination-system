@@ -185,10 +185,11 @@
 <!-- ================= SIDEBAR ================= -->
 <div class="sidebar" id="sidebar">
   <div class="profile">
-    <img src="{{ user.teacher.profile_pic.url }}" alt="Profile">
+    <img src="{% static 'images/teacher.png' %}" alt="Profile" width="80">
     <h6>{{ request.user.first_name }}</h6>
     <small>(Teacher)</small>
   </div>
+</div>
 
   <a href="/teacher/teacher-dashboard" onclick="toggleSidebar()">
     <i class="fas fa-tachometer-alt"></i> Dashboard

@@ -11,8 +11,7 @@ urlpatterns = [
     path('teacher/',include('teacher.urls')),
     path('student/',include('student.urls')),
     
-
-
+    path('', include('exam.urls')),
     path('',views.home_view,name=''),
      
     #path('logout/', auth_views.LogoutView.as_view(), name='logout'),
@@ -57,5 +56,5 @@ urlpatterns = [
     
 
 ] 
-if settings.DEBUG:   
+if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

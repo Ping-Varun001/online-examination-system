@@ -22,7 +22,7 @@ def teacher_signup_view(request):
     mydict={'userForm':userForm,'teacherForm':teacherForm}
     if request.method=='POST':
         userForm=forms.TeacherUserForm(request.POST)
-        teacherForm=forms.TeacherForm(request.POST,request.FILES)
+        teacherForm = forms.TeacherForm(request.POST)
         if userForm.is_valid() and teacherForm.is_valid():
             user=userForm.save()
             user.set_password(user.password)

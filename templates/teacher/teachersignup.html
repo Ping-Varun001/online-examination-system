@@ -37,7 +37,7 @@
           </div>
 
           <!-- FORM -->
-          <form method="POST" autocomplete="off" enctype="multipart/form-data">
+          <form method="POST" autocomplete="off">
             {% csrf_token %}
 
             <!-- NAME -->
@@ -79,11 +79,6 @@
               </div>
             </div>
 
-            <!-- PROFILE PIC -->
-            <div class="form-group">
-              <label>Profile Picture</label>
-              {% render_field teacherForm.profile_pic|attr:'required:true' class="form-control-file" %}
-            </div>
 
             <!-- BUTTON -->
             <div class="text-center mt-4">
