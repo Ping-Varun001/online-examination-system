@@ -208,14 +208,10 @@
 <!-- ================= SIDEBAR ================= -->
 <div class="sidebar" id="sidebar">
   <div class="profile">
-    {% if user.student.profile_pic %}
-      <img src="{{ user.student.profile_pic.url }}" alt="Profile">
-    {% else %}
-      <img src="{% static 'image/student_icon.png' %}" alt="Profile">
-    {% endif %}
-    <h4>{{ request.user.first_name }}</h4>
-    <span>Student</span>
-  </div>
+  <img src="{% static 'images/teacher.png' %}" alt="Profile">
+  <h4>{{ request.user.first_name }}</h4>
+  <span>Student</span>
+</div>
 
   <div class="menu">
     <a href="/student/student-dashboard" onclick="toggleSidebar()">
