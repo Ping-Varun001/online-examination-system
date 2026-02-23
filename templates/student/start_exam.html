@@ -244,6 +244,7 @@ document.addEventListener("keydown", function (e) {
 
 /* ================= TAB / APP SWITCH DETECTION ================= */
 let examActive = true;
+let warningShown = false;
 
 document.addEventListener("visibilitychange", function () {
   if (document.hidden && examActive) {
@@ -259,6 +260,10 @@ window.addEventListener("blur", function () {
 
 /* ================= WARNING POPUP ================= */
 function showWarningPopup() {
+
+  // ⛔ prevent repeated popup spam
+  if (warningShown) return;
+  warningShown = true;
   examActive = false;
 
   let choice = confirm(
@@ -269,8 +274,16 @@ function showWarningPopup() {
   );
 
   if (choice) {
+    // ✅ student chose to continue
     examActive = true;
+
+    // allow future detection after short delay
+    setTimeout(() => {
+      warningShown = false;
+    }, 1000);
+
   } else {
+    // ❌ student chose to leave
     forceSubmitExam();
   }
 }
