@@ -12,7 +12,6 @@ urlpatterns = [
     path('student/',include('student.urls')),
     
     path('', include('exam.urls')),
-    path('',views.home_view,name=''),
      
     #path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('logout/', views.user_logout_view, name='logout'),
