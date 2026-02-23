@@ -10,8 +10,6 @@ from exam import models as QMODEL
 from student import models as SMODEL
 from exam import forms as QFORM
 
-
-
 #for showing signup/login button for teacher
 def teacherclick_view(request):
     if request.user.is_authenticated:
