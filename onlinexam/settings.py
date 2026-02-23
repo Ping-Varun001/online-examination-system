@@ -66,6 +66,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # ✅ ADD THIS
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',  # ENABLED (important)
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -170,3 +171,4 @@ EMAIL_RECEIVING_USER = [
     os.environ.get('EMAIL_RECEIVING_USER', EMAIL_HOST_USER)
 ]
 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
