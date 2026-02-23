@@ -8,12 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- Bootstrap 4 -->
-  <link rel="stylesheet"
-        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
   <!-- Font Awesome -->
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
   <style>
     body {
@@ -56,7 +54,8 @@
       color: #ffffff;
       font-weight: 700;
       font-size: 18px;
-      white-space: nowrap; /* ✅ prevents line break */
+      white-space: nowrap;
+      /* ✅ prevents line break */
     }
 
     .logout-btn {
@@ -133,7 +132,7 @@
       left: 0;
       width: 100%;
       height: calc(100% - 56px);
-      background: rgba(0,0,0,0.4);
+      background: rgba(0, 0, 0, 0.4);
       z-index: 998;
     }
 
@@ -168,29 +167,30 @@
 
 <body>
 
-<!-- ================= HEADER ================= -->
-<div class="header">
-  <div class="header-left">
-    <span class="menu-toggle" onclick="toggleSidebar()">
-      <i class="fas fa-bars"></i>
-    </span>
-    <span class="site-title">Online Exam</span>
+  <!-- ================= HEADER ================= -->
+  <div class="header">
+    <div class="header-left">
+      <span class="menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </span>
+      <span class="site-title">Online Exam</span>
+    </div>
+
+    <a href="/logout" class="btn btn-danger btn-sm logout-btn">
+      Logout
+    </a>
   </div>
 
-  <a href="/logout" class="btn btn-danger btn-sm logout-btn">
-    Logout
-  </a>
-</div>
+  <!-- ================= SIDEBAR ================= -->
 
-<!-- ================= SIDEBAR ================= -->
 <div class="sidebar" id="sidebar">
   <div class="profile">
     <img src="{% static 'images/teacher.png' %}" alt="Profile" width="80">
     <h6>{{ request.user.first_name }}</h6>
     <small>(Teacher)</small>
   </div>
-</div>
 
+  <!-- ✅ MENU LINKS MUST BE INSIDE SIDEBAR -->
   <a href="/teacher/teacher-dashboard" onclick="toggleSidebar()">
     <i class="fas fa-tachometer-alt"></i> Dashboard
   </a>
@@ -204,27 +204,27 @@
   </a>
 
   <a href="/teacher/teacher-view-results" onclick="toggleSidebar()">
-  <i class="fas fa-chart-bar"></i>
-  <span>Student Results</span>
-</a>
+    <i class="fas fa-chart-bar"></i> Student Results
+  </a>
 </div>
 
-<!-- ================= OVERLAY ================= -->
-<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+  <!-- ================= OVERLAY ================= -->
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-<!-- ================= CONTENT ================= -->
-<div class="content">
-  {% block content %}
-  {% endblock content %}
-</div>
+  <!-- ================= CONTENT ================= -->
+  <div class="content">
+    {% block content %}
+    {% endblock content %}
+  </div>
 
-<!-- ================= SCRIPT ================= -->
-<script>
-  function toggleSidebar() {
-    document.getElementById("sidebar").classList.toggle("active");
-    document.getElementById("overlay").classList.toggle("active");
-  }
-</script>
+  <!-- ================= SCRIPT ================= -->
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+  </script>
 
 </body>
+
 </html>
