@@ -8,7 +8,6 @@ from django.contrib.auth.decorators import login_required,user_passes_test
 from django.conf import settings
 from datetime import date, timedelta
 from django.db.models import Q
-from django.core.mail import send_mail
 from teacher import models as TMODEL
 from student import models as SMODEL
 from teacher import forms as TFORM
@@ -17,10 +16,11 @@ from django.contrib.auth.models import User
 from exam import models as QMODEL
 from exam.models import Course, VideoCourse
 from django.shortcuts import render
-from django.core.mail import send_mail
 from django.conf import settings
-from . import forms
+from django.core.mail import send_mail
+from django.shortcuts import render
 
+import socket
 
 def is_teacher(user):
     return user.groups.filter(name='TEACHER').exists()
@@ -318,29 +318,33 @@ def contactus_view(request):
         if form.is_valid():
             name = form.cleaned_data['Name']
             email = form.cleaned_data['Email']
-            phone = form.cleaned_data['Phone']
-            institute = form.cleaned_data['Institute']
             message = form.cleaned_data['Message']
 
-            final_message = f"""
-Name: {name}
-Email: {email}
-Phone: {phone}
-Institute: {institute}
+            try:
+                # ⏱ prevent hanging forever
+                socket.setdefaulttimeout(10)
 
-Message:
-{message}
-"""
+                send_mail(
+                    subject=f"Contact Us | {name}",
+                    message=f"From: {email}\n\n{message}",
+                    from_email=settings.EMAIL_HOST_USER,
+                    recipient_list=[settings.EMAIL_HOST_USER],
+                    fail_silently=False,
+                )
 
-            send_mail(
-                subject=f"Contact Us | {name}",
-                message=final_message,
-                from_email=settings.EMAIL_HOST_USER,
-                recipient_list=settings.EMAIL_RECEIVING_USER,
-                fail_silently=False
-            )
+                return render(request, 'exam/contactussuccess.html')
 
-            return render(request, 'exam/contactussuccess.html')
+            except Exception as e:
+                print("EMAIL ERROR:", e)
+
+                return render(
+                    request,
+                    'exam/contactus.html',
+                    {
+                        'form': form,
+                        'email_error': 'Email service is temporarily unavailable. Please try again later.'
+                    }
+                )
 
     return render(request, 'exam/contactus.html', {'form': form})
 

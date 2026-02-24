@@ -163,5 +163,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 EMAIL_RECEIVING_USER = [
     os.environ.get('EMAIL_RECEIVING_USER', EMAIL_HOST_USER)
 ]
+EMAIL_TIMEOUT = 10
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
