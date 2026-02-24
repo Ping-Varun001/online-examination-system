@@ -1,10 +1,3 @@
-"""
-Django settings for onlinexam project.
-Compatible with:
-- Localhost (SQLite)
-- Render (PostgreSQL)
-"""
-
 import os
 from pathlib import Path
 import dj_database_url

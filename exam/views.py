@@ -16,7 +16,10 @@ from student import forms as SFORM
 from django.contrib.auth.models import User
 from exam import models as QMODEL
 from exam.models import Course, VideoCourse
-
+from django.shortcuts import render
+from django.core.mail import send_mail
+from django.conf import settings
+from . import forms
 
 
 def is_teacher(user):
@@ -302,22 +305,44 @@ def admin_check_marks_view(request,pk):
     
 
 
-
-
 def aboutus_view(request):
     return render(request,'exam/aboutus.html')
 
+
 def contactus_view(request):
-    sub = forms.ContactusForm()
+    form = forms.ContactusForm()
+
     if request.method == 'POST':
-        sub = forms.ContactusForm(request.POST)
-        if sub.is_valid():
-            email = sub.cleaned_data['Email']
-            name=sub.cleaned_data['Name']
-            message = sub.cleaned_data['Message']
-            send_mail(str(name)+' || '+str(email),message,settings.EMAIL_HOST_USER, settings.EMAIL_RECEIVING_USER, fail_silently = False)
+        form = forms.ContactusForm(request.POST)
+
+        if form.is_valid():
+            name = form.cleaned_data['Name']
+            email = form.cleaned_data['Email']
+            phone = form.cleaned_data['Phone']
+            institute = form.cleaned_data['Institute']
+            message = form.cleaned_data['Message']
+
+            final_message = f"""
+Name: {name}
+Email: {email}
+Phone: {phone}
+Institute: {institute}
+
+Message:
+{message}
+"""
+
+            send_mail(
+                subject=f"Contact Us | {name}",
+                message=final_message,
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=settings.EMAIL_RECEIVING_USER,
+                fail_silently=False
+            )
+
             return render(request, 'exam/contactussuccess.html')
-    return render(request, 'exam/contactus.html', {'form':sub})
+
+    return render(request, 'exam/contactus.html', {'form': form})
 
 
 def user_logout_view(request):

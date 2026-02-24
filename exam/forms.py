@@ -1,58 +1,76 @@
 from django import forms
-from django.contrib.auth.models import User
-from . import models
+from django.core.validators import RegexValidator
+from django.core.exceptions import ValidationError
+import re
+from django.contrib.auth.forms import AuthenticationForm
 from django.forms import modelformset_factory
-from .models import Question,Student
+from . import models
+from .models import Question
 
 class ContactusForm(forms.Form):
     Name = forms.CharField(max_length=30)
+
     Email = forms.EmailField()
-    Message = forms.CharField(max_length=500,widget=forms.Textarea(attrs={'rows': 3, 'cols': 30}))
+
+    Phone = forms.CharField(
+        validators=[
+            RegexValidator(
+                regex=r'^[6-9]\d{9}$',
+                message='Enter a valid 10-digit mobile number'
+            )
+        ]
+    )
+
+    Institute = forms.CharField(max_length=100)
+
+    Message = forms.CharField(
+        max_length=500,
+        widget=forms.Textarea(attrs={'rows': 3, 'cols': 30})
+    )
+
+    def clean_Email(self):
+        email = self.cleaned_data.get('Email')
+        if not re.match(r'^[\w\.-]+@[\w-]+\.(com|in|org|edu)$', email):
+            raise ValidationError("Enter a valid email address")
+        return email
+
 
 class TeacherSalaryForm(forms.Form):
-    salary=forms.IntegerField()
+    salary = forms.IntegerField()
+
 
 class CourseForm(forms.ModelForm):
     class Meta:
-        model=models.Course
-        fields=['course_name','question_number','total_marks']
+        model = models.Course
+        fields = ['course_name', 'question_number', 'total_marks']
+
 
 class QuestionForm(forms.ModelForm):
-    
-    #this will show dropdown __str__ method course model is shown on html so override it
-    #to_field_name this will fetch corresponding value  user_id present in course model and return it
-    courseID=forms.ModelChoiceField(queryset=models.Course.objects.all(),empty_label="Course Name", to_field_name="id")
+    courseID = forms.ModelChoiceField(
+        queryset=models.Course.objects.all(),
+        empty_label="Course Name",
+        to_field_name="id"
+    )
+
     class Meta:
-        model=models.Question
-        fields=['marks','question','option1','option2','option3','option4','answer']
+        model = models.Question
+        fields = ['marks', 'question', 'option1', 'option2', 'option3', 'option4', 'answer']
         widgets = {
             'question': forms.Textarea(attrs={'rows': 3, 'cols': 50})
         }
 
-# class student(forms.ModelForm):
-#     class Meta:
-#         model=Student
-#         fields=['student_name','student_marks','student_manage']
 
 QuestionFormSet = modelformset_factory(
     Question,
     fields=['marks','question','option1','option2','option3','option4','answer'],
-    extra=1,
-    can_delete=False
+    extra=1
 )
 
-from django.contrib.auth.forms import AuthenticationForm
 
 class AdminLoginForm(AuthenticationForm):
     username = forms.CharField(
-        widget=forms.TextInput(attrs={
-            "class": "form-control",
-            "placeholder": "Username"
-        })
+        widget=forms.TextInput(attrs={'class': 'form-control'})
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={
-            "class": "form-control",
-            "placeholder": "Password"
-        })
+        widget=forms.PasswordInput(attrs={'class': 'form-control'})
     )
