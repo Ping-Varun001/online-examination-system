@@ -19,7 +19,8 @@ from django.shortcuts import render
 from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render
-
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 import socket
 
 def is_teacher(user):
@@ -314,32 +315,32 @@ def contactus_view(request):
 
     if request.method == "POST":
         form = forms.ContactusForm(request.POST)
-
         if form.is_valid():
             name = form.cleaned_data["Name"]
             email = form.cleaned_data["Email"]
             message = form.cleaned_data["Message"]
 
+            mail = Mail(
+                from_email=settings.DEFAULT_FROM_EMAIL,
+                to_emails=settings.DEFAULT_FROM_EMAIL,
+                subject=f"Contact Us | {name} ({email})",
+                plain_text_content=message,
+            )
+
             try:
-                send_mail(
-                    subject=f"Contact Us | {name}",
-                    message=f"From: {email}\n\n{message}",
-                    from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=[settings.DEFAULT_FROM_EMAIL],
-                    fail_silently=False,
-                )
+                sg = SendGridAPIClient(os.environ.get("SENDGRID_API_KEY"))
+                sg.send(mail)
                 return render(request, "exam/contactussuccess.html")
 
             except Exception as e:
-                print("EMAIL ERROR:", e)
-
+                print("SENDGRID ERROR:", e)
                 return render(
                     request,
                     "exam/contactus.html",
                     {
                         "form": form,
-                        "email_error": "Email service temporarily unavailable."
-                    }
+                        "error": "Email service temporarily unavailable."
+                    },
                 )
 
     return render(request, "exam/contactus.html", {"form": form})
