@@ -312,41 +312,37 @@ def aboutus_view(request):
 def contactus_view(request):
     form = forms.ContactusForm()
 
-    if request.method == 'POST':
+    if request.method == "POST":
         form = forms.ContactusForm(request.POST)
 
         if form.is_valid():
-            name = form.cleaned_data['Name']
-            email = form.cleaned_data['Email']
-            message = form.cleaned_data['Message']
+            name = form.cleaned_data["Name"]
+            email = form.cleaned_data["Email"]
+            message = form.cleaned_data["Message"]
 
             try:
-                # ⏱ prevent hanging forever
-                socket.setdefaulttimeout(10)
-
                 send_mail(
                     subject=f"Contact Us | {name}",
                     message=f"From: {email}\n\n{message}",
-                    from_email=settings.EMAIL_HOST_USER,
-                    recipient_list=[settings.EMAIL_HOST_USER],
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[settings.DEFAULT_FROM_EMAIL],
                     fail_silently=False,
                 )
-
-                return render(request, 'exam/contactussuccess.html')
+                return render(request, "exam/contactussuccess.html")
 
             except Exception as e:
                 print("EMAIL ERROR:", e)
 
                 return render(
                     request,
-                    'exam/contactus.html',
+                    "exam/contactus.html",
                     {
-                        'form': form,
-                        'email_error': 'Email service is temporarily unavailable. Please try again later.'
+                        "form": form,
+                        "email_error": "Email service temporarily unavailable."
                     }
                 )
 
-    return render(request, 'exam/contactus.html', {'form': form})
+    return render(request, "exam/contactus.html", {"form": form})
 
 
 def user_logout_view(request):
