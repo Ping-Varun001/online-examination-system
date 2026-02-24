@@ -21,7 +21,7 @@ from django.core.mail import send_mail
 from django.shortcuts import render
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
-import socket
+import os
 
 def is_teacher(user):
     return user.groups.filter(name='TEACHER').exists()
