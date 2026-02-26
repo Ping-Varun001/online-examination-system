@@ -2,7 +2,7 @@
 Online Examination System using Python and Django.
 
 # Overview
-This project is a fully functional Online Examination System developed using the Python Django web framework. It is designed for educational institutions, allowing students to take exams online, while teachers and administrators manage courses, questions, and student records efficiently. This system is ideal for IT students in their first or second year, and it simulates a real-life examination environment with an intuitive user interface.
+This project is a fully functional Online Examination System developed using the Python Django web framework. It is designed for educational institutions, allowing students to take exams online, while teachers and administrators manage courses, questions, and student records efficiently.
 
 # Key Features
 ## Student Panel
