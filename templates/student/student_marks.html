@@ -16,143 +16,148 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f4f6fb;
-    }
 
-    a {
-      text-decoration: none !important;
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f4f6fb;
+}
 
-    .page-wrapper {
-      min-height: 85vh;
-      padding: 30px;
-    }
+a {
+  text-decoration: none !important;
+}
 
-    .page-title {
-      font-size: 26px;
-      font-weight: 700;
-      margin-bottom: 25px;
-      color: #1f2937;
-    }
+.page-wrapper {
+  min-height: 85vh;
+  padding: 30px;
+}
 
-    .table-card {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 25px;
-      box-shadow: 0 18px 45px rgba(0,0,0,0.12);
-      animation: fadeUp 0.6s ease;
-    }
+.page-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #1f2937;
+}
 
-    .table thead {
-      background: linear-gradient(135deg, #6366f1, #818cf8);
-      color: #ffffff;
-    }
+/* CARD */
+.table-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 18px 45px rgba(0,0,0,0.12);
+  animation: fadeUp 0.6s ease;
+}
 
-    .table thead th {
-      font-weight: 600;
-      text-align: center;
-      vertical-align: middle;
-      border: none;
-    }
+/* TABLE */
+.table thead {
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  color: #ffffff;
+}
 
-    .table tbody td {
-      text-align: center;
-      vertical-align: middle;
-      border-top: 1px solid #e5e7eb;
-      font-size: 14px;
-    }
+.table thead th {
+  font-weight: 600;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+}
 
-    .course-name {
-      font-weight: 600;
-      color: #111827;
-      text-align: left;
-    }
+.table tbody td {
+  text-align: center;
+  vertical-align: middle;
+  border-top: 1px solid #e5e7eb;
+  font-size: 14px;
+}
 
-   .btn-view {
-  display: inline-flex;             
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
+.course-name {
+  font-weight: 600;
+  color: #111827;
+  text-align: left;
+}
 
+/* BUTTON */
+.btn-view {
   background: linear-gradient(135deg, #10b981, #34d399);
   border: none;
   border-radius: 20px;
-
   padding: 8px 18px;
-  min-width: 110px;           
-
   color: #ffffff;
   font-size: 13px;
   font-weight: 600;
-  white-space: nowrap;             
-
-  cursor: pointer;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .btn-view:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+  box-shadow: 0 10px 25px rgba(16,185,129,0.4);
   color: #ffffff;
 }
 
-/*  Mobile fine-tuning */
-@media (max-width: 480px) {
-  .btn-view {
-    padding: 6px 14px;
-    font-size: 12px;
-    min-width: 95px;
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+  .page-wrapper {
+    padding: 20px;
   }
 }
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(25px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
 
-    @media (max-width: 768px) {
-      .page-wrapper {
-        padding: 20px;
-      }
-    }
+@media (max-width: 768px) {
 
-    .back-btn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  .table-card {
+    padding: 15px;
+  }
+
+  /* Hide header */
+  .table thead {
+    display: none;
+  }
+
+  /* Convert rows into cards */
+  .table tbody tr {
+    display: block;
+    margin-bottom: 15px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 15px;
+    background: #ffffff;
+    text-align: center;
+  }
+
+  /* Stack cells */
+  .table tbody td {
+    display: block;
+    border: none;
+    padding: 8px 0;
+    text-align: center;
+  }
+
+  .course-name {
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .btn-view {
+    display: inline-block;
+    margin-top: 5px;
+  }
+
 }
 
-.back-btn i {
-  margin-right: 6px;
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
-}
-  </style>
+</style>
 </head>
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
-  </button>
-</div>
+
+
 <div class="page-wrapper">
   <div class="container-fluid">
 

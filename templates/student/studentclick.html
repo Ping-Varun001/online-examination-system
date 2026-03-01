@@ -16,10 +16,14 @@
     body {
       font-family: 'Inter', sans-serif;
       background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
+    /* Hero Section */
     .hero {
-      min-height: 85vh;
+      flex: 1;   /* Makes footer stay at bottom */
       display: flex;
       align-items: center;
       justify-content: center;
@@ -94,46 +98,49 @@
       }
     }
 
+    /* Responsive */
     @media (max-width: 576px) {
       .hero-title {
-        font-size: 30px;
+        font-size: 28px;
       }
       .hero-card {
-        padding: 40px 25px;
+        padding: 35px 20px;
       }
     }
+
   </style>
 </head>
 
 <body>
 
-{% include "exam/navbar.html" %}
+  {% include "exam/navbar.html" %}
 
-<div class="hero">
-  <div class="hero-card">
+  <div class="hero">
+    <div class="hero-card">
 
-    <h1 class="hero-title">Hello Student 👋</h1>
-    <p class="hero-subtitle">
-      Welcome to the Online Examination System
-    </p>
+      <h1 class="hero-title">Hello Student 👋</h1>
 
-    <p class="hero-text">
-      Attempt exams, track your performance, and view results — all in one secure platform.
-    </p>
+      <p class="hero-subtitle">
+        Welcome to the Online Examination System
+      </p>
 
-    <div class="btn-group-custom">
-      <a href="studentsignup" class="btn btn-signup">
-        Create Your Account
-      </a>
-      <a href="studentlogin" class="btn btn-login">
-        Login Now
-      </a>
+      <p class="hero-text">
+        Attempt exams, track your performance, and view results — all in one secure platform.
+      </p>
+
+      <div class="btn-group-custom">
+        <a href="studentsignup" class="btn btn-signup">
+          Create Your Account
+        </a>
+        <a href="studentlogin" class="btn btn-login">
+          Login Now
+        </a>
+      </div>
+
     </div>
-
   </div>
-</div>
 
-{% include "exam/footer.html" %}
+  {% include "exam/footer.html" %}
 
 </body>
 </html>

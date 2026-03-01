@@ -11,128 +11,181 @@
 
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
 
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f4f6fb;
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f4f6fb;
+}
 
-    .exam-wrapper {
-      min-height: 85vh;
-      padding: 30px;
-    }
+/* ================= WRAPPER ================= */
 
-    .exam-card {
-      background: #ffffff;
-      border-radius: 22px;
-      padding: 35px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.12);
-      animation: fadeUp 0.6s ease;
-    }
+.exam-wrapper {
+  padding: 30px;
+}
 
-    .exam-title {
-      font-size: 28px;
-      font-weight: 700;
-      margin-bottom: 25px;
-      color: #1f2937;
-      text-align: center;
-    }
+/* ================= CARD ================= */
 
-    .section-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      color: #2563eb;
-    }
-
-    .info-list li,
-    .rules-list li {
-      margin-bottom: 10px;
-      font-size: 14px;
-      color: #374151;
-    }
-
-    .info-list li strong {
-      color: #111827;
-    }
-
-    .rules-list li span {
-      color: #dc2626;
-      font-weight: 600;
-    }
-
-    .start-btn {
-      margin-top: 25px;
-      padding: 14px 30px;
-      font-size: 16px;
-      font-weight: 600;
-      border-radius: 30px;
-      background: linear-gradient(135deg, #10b981, #34d399);
-      border: none;
-      color: #ffffff;
-      transition: 0.3s ease;
-    }
-
-    .start-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 25px rgba(16,185,129,0.4);
-      color: #ffffff;
-    }
-
-    .exam-footer {
-      margin-top: 20px;
-      text-align: center;
-      font-weight: 500;
-      color: #2563eb;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(25px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 576px) {
-      .exam-card {
-        padding: 25px 20px;
-      }
-    }
-    .back-btn {
+.exam-card {
   background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
+  border-radius: 22px;
+  padding: 35px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+  animation: fadeUp 0.6s ease;
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+/* ================= TITLE ================= */
+
+.exam-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #1f2937;
+  text-align: center;
+}
+
+/* ================= SECTION ================= */
+
+.section-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #2563eb;
+}
+
+/* ================= LISTS ================= */
+
+.info-list,
+.rules-list {
+  padding-left: 18px;
+}
+
+.info-list li,
+.rules-list li {
+  margin-bottom: 10px;
   font-size: 14px;
-  font-weight: 500;
   color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  line-height: 1.6;
 }
 
-.back-btn i {
-  margin-right: 6px;
+.info-list li strong {
+  color: #111827;
 }
 
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
+.rules-list li span {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* ================= BUTTON ================= */
+
+.start-btn {
+  margin-top: 30px;
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #10b981, #34d399);
+  border: none;
+  color: #ffffff;
+  display: inline-block;
+  transition: 0.3s ease;
+  text-decoration: none;
+}
+
+.start-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
+  box-shadow: 0 12px 25px rgba(16,185,129,0.4);
+  color: #ffffff;
 }
-  </style>
+
+/* ================= FOOTER ================= */
+
+.exam-footer {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: 500;
+  color: #2563eb;
+}
+
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media (max-width: 992px) {
+
+  .exam-wrapper {
+    padding: 25px;
+  }
+
+  .exam-card {
+    padding: 30px;
+  }
+
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  .exam-wrapper {
+    padding: 20px;
+  }
+
+  .exam-card {
+    padding: 25px 20px;
+    border-radius: 16px;
+  }
+
+  .exam-title {
+    font-size: 22px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .start-btn {
+    width: 100%;
+    text-align: center;
+    padding: 12px;
+    font-size: 15px;
+  }
+
+}
+
+/* Small Phones */
+@media (max-width: 480px) {
+
+  .exam-title {
+    font-size: 20px;
+  }
+
+  .exam-card {
+    padding: 20px 15px;
+  }
+
+  .info-list li,
+  .rules-list li {
+    font-size: 13px;
+  }
+
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+</style>
 </head>
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
-  </button>
-</div>
+
 <div class="exam-wrapper">
   <div class="container">
     <div class="exam-card">

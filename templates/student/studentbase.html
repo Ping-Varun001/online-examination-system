@@ -7,186 +7,191 @@
   <title>Online Examination</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Font Awesome -->
   <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap"
         rel="stylesheet">
 
   <style>
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #f4f6fb;
+    :root{
+      --primary:#2563eb;
+      --bg:#f5f7fb;
+      --white:#ffffff;
+      --border:#e6e9f0;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --nav-height:70px;
     }
 
-    a {
-      text-decoration: none;
+    body{
+      margin:0;
+      font-family:'DM Sans',sans-serif;
+      background:var(--bg);
+      color:var(--text);
     }
 
-    /* ================= HEADER ================= */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 64px;
-      background: #111827;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 16px;
-      z-index: 1000;
+    /* ================= NAVBAR ================= */
+
+    .navbar{
+      position:fixed;
+      top:0;
+      left:0;
+      right:0;
+      height:var(--nav-height);
+      background:var(--white);
+      border-bottom:1px solid var(--border);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 20px;
+      z-index:1000;
     }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    .menu-toggle{
+      display:none;
+      font-size:20px;
+      cursor:pointer;
+      margin-right:10px;
     }
 
-    .menu-toggle {
-      color: #fff;
-      font-size: 22px;
-      cursor: pointer;
-      display: none;
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
     }
 
-    .header h3 {
-      color: #fff;
-      margin: 0;
-      font-size: 18px;
-      font-weight: 700;
-      white-space: nowrap; 
+    .logo-icon{
+      width:36px;
+      height:36px;
+      background:linear-gradient(135deg,#2563eb,#60a5fa);
+      color:#fff;
+      border-radius:8px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
     }
 
-    .logout-btn {
-      background: #ef4444;
-      padding: 8px 18px;
-      border-radius: 20px;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 500;
-      white-space: nowrap;
-      transition: 0.3s ease;
-    }
-
-    .logout-btn:hover {
-      background: #dc2626;
-      color: #fff;
+    .logout-btn{
+      background:var(--primary);
+      color:#fff;
+      padding:6px 14px;
+      border-radius:6px;
+      font-size:13px;
+      text-decoration:none;
     }
 
     /* ================= SIDEBAR ================= */
-    .sidebar {
-      position: fixed;
-      top: 64px;
-      left: 0;
-      width: 240px;
-      height: 100%;
-      background: #1f2937;
-      padding-top: 25px;
-      transition: 0.3s ease;
-      z-index: 999;
+
+    .sidebar{
+      position:fixed;
+      top:var(--nav-height);
+      left:0;
+      width:240px;
+      height:calc(100vh - var(--nav-height));
+      background:var(--white);
+      border-right:1px solid var(--border);
+      padding:20px 0;
+      z-index:2000; /* FIX */
     }
 
-    .profile {
-      text-align: center;
-      margin-bottom: 25px;
+    .profile{
+      text-align:center;
+      border-bottom:1px solid var(--border);
+      padding-bottom:20px;
+      margin-bottom:15px;
     }
 
-    .profile img {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-bottom: 10px;
-      border: 3px solid #2563eb;
+    .profile img{
+      width:70px;
+      height:70px;
+      border-radius:50%;
+      object-fit:cover;
+      margin-bottom:8px;
     }
 
-    .profile h4 {
-      color: #fff;
-      margin: 0;
-      font-size: 16px;
-      font-weight: 600;
+    .profile h4{
+      font-size:14px;
+      font-weight:600;
     }
 
-    .profile span {
-      font-size: 12px;
-      color: #9ca3af;
+    .profile span{
+      font-size:12px;
+      color:var(--muted);
     }
 
-    .menu a {
-      display: flex;
-      align-items: center;
-      padding: 14px 30px;
-      color: #d1d5db;
-      font-size: 14px;
-      transition: 0.3s ease;
-      white-space: nowrap;
+    .menu a{
+      display:flex;
+      align-items:center;
+      padding:12px 20px;
+      margin:4px 15px;
+      border-radius:8px;
+      font-size:14px;
+      color:var(--muted);
+      text-decoration:none;
     }
 
-    .menu a i {
-      width: 20px;
-      margin-right: 12px;
+    .menu a i{
+      width:20px;
+      margin-right:12px;
     }
 
-    .menu a:hover {
-      background: #2563eb;
-      color: #fff;
-    }
-
-    /* ================= CONTENT ================= */
-    .content {
-      margin-left: 240px;
-      margin-top: 64px;
-      padding: 30px;
-      min-height: calc(100vh - 64px);
-      transition: 0.3s ease;
+    .menu a:hover{
+      background:#eef2ff;
+      color:var(--primary);
     }
 
     /* ================= OVERLAY ================= */
-    .overlay {
-      display: none;
-      position: fixed;
-      top: 64px;
-      left: 0;
-      width: 100%;
-      height: calc(100% - 64px);
-      background: rgba(0, 0, 0, 0.4);
-      z-index: 998;
+
+    .overlay{
+      position:fixed;
+      top:var(--nav-height);
+      left:0;
+      right:0;
+      bottom:0;
+      background:rgba(0,0,0,0.4);
+      z-index:1500;
+      display:none;
     }
 
-    .overlay.active {
-      display: block;
+    .overlay.active{
+      display:block;
+    }
+
+    /* ================= MAIN CONTENT ================= */
+
+    .main{
+      position:fixed;
+      top:var(--nav-height);
+      left:240px;
+      right:0;
+      bottom:0;
+      display:flex;
+      flex-direction:column;
+      z-index:100;
+    }
+
+    .content-wrapper{
+      flex:1;
+      padding:25px;
+      overflow-y:auto;
     }
 
     /* ================= MOBILE ================= */
-    @media (max-width: 768px) {
-      .menu-toggle {
-        display: inline-block;
+
+    @media(max-width:992px){
+      .menu-toggle{display:block;}
+
+      .sidebar{
+        left:-240px;
+        transition:0.3s;
       }
 
-      .sidebar {
-        left: -240px;
+      .sidebar.active{
+        left:0;
       }
 
-      .sidebar.active {
-        left: 0;
-      }
-
-      .content {
-        margin-left: 0;
-      }
-
-      .header h3 {
-        font-size: 16px;
-      }
-
-      .logout-btn {
-        padding: 6px 12px;
-        font-size: 12px;
+      .main{
+        left:0;
       }
     }
   </style>
@@ -194,34 +199,48 @@
 
 <body>
 
-<!-- ================= HEADER ================= -->
-<div class="header">
-  <div class="header-left">
+<!-- ================= NAVBAR ================= -->
+<div class="navbar">
+  <div style="display:flex;align-items:center;">
     <span class="menu-toggle" onclick="toggleSidebar()">
       <i class="fas fa-bars"></i>
     </span>
-    <h3>Online Examination</h3>
+
+    <div class="brand">
+      <div class="logo-icon">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+      <div>
+        <strong>Examination</strong><br>
+        <small>Portal</small>
+      </div>
+    </div>
   </div>
+
   <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
 </div>
 
 <!-- ================= SIDEBAR ================= -->
 <div class="sidebar" id="sidebar">
   <div class="profile">
-  <img src="{% static 'images/teacher.png' %}" alt="Profile">
-  <h4>{{ request.user.first_name }}</h4>
-  <span>Student</span>
-</div>
+    {% if user.student.profile_pic %}
+      <img src="{{ user.student.profile_pic.url }}">
+    {% else %}
+      <img src="{% static 'image/student_icon.png' %}">
+    {% endif %}
+    <h4>{{ request.user.first_name }}</h4>
+    <span>Student</span>
+  </div>
 
   <div class="menu">
-    <a href="/student/student-dashboard" onclick="toggleSidebar()">
+    <a href="/student/student-dashboard">
       <i class="fas fa-home"></i> Dashboard
     </a>
-    <a href="/student/student-exam" onclick="toggleSidebar()">
-      <i class="fas fa-book"></i> Examination
+    <a href="/student/student-exam">
+      <i class="fas fa-book-open"></i> Examination
     </a>
-    <a href="/student/student-marks" onclick="toggleSidebar()">
-      <i class="fas fa-chart-line"></i> My Marks
+    <a href="/student/student-marks">
+      <i class="fas fa-chart-bar"></i> My Marks
     </a>
   </div>
 </div>
@@ -230,16 +249,19 @@
 <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
 <!-- ================= CONTENT ================= -->
-<div class="content">
-  {% block content %}{% endblock content %}
+<div class="main">
+  <div class="content-wrapper">
+    {% block content %}{% endblock %}
+  </div>
+
+  {% include 'exam/footer.html' %}
 </div>
 
-<!-- ================= SCRIPT ================= -->
 <script>
-  function toggleSidebar() {
-    document.getElementById("sidebar").classList.toggle("active");
-    document.getElementById("overlay").classList.toggle("active");
-  }
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("active");
+  document.getElementById("overlay").classList.toggle("active");
+}
 </script>
 
 </body>

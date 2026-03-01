@@ -97,6 +97,7 @@
       font-weight: 500;
     }
 
+
     /* Animation */
     .fade-in {
       animation: fadeUp 0.7s ease;
@@ -120,6 +121,7 @@
     }
   </style>
 </head>
+<!-- Back Button -->
 
 <div class="dashboard-wrapper">
   <div class="container-fluid">
@@ -129,12 +131,9 @@
     <div class="row">
 
       <!-- Available Exams -->
-       
-    
       <div class="col-md-6 mb-4 fade-in">
         <div class="stat-card">
           <div class="stat-header">
-            
             <div class="stat-title">AVAILABLE EXAMS</div>
             <div class="stat-icon icon-exam">
               <i class="fa fa-book"></i>
@@ -142,8 +141,7 @@
           </div>
 
           <div class="stat-value">{{ total_course }}</div>
-          <a href="/student/student-exam" onclick="toggleSidebar()">
-          <div class="stat-footer">Ready to attempt →</div></a>
+          <div class="stat-footer"><a href="/student/student-exam">Ready to attempt →</a></div>
         </div>
       </div>
 
@@ -167,3 +165,4 @@
 </div>
 
 {% endblock content %}
+ {% include "exam/footer.html" %}
