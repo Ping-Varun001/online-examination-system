@@ -17,7 +17,7 @@ import os
 
 SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-key-for-local')
 
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = [
     'online-examination-system-119k.onrender.com',

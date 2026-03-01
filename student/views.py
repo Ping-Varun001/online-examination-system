@@ -83,44 +83,45 @@ def start_exam_view(request,pk):
 @login_required(login_url='studentlogin')
 @user_passes_test(is_student)
 def calculate_marks_view(request):
-    if request.method == "POST":
+    if request.method != "POST":
+        return redirect('student-exam')
 
-        # 🚨 FORCE SUBMIT (CHEATING / LEAVE)
-        if request.POST.get("force_submit") == "1":
-            course_id = request.COOKIES.get('course_id')
-            course = QMODEL.Course.objects.get(id=course_id)
-            student = models.Student.objects.get(user_id=request.user.id)
+    # Get course from cookie
+    course_id = request.COOKIES.get('course_id')
+    if not course_id:
+        return redirect('student-exam')
 
-            result = QMODEL.Result()
-            result.marks = 0
-            result.exam = course
-            result.student = student
-            result.save()
+    try:
+        course = QMODEL.Course.objects.get(id=course_id)
+    except QMODEL.Course.DoesNotExist:
+        return redirect('student-exam')
 
-            return HttpResponseRedirect('view-result')
+    # Get logged-in student
+    student = models.Student.objects.get(user_id=request.user.id)
 
-        # ✅ NORMAL SUBMISSION
-        if request.COOKIES.get('course_id'):
-            course_id = request.COOKIES.get('course_id')
-            course = QMODEL.Course.objects.get(id=course_id)
+    # Get questions in FIXED order
+    questions = QMODEL.Question.objects.filter(course=course).order_by('id')
 
-            total_marks = 0
-            questions = QMODEL.Question.objects.filter(course=course)
+    total_marks = 0
 
-            for i in range(len(questions)):
-                selected_ans = request.COOKIES.get(str(i+1))
-                if selected_ans == questions[i].answer:
-                    total_marks += questions[i].marks
+    # Calculate marks
+    for index, question in enumerate(questions, start=1):
+        selected_ans = request.POST.get(str(index)) or request.COOKIES.get(str(index))
+        if selected_ans == question.answer:
+            total_marks += question.marks
 
-            student = models.Student.objects.get(user_id=request.user.id)
+    # Save result safely (works on SQLite + PostgreSQL)
+    result, created = QMODEL.Result.objects.get_or_create(
+        student=student,
+        exam=course,
+        defaults={'marks': total_marks}
+    )
 
-            result = QMODEL.Result()
-            result.marks = total_marks
-            result.exam = course
-            result.student = student
-            result.save()
+    if not created:
+        result.marks = total_marks
+        result.save()
 
-            return HttpResponseRedirect('view-result')
+    return redirect('view-result')
 
 
 
