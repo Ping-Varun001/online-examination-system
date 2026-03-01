@@ -86,7 +86,6 @@ def calculate_marks_view(request):
     if request.method != "POST":
         return redirect('student-exam')
 
-    # Get course from cookie
     course_id = request.COOKIES.get('course_id')
     if not course_id:
         return redirect('student-exam')
@@ -96,30 +95,30 @@ def calculate_marks_view(request):
     except QMODEL.Course.DoesNotExist:
         return redirect('student-exam')
 
-    # Get logged-in student
     student = models.Student.objects.get(user_id=request.user.id)
 
-    # Get questions in FIXED order
     questions = QMODEL.Question.objects.filter(course=course).order_by('id')
 
     total_marks = 0
-
-    # Calculate marks
     for index, question in enumerate(questions, start=1):
-        selected_ans = request.POST.get(str(index)) or request.COOKIES.get(str(index))
+        selected_ans = request.POST.get(str(index))
         if selected_ans == question.answer:
             total_marks += question.marks
 
-    # Save result safely (works on SQLite + PostgreSQL)
-    result, created = QMODEL.Result.objects.get_or_create(
-        student=student,
-        exam=course,
-        defaults={'marks': total_marks}
-    )
+    # ✅ HANDLE DUPLICATES SAFELY
+    results = QMODEL.Result.objects.filter(student=student, exam=course)
 
-    if not created:
+    if results.exists():
+        # update the latest one
+        result = results.latest('id')
         result.marks = total_marks
         result.save()
+    else:
+        QMODEL.Result.objects.create(
+            student=student,
+            exam=course,
+            marks=total_marks
+        )
 
     return redirect('view-result')
 
