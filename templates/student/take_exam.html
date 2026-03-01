@@ -124,65 +124,84 @@ body {
   }
 
 }
+/* ================= MOBILE RESPONSIVE FIX ================= */
 
-/* Mobile */
-@media (max-width: 768px) {
+/* Small Tablets & Large Phones */
+@media (max-width: 576px) {
+
+  body {
+    padding: 0;
+  }
 
   .exam-wrapper {
-    padding: 20px;
+    padding: 10px;
+  }
+
+  .container {
+    padding: 0;
   }
 
   .exam-card {
-    padding: 25px 20px;
-    border-radius: 16px;
-  }
-
-  .exam-title {
-    font-size: 22px;
-  }
-
-  .section-title {
-    font-size: 16px;
-  }
-
-  .start-btn {
     width: 100%;
-    text-align: center;
-    padding: 12px;
-    font-size: 15px;
+    padding: 20px 15px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
   }
-
-}
-
-/* Small Phones */
-@media (max-width: 480px) {
 
   .exam-title {
     font-size: 20px;
+    line-height: 1.3;
   }
 
-  .exam-card {
-    padding: 20px 15px;
+  .section-title {
+    font-size: 15px;
+  }
+
+  .info-list,
+  .rules-list {
+    padding-left: 16px;
   }
 
   .info-list li,
   .rules-list li {
     font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .start-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+    border-radius: 25px;
+  }
+
+  .exam-footer {
+    font-size: 14px;
   }
 
 }
 
-@keyframes fadeUp {
-  from {
-    opacity: 0;
-    transform: translateY(25px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* Extra Small Devices */
+@media (max-width: 400px) {
 
+  .exam-title {
+    font-size: 18px;
+  }
+
+  .section-title {
+    font-size: 14px;
+  }
+
+  .info-list li,
+  .rules-list li {
+    font-size: 12px;
+  }
+
+  .start-btn {
+    font-size: 13px;
+  }
+
+}
 </style>
 </head>
 

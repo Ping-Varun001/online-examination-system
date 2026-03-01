@@ -1,3 +1,10 @@
+navbar 
+
+
+
+
+
+
 <!DOCTYPE html>
 {% load static %}
 <html lang="en">
@@ -12,21 +19,18 @@
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-  <!-- JS -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-
   <style>
     body {
-      padding-top: 72px;
       font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      padding-top: 80px; /* Space for fixed navbar */
+      background: #f8f9fa;
     }
 
-    /* Navbar container */
+    /* Navbar */
     .navbar {
       background: #ffffff;
       box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      z-index: 1000;
     }
 
     /* Brand */
@@ -56,28 +60,36 @@
       background-color: #e9f7fa;
       color: #17a2b8 !important;
     }
-    .navbar-toggler {
-  border-color: rgba(0,0,0,0.2);
-}
 
-.navbar-toggler-icon {
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 0, 0, 0.7%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
-}
-
-
-    /* Active style (optional) */
     .nav-item .active {
       background-color: #17a2b8;
       color: #fff !important;
       font-weight: 600;
     }
 
-    /* Mobile adjustments */
+    /* Mobile spacing */
     @media (max-width: 767px) {
       .nav-link {
         margin-left: 0;
         margin-top: 8px;
       }
+    }
+
+    /* ================= Overlay ================= */
+    .nav-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.45);
+      display: none;
+      z-index: 998;
+      transition: 0.3s ease;
+    }
+
+    .nav-overlay.active {
+      display: block;
     }
   </style>
 </head>
@@ -85,7 +97,6 @@
 <body>
 
 <nav class="navbar navbar-expand-md navbar-light fixed-top">
-
   <div class="container">
 
     <!-- Brand -->
@@ -94,32 +105,61 @@
     </a>
 
     <!-- Toggle -->
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+    <button class="navbar-toggler" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <!-- Links -->
     <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
       <ul class="navbar-nav text-center">
+
         <li class="nav-item">
           <a href="/" class="nav-link">Home</a>
         </li>
+
         <li class="nav-item">
           <a href="/teacher/teacherclick" class="nav-link">Teacher</a>
         </li>
+
         <li class="nav-item">
           <a href="/student/studentclick" class="nav-link">Student</a>
+        </li>
 
         <li class="nav-item">
           <a href="/contactus" class="nav-link">Contact</a>
         </li>
-       
 
       </ul>
     </div>
 
   </div>
 </nav>
+
+<!-- Overlay -->
+<div class="nav-overlay" id="navOverlay"></div>
+
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<script>
+$(document).ready(function () {
+
+  $('.navbar-toggler').on('click', function () {
+    $('#navbarCollapse').collapse('toggle');
+    $('#navOverlay').toggleClass('active');
+  });
+
+  $('.nav-link, #navOverlay').on('click', function () {
+    if ($(window).width() < 768) {
+      $('#navbarCollapse').collapse('hide');
+      $('#navOverlay').removeClass('active');
+    }
+  });
+
+});
+</script>
 
 </body>
 </html>

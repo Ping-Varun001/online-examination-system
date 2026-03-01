@@ -11,89 +11,218 @@
 
   <!-- UI ONLY: replaced style -->
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #f4f6fb;
-    }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #f4f6fb;
+  margin: 0;
+  padding: 0;
+}
 
-    .exam-wrapper {
-      min-height: 85vh;
-      padding: 30px;
-    }
+/* ================= WRAPPER ================= */
 
-    .exam-card {
-      background: #ffffff;
-      border-radius: 18px;
-      padding: 35px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.12);
-      animation: fadeUp 0.6s ease;
-      max-width: 900px;
-      margin: 0 auto;
-    }
+.exam-wrapper {
+  min-height: 85vh;
+  padding: 30px;
+}
 
-    .exam-title {
-      text-align: center;
-      font-weight: 700;
-      margin-bottom: 30px;
-      color: #1f2937;
-    }
+/* ================= MAIN CARD ================= */
 
-    .question-card {
-      background: #f9fafb;
-      border-radius: 14px;
-      padding: 20px 22px;
-      margin-bottom: 25px;
-      border-left: 5px solid #2563eb;
-    }
+.exam-card {
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 20px 45px rgba(0,0,0,0.12);
+  animation: fadeUp 0.6s ease;
+  max-width: 900px;
+  margin: 0 auto;
+}
 
-    .question-header {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-    }
+/* ================= TITLE ================= */
 
-    .question-text {
-      font-weight: 600;
-      color: #111827;
-      flex: 1;
-    }
+.exam-title {
+  text-align: center;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: #1f2937;
+  font-size: 26px;
+}
 
-    .question-marks {
-      font-size: 13px;
-      color: #2563eb;
-      font-weight: 500;
-      white-space: nowrap;
-    }
+/* ================= QUESTION CARD ================= */
 
-    .form-check {
-      padding: 8px 12px;
-      margin: 6px 0;
-      border-radius: 10px;
-      transition: background 0.2s ease;
-    }
+.question-card {
+  background: #f9fafb;
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 25px;
+  border-left: 5px solid #2563eb;
+  transition: 0.2s ease;
+}
 
-    .form-check:hover {
-      background: #eef2ff;
-    }
+.question-card:hover {
+  box-shadow: 0 8px 18px rgba(0,0,0,0.05);
+}
 
-    .submit-btn {
-      margin-top: 30px;
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 600;
-      border-radius: 30px;
-      background: linear-gradient(135deg, #2563eb, #60a5fa);
-      border: none;
-      color: #fff;
-    }
+/* ================= QUESTION HEADER ================= */
 
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(25px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
-  </style>
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.question-text {
+  font-weight: 600;
+  color: #111827;
+  flex: 1;
+}
+
+.question-marks {
+  font-size: 13px;
+  color: #2563eb;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ================= OPTIONS ================= */
+
+.form-check {
+  padding: 10px 12px;
+  margin: 8px 0;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+  cursor: pointer;
+}
+
+.form-check:hover {
+  background: #eef2ff;
+}
+
+.form-check input[type="radio"] {
+  margin-right: 8px;
+}
+
+/* ================= SUBMIT BUTTON ================= */
+
+.submit-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #2563eb, #60a5fa);
+  border: none;
+  color: #fff;
+  transition: 0.3s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 25px rgba(37,99,235,0.3);
+}
+
+/* ================= ANIMATION ================= */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width: 992px) {
+  .exam-wrapper {
+    padding: 25px;
+  }
+
+  .exam-card {
+    padding: 30px;
+  }
+}
+
+/* ================= MOBILE RESPONSIVE ================= */
+
+@media (max-width: 576px) {
+
+  .exam-wrapper {
+    padding: 12px;
+  }
+
+  .container {
+    padding: 0;
+  }
+
+  .exam-card {
+    width: 100%;
+    padding: 20px 15px;
+    border-radius: 14px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  }
+
+  .exam-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+
+  .question-card {
+    padding: 16px;
+    margin-bottom: 18px;
+    border-left: 4px solid #2563eb;
+  }
+
+  .question-header {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .question-text {
+    font-size: 14px;
+  }
+
+  .question-marks {
+    font-size: 12px;
+  }
+
+  .form-check {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .form-check input[type="radio"] {
+    transform: scale(1.2);
+    margin-right: 6px;
+  }
+
+  .submit-btn {
+    font-size: 14px;
+    padding: 12px;
+    border-radius: 25px;
+  }
+}
+
+/* ================= EXTRA SMALL PHONES ================= */
+
+@media (max-width: 400px) {
+
+  .exam-title {
+    font-size: 18px;
+  }
+
+  .question-text {
+    font-size: 13px;
+  }
+
+  .form-check {
+    font-size: 12px;
+  }
+
+  .submit-btn {
+    font-size: 13px;
+  }
+}
+</style>
 </head>
 
 <div class="exam-wrapper">
