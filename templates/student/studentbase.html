@@ -223,13 +223,9 @@
 <!-- ================= SIDEBAR ================= -->
 <div class="sidebar" id="sidebar">
   <div class="profile">
-    {% if user.student.profile_pic %}
-      <img src="{{ user.student.profile_pic.url }}">
-    {% else %}
-      <img src="{% static 'image/student_icon.png' %}">
-    {% endif %}
-    <h4>{{ request.user.first_name }}</h4>
-    <span>Student</span>
+    <img src="{% static 'images/teacher.png' %}" alt="Profile" width="80">
+    <h6>{{ request.user.first_name }}</h6>
+    <small>(Student)</small>
   </div>
 
   <div class="menu">
