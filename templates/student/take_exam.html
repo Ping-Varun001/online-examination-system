@@ -2,244 +2,106 @@
 {% block content %}
 {% load static %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="animate-fade-up max-w-3xl mx-auto">
 
-  <!-- Bootstrap 4 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <!-- Instructions Card -->
+  <div class="glass-strong rounded-2xl overflow-hidden">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
+    <!-- Header -->
+    <div class="bg-gradient-to-r from-indigo-600/20 to-cyan-600/10 border-b border-white/10 p-6 md:p-8 text-center">
+      <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-400 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-indigo-500/30">
+        <i class="fas fa-clipboard-list text-2xl text-white"></i>
+      </div>
+      <h1 class="text-2xl md:text-3xl font-bold text-white mb-1">Examination Instructions</h1>
+      <p class="text-sm text-slate-400">Please read carefully before starting</p>
+    </div>
 
-body {
-  font-family: 'Inter', sans-serif;
-  background: #f4f6fb;
-}
-
-/* ================= WRAPPER ================= */
-
-.exam-wrapper {
-  padding: 30px;
-}
-
-/* ================= CARD ================= */
-
-.exam-card {
-  background: #ffffff;
-  border-radius: 22px;
-  padding: 35px;
-  box-shadow: 0 20px 45px rgba(0,0,0,0.12);
-  animation: fadeUp 0.6s ease;
-  max-width: 850px;
-  margin: 0 auto;
-}
-
-/* ================= TITLE ================= */
-
-.exam-title {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #1f2937;
-  text-align: center;
-}
-
-/* ================= SECTION ================= */
-
-.section-title {
-  font-size: 18px;
-  font-weight: 600;
-  margin-bottom: 15px;
-  color: #2563eb;
-}
-
-/* ================= LISTS ================= */
-
-.info-list,
-.rules-list {
-  padding-left: 18px;
-}
-
-.info-list li,
-.rules-list li {
-  margin-bottom: 10px;
-  font-size: 14px;
-  color: #374151;
-  line-height: 1.6;
-}
-
-.info-list li strong {
-  color: #111827;
-}
-
-.rules-list li span {
-  color: #dc2626;
-  font-weight: 600;
-}
-
-/* ================= BUTTON ================= */
-
-.start-btn {
-  margin-top: 30px;
-  padding: 14px 32px;
-  font-size: 16px;
-  font-weight: 600;
-  border-radius: 30px;
-  background: linear-gradient(135deg, #10b981, #34d399);
-  border: none;
-  color: #ffffff;
-  display: inline-block;
-  transition: 0.3s ease;
-  text-decoration: none;
-}
-
-.start-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 25px rgba(16,185,129,0.4);
-  color: #ffffff;
-}
-
-/* ================= FOOTER ================= */
-
-.exam-footer {
-  margin-top: 20px;
-  text-align: center;
-  font-weight: 500;
-  color: #2563eb;
-}
-
-/* ================= RESPONSIVE ================= */
-
-/* Tablet */
-@media (max-width: 992px) {
-
-  .exam-wrapper {
-    padding: 25px;
-  }
-
-  .exam-card {
-    padding: 30px;
-  }
-
-}
-/* ================= MOBILE RESPONSIVE FIX ================= */
-
-/* Small Tablets & Large Phones */
-@media (max-width: 576px) {
-
-  body {
-    padding: 0;
-  }
-
-  .exam-wrapper {
-    padding: 10px;
-  }
-
-  .container {
-    padding: 0;
-  }
-
-  .exam-card {
-    width: 100%;
-    padding: 20px 15px;
-    border-radius: 14px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  }
-
-  .exam-title {
-    font-size: 20px;
-    line-height: 1.3;
-  }
-
-  .section-title {
-    font-size: 15px;
-  }
-
-  .info-list,
-  .rules-list {
-    padding-left: 16px;
-  }
-
-  .info-list li,
-  .rules-list li {
-    font-size: 13px;
-    line-height: 1.5;
-  }
-
-  .start-btn {
-    width: 100%;
-    padding: 12px;
-    font-size: 14px;
-    border-radius: 25px;
-  }
-
-  .exam-footer {
-    font-size: 14px;
-  }
-
-}
-
-/* Extra Small Devices */
-@media (max-width: 400px) {
-
-  .exam-title {
-    font-size: 18px;
-  }
-
-  .section-title {
-    font-size: 14px;
-  }
-
-  .info-list li,
-  .rules-list li {
-    font-size: 12px;
-  }
-
-  .start-btn {
-    font-size: 13px;
-  }
-
-}
-</style>
-</head>
-
-<div class="exam-wrapper">
-  <div class="container">
-    <div class="exam-card">
-
-      <div class="exam-title">Examination Instructions</div>
+    <!-- Content -->
+    <div class="p-6 md:p-8 space-y-8">
 
       <!-- Exam Details -->
-      <div class="section-title">📘 Exam Details</div>
-      <ul class="info-list">
-        <li><strong>Course:</strong> {{ course.course_name }}</li>
-        <li><strong>Total Questions:</strong> {{ total_questions }}</li>
-        <li><strong>Total Marks:</strong> {{ total_marks }}</li>
-      </ul>
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-indigo-500/20 flex items-center justify-center">
+            <i class="fas fa-info-circle text-xs text-indigo-400"></i>
+          </div>
+          <h2 class="text-base font-bold text-indigo-400 uppercase tracking-wider">Exam Details</h2>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="glass rounded-xl p-4 text-center">
+            <p class="text-[11px] text-slate-500 uppercase tracking-wider font-bold mb-1">Course</p>
+            <p class="text-sm font-bold text-white">{{ course.course_name }}</p>
+          </div>
+          <div class="glass rounded-xl p-4 text-center">
+            <p class="text-[11px] text-slate-500 uppercase tracking-wider font-bold mb-1">Total Questions</p>
+            <p class="text-sm font-bold text-cyan-400">{{ total_questions }}</p>
+          </div>
+          <div class="glass rounded-xl p-4 text-center">
+            <p class="text-[11px] text-slate-500 uppercase tracking-wider font-bold mb-1">Total Marks</p>
+            <p class="text-sm font-bold text-emerald-400">{{ total_marks }}</p>
+          </div>
+        </div>
+      </div>
 
       <!-- Rules -->
-      <div class="section-title">📜 Rules & Guidelines</div>
-      <ul class="rules-list">
-        <li>All questions are MCQ (Multiple Choice Questions).</li>
-        <li><span>Only one option is correct.</span></li>
-        <li>Each question carries different marks.</li>
-        <li>Try to answer all questions within time.</li>
-        <li>Refreshing or navigating back will count as a new attempt.</li>
-        <li>Questions are presented randomly.</li>
-        <li>You can view your marks immediately after submission.</li>
-      </ul>
+      <div>
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/20 flex items-center justify-center">
+            <i class="fas fa-exclamation-triangle text-xs text-amber-400"></i>
+          </div>
+          <h2 class="text-base font-bold text-amber-400 uppercase tracking-wider">Rules & Guidelines</h2>
+        </div>
+
+        <div class="space-y-2">
+          {% with rules="All questions are MCQ (Multiple Choice Questions).,Only one option is correct.,Each question carries different marks.,Try to answer all questions within time.,Refreshing or navigating back will count as a new attempt.,Questions are presented randomly.,You can view your marks immediately after submission." %}
+            {% for rule in rules.split %}
+            {% endfor %}
+          {% endwith %}
+
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+            <span class="text-emerald-400 mt-0.5">✓</span>
+            <p class="text-sm text-slate-300">All questions are MCQ (Multiple Choice Questions).</p>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+            <span class="text-red-400 mt-0.5 font-bold">!</span>
+            <p class="text-sm text-slate-300"><span class="text-red-400 font-semibold">Only one option is correct.</span></p>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+            <span class="text-emerald-400 mt-0.5">✓</span>
+            <p class="text-sm text-slate-300">Each question carries different marks.</p>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+            <span class="text-emerald-400 mt-0.5">✓</span>
+            <p class="text-sm text-slate-300">Try to answer all questions within time.</p>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-red-500/5 border border-red-500/10">
+            <span class="text-red-400 mt-0.5 font-bold">!</span>
+            <p class="text-sm text-slate-300"><span class="text-red-400 font-semibold">Refreshing or navigating back will count as a new attempt.</span></p>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+            <span class="text-emerald-400 mt-0.5">✓</span>
+            <p class="text-sm text-slate-300">Questions are presented randomly.</p>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.02] border border-white/5">
+            <span class="text-emerald-400 mt-0.5">✓</span>
+            <p class="text-sm text-slate-300">You can view your marks immediately after submission.</p>
+          </div>
+        </div>
+      </div>
 
       <!-- Start Button -->
-      <div class="text-center">
-        <a href="{% url 'start-exam' course.id %}" class="start-btn">
+      <div class="text-center pt-4">
+        <a href="{% url 'start-exam' course.id %}"
+           class="inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 text-white font-bold text-base hover:shadow-2xl hover:shadow-emerald-500/30 hover:-translate-y-1 transition-all duration-500 no-underline group">
+          <i class="fas fa-play group-hover:scale-110 transition-transform duration-300"></i>
           Start Examination
         </a>
       </div>
 
-      <div class="exam-footer">
-        Best of Luck, Student! 🎯
+      <!-- Good Luck -->
+      <div class="text-center pt-2">
+        <p class="text-sm font-semibold text-indigo-400">Best of Luck, Student! 🎯</p>
       </div>
 
     </div>

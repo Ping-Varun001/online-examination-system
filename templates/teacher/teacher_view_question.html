@@ -2,150 +2,135 @@
 {% block content %}
 {% load static %}
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ================= HEADER ================= -->
+<!-- ================= PAGE HEADER ================= -->
+<div class="mb-8">
 
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-
-  <style>
-    body {
-      background-color: #f5f7fa;
-    }
-
-    a {
-      text-decoration: none !important;
-    }
-
-    .page-container {
-      margin-top: 70px;
-      margin-bottom: 50px;
-    }
-
-    .custom-card {
-      background: #ffffff;
-      border-radius: 6px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      padding: 20px;
-    }
-
-    .card-title {
-      text-align: center;
-      font-size: 18px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 20px;
-    }
-
-    table {
-      margin-top: 10px;
-    }
-
-    thead {
-      background-color: #f1f3f6;
-    }
-
-    th {
-      text-align: center;
-      font-weight: 600;
-      color: #444;
-      white-space: nowrap;
-    }
-
-    td {
-      text-align: center;
-      vertical-align: middle !important;
-      color: #555;
-    }
-
-    td.course-name {
-      text-align: left;
-    }
-
-    tbody tr:hover {
-      background-color: #f9fafc;
-    }
-
-    .btn-primary {
-      border-radius: 4px;
-      padding: 6px 10px;
-    }
-
-    @media (max-width: 768px) {
-      .custom-card {
-        padding: 15px;
-      }
-    }
-    .back-btn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.back-btn i {
-  margin-right: 6px;
-}
-
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
-}
-  </style>
-</head>
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
+  <!-- Back Button -->
+  <button
+    onclick="history.back()"
+    class="group inline-flex items-center gap-2 px-5 py-2.5 mb-6 rounded-2xl
+           bg-white/5 border border-white/10 text-slate-300
+           hover:bg-indigo-500/10 hover:border-indigo-500/30 hover:text-white
+           transition-all duration-300 text-sm font-medium shadow-lg shadow-black/20">
+    <i class="fas fa-arrow-left text-sm transition-transform duration-300
+              group-hover:-translate-x-1"></i>
+    <span>Back</span>
   </button>
-</div>
-<div class="container page-container">
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1 col-sm-12">
-      <div class="custom-card">
 
-        <h6 class="card-title">Available Questions</h6>
+  <!-- Breadcrumb -->
+  <div class="flex items-center gap-2 text-sm text-slate-500 mb-4">
+    <a href="/teacher/teacher-dashboard" class="hover:text-indigo-400">
+      <i class="fas fa-home text-xs"></i>
+    </a>
+    <span>/</span>
+    <a href="/teacher/teacher-question" class="hover:text-indigo-400">Questions</a>
+    <span>/</span>
+    <span class="text-slate-300">Course Questions</span>
+  </div>
 
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Course</th>
-                <th>Total Questions</th>
-                <th>Total Marks</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for c in courses %}
-              <tr>
-                <td class="course-name">{{ c.course_name }}</td>
-                <td>{{ c.question_number }}</td>
-                <td>{{ c.total_marks }}</td>
-                <td>
-                  <a class="btn btn-primary btn-sm"
-                     href="{% url 'see-question' c.id %}">
-                    <span class="glyphicon glyphicon-eye-open"></span>
-                    View Question
-                  </a>
-                </td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-
-      </div>
+  <!-- Title -->
+  <div class="flex items-center gap-4">
+    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-500
+                flex items-center justify-center shadow-xl shadow-purple-500/30">
+      <i class="fas fa-list text-white text-lg"></i>
+    </div>
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold text-white">Course Questions</h1>
+      <p class="text-slate-400 text-sm mt-1">View and manage all questions in this course.</p>
     </div>
   </div>
+
+</div>
+
+<!-- ================= TABLE CARD ================= -->
+<div class="relative overflow-hidden rounded-2xl
+            bg-white/[0.03] backdrop-blur-xl
+            border border-white/[0.06]
+            shadow-2xl shadow-black/20">
+
+  <!-- Header -->
+  <div class="px-6 py-5 border-b border-white/[0.06] flex items-center justify-between">
+    <h2 class="text-sm font-semibold text-white">Courses</h2>
+    <span class="text-xs text-slate-500">
+      {{ courses|length }} total
+    </span>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+
+      <!-- Head -->
+      <thead class="bg-white/[0.04] text-slate-500 uppercase text-xs">
+        <tr>
+          <th class="px-6 py-4 text-left">Course</th>
+          <th class="px-6 py-4 text-center">Questions</th>
+          <th class="px-6 py-4 text-center">Marks</th>
+          <th class="px-6 py-4 text-center">Action</th>
+        </tr>
+      </thead>
+
+      <!-- Body -->
+      <tbody class="divide-y divide-white/[0.05]">
+
+        {% for c in courses %}
+        <tr class="hover:bg-white/[0.04] transition duration-300">
+
+          <!-- Course Name -->
+          <td class="px-6 py-4 text-slate-200 font-medium">
+            {{ c.course_name }}
+          </td>
+
+          <!-- Question Count -->
+          <td class="px-6 py-4 text-center text-slate-300">
+            {{ c.question_number }}
+          </td>
+
+          <!-- Marks -->
+          <td class="px-6 py-4 text-center">
+            <span class="px-3 py-1 rounded-lg
+                         bg-indigo-500/10 text-indigo-300 font-semibold">
+              {{ c.total_marks }}
+            </span>
+          </td>
+
+          <!-- Action -->
+          <td class="px-6 py-4 text-center">
+            <a href="{% url 'see-question' c.id %}"
+               class="inline-flex items-center gap-2 px-4 py-2 rounded-lg
+                      bg-indigo-500/10 text-indigo-400 text-xs font-medium
+                      border border-indigo-500/20
+                      hover:bg-indigo-500 hover:text-white hover:border-indigo-500
+                      hover:shadow-lg hover:shadow-indigo-500/25
+                      transition-all duration-300">
+
+              <i class="fas fa-eye text-[10px]"></i>
+              View
+            </a>
+          </td>
+
+        </tr>
+
+        {% empty %}
+        <!-- Empty State -->
+        <tr>
+          <td colspan="4" class="text-center py-16">
+            <div class="text-slate-500 mb-2">
+              <i class="fas fa-folder-open text-3xl"></i>
+            </div>
+            <p class="text-slate-400 text-sm">No courses available</p>
+          </td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bottom Glow -->
+  <div class="absolute bottom-0 left-0 right-0 h-px
+              bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
 </div>
 
 {% endblock content %}

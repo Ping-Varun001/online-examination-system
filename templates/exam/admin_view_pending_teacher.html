@@ -1,93 +1,147 @@
 {% extends 'exam/adminbase.html' %}
 {% block content %}
-{%load static%}
+{% load static %}
 
-<head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<div class="animate-fade-up">
 
-  <style media="screen">
-    a:link {
-      text-decoration: none;
-    }
-
-    h6 {
-      text-align: center;
-    }
-
-    .row {
-      margin: 100px;
-    }
-    .back-btn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.back-btn i {
-  margin-right: 6px;
-}
-
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
-}
-  </style>
-</head>
-<br><br>
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
+  <!-- Back Button -->
+  <button onclick="history.back()"
+          class="group inline-flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/10 text-sm font-medium text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300 mb-6">
+    <i class="fas fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform duration-200"></i>
+    Back
   </button>
-</div>
-<div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h6 class="panel-title">Pending Teachers</h6>
+
+  <!-- Page Header -->
+  <div class="mb-8">
+    <div class="flex items-center gap-3 mb-1">
+      <h1 class="text-2xl md:text-3xl font-bold text-white">Pending Teachers</h1>
+      <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-[11px] font-bold text-amber-400">
+        <i class="fas fa-clock text-[8px]"></i>
+        Awaiting Review
+      </span>
     </div>
-    <table class="table table-hover table-bordered" id="dev-table">
-      <thead>
-        <tr>
+    <p class="text-sm text-slate-400">Approve or reject teacher registration requests.</p>
+  </div>
 
-          <th>Name</th>
-          <th>Photo</th>
-          <th>Contact</th>
-          <th>Address</th>
-         
-          <th>Actions</th>
-        </tr>
-      </thead>
+  <!-- Pending Teachers Card -->
+  <div class="glass-strong rounded-2xl overflow-hidden">
+
+    <!-- Desktop Table -->
+    <div class="hidden md:block">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gradient-to-r from-amber-600/20 to-orange-600/10 border-b border-white/10">
+            <th class="text-left px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Name</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Photo</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Contact</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Address</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in teachers %}
+          <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors duration-200 group">
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors duration-300">
+                  <i class="fas fa-user-clock text-xs text-amber-400"></i>
+                </div>
+                <div>
+                  <span class="text-sm font-semibold text-white">{{ t.get_name }}</span>
+                  <p class="text-[11px] text-amber-400/60 mt-0.5">Pending approval</p>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <div class="flex justify-center">
+                <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 p-0.5 overflow-hidden">
+                  <img src="{% static 'images/teacher.png' %}" alt="Profile"
+                       class="w-full h-full rounded-lg object-cover">
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-bold text-cyan-400">
+                <i class="fas fa-phone text-[10px]"></i>
+                {{ t.mobile }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <span class="text-sm text-slate-400">{{ t.address }}</span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <div class="flex items-center justify-center gap-2">
+                <a href="{% url 'approve-teacher' t.id %}"
+                   class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300 hover:border-emerald-500/30 transition-all duration-300 text-xs font-semibold no-underline group/btn">
+                  <i class="fas fa-check text-[10px] group-hover/btn:scale-110 transition-transform duration-200"></i>
+                  Approve
+                </a>
+                <a href="{% url 'reject-teacher' t.id %}"
+                   class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 hover:text-red-300 hover:border-red-500/30 transition-all duration-300 text-xs font-semibold no-underline group/btn">
+                  <i class="fas fa-times text-[10px] group-hover/btn:scale-110 transition-transform duration-200"></i>
+                  Reject
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Mobile Cards -->
+    <div class="md:hidden p-4 space-y-3">
       {% for t in teachers %}
-      <tr>
+      <div class="glass rounded-xl p-4 hover:bg-white/[0.05] transition-all duration-300 relative overflow-hidden">
 
-        <td> {{t.get_name}}</td>
-<td>
-  <img src="{% static 'images/teacher.png' %}"
-       alt="Profile Pic"
-       width="40"
-       height="40"
-       class="rounded-circle">
-</td>
-        <td>{{t.mobile}}</td>
-        <td>{{t.address}}</td>
-        
-        <td><a class="btn btn-success btn-sm" style="border-radius: 0%;" href="{% url 'approve-teacher' t.id  %}"><span class="glyphicon glyphicon-ok"></span></a>
-        <a class="btn btn-danger btn-sm" style="border-radius: 0%;" href="{% url 'reject-teacher' t.id  %}"><span class="	glyphicon glyphicon-remove"></span></a></td>
-      </tr>
+        <!-- Pending indicator -->
+        <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 to-orange-400"></div>
+
+        <!-- Teacher Info -->
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 p-0.5 overflow-hidden flex-shrink-0">
+            <img src="{% static 'images/teacher.png' %}" alt="Profile"
+                 class="w-full h-full rounded-lg object-cover">
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-semibold text-white truncate">{{ t.get_name }}</p>
+            <div class="flex items-center gap-1.5 mt-0.5">
+              <div class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></div>
+              <span class="text-[11px] text-amber-400 font-medium">Pending Approval</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="grid grid-cols-2 gap-2 mb-3">
+          <div class="p-2 rounded-lg bg-white/[0.02]">
+            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Contact</p>
+            <span class="text-xs font-bold text-cyan-400">{{ t.mobile }}</span>
+          </div>
+          <div class="p-2 rounded-lg bg-white/[0.02]">
+            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Address</p>
+            <span class="text-xs text-slate-300">{{ t.address }}</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="grid grid-cols-2 gap-2">
+          <a href="{% url 'approve-teacher' t.id %}"
+             class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold transition-all duration-300 no-underline">
+            <i class="fas fa-check text-[10px]"></i>
+            Approve
+          </a>
+          <a href="{% url 'reject-teacher' t.id %}"
+             class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold transition-all duration-300 no-underline">
+            <i class="fas fa-times text-[10px]"></i>
+            Reject
+          </a>
+        </div>
+      </div>
       {% endfor %}
-    </table>
+    </div>
+
   </div>
 </div>
 
-<br><br><br><br><br><br>
 {% endblock content %}

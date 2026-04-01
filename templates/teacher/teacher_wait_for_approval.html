@@ -1,115 +1,80 @@
 <!DOCTYPE html>
 {% load widget_tweaks %}
+<html lang="en" class="scroll-smooth">
 
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-
-  <style>
-    body {
-      background-color: #f5f7fa;
-    }
-
-    .status-container {
-      min-height: 80vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .status-card {
-      background: #ffffff;
-      padding: 40px;
-      border-radius: 8px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-      text-align: center;
-      max-width: 700px;
-      width: 100%;
-    }
-
-    .status-card h1 {
-      font-size: 28px;
-      font-weight: 600;
-      color: #333;
-      margin-bottom: 15px;
-    }
-
-    .status-message {
-      font-size: 16px;
-      color: #555;
-      line-height: 1.7;
-      margin-bottom: 25px;
-    }
-
-    .status-message b {
-      color: #dc3545;
-    }
-
-    .btn-danger {
-      border-radius: 4px;
-      padding: 10px 24px;
-    }
-
-    @media (max-width: 576px) {
-      .status-card {
-        padding: 25px;
-      }
-
-      .status-card h1 {
-        font-size: 22px;
-      }
-    }
-    .back-btn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.back-btn i {
-  margin-right: 6px;
-}
-
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
-}
-  </style>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body>
+<body class="bg-slate-950 text-slate-200 flex flex-col min-h-screen">
 
 {% include "exam/navbar.html" %}
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
-  </button>
-</div>
-<div class="status-container">
-  <div class="status-card">
 
-    <h1>Hello {{ request.user.first_name }},</h1>
+<!-- ================= MAIN ================= -->
+<div class="flex-1 flex items-center justify-center px-4">
 
-    <p class="status-message">
-      Your account has not been <b>activated</b> yet.<br><br>
-      Please wait for approval from the administrator.<br>
-      Once approved, you will be able to access your account.
+  <!-- Card -->
+  <div class="relative max-w-xl w-full rounded-2xl
+              bg-white/[0.03] backdrop-blur-xl
+              border border-white/[0.06]
+              shadow-2xl shadow-black/30 p-8 text-center">
+
+    <!-- Glow Effect -->
+    <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-40 h-40
+                bg-red-500/20 blur-3xl rounded-full opacity-60"></div>
+
+    <!-- Icon -->
+    <div class="relative mx-auto mb-6 w-16 h-16 rounded-2xl
+                bg-red-500/10 border border-red-500/20
+                flex items-center justify-center">
+      <i class="fas fa-user-clock text-red-400 text-2xl"></i>
+    </div>
+
+    <!-- Title -->
+    <h1 class="text-2xl sm:text-3xl font-bold text-white mb-3">
+      Hello {{ request.user.first_name }},
+    </h1>
+
+    <!-- Message -->
+    <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-6">
+      Your account is currently
+      <span class="text-red-400 font-semibold">pending approval</span>.
+      <br><br>
+      Please wait for the administrator to activate your account.
+      Once approved, you will gain full access to the platform.
     </p>
 
-    <a class="btn btn-danger btn-lg" href="/logout" role="button">
-      Logout
-    </a>
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+
+      <!-- Back -->
+      <button onclick="history.back()"
+              class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-xl
+                     bg-white/5 border border-white/10 text-slate-300 text-sm
+                     hover:bg-indigo-500 hover:text-white hover:border-indigo-500
+                     transition-all duration-300">
+        <i class="fas fa-arrow-left text-xs"></i>
+        Go Back
+      </button>
+
+      <!-- Logout -->
+      <a href="/logout"
+         class="inline-flex items-center justify-center gap-2 px-5 py-2 rounded-xl
+                bg-red-500/10 text-red-400 border border-red-500/20 text-sm font-medium
+                hover:bg-red-500 hover:text-white hover:border-red-500
+                hover:shadow-lg hover:shadow-red-500/30
+                transition-all duration-300">
+        <i class="fas fa-sign-out-alt text-xs"></i>
+        Logout
+      </a>
+
+    </div>
 
   </div>
+
 </div>
 
 {% include "exam/footer.html" %}

@@ -1,83 +1,104 @@
 {% extends 'exam/adminbase.html' %}
 {% block content %}
-{%load static%}
+{% load static %}
 
-<head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<div class="animate-fade-up">
 
-  <style media="screen">
-    a:link {
-      text-decoration: none;
-    }
-
-    h6 {
-      text-align: center;
-    }
-
-    .row {
-      margin: 100px;
-    }
-    .back-btn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.back-btn i {
-  margin-right: 6px;
-}
-
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
-}
-  </style>
-</head>
-<br><br>
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
+  <!-- Back Button -->
+  <button onclick="history.back()"
+          class="group inline-flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/10 text-sm font-medium text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300 mb-6">
+    <i class="fas fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform duration-200"></i>
+    Back
   </button>
-</div>
-<div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h6 class="panel-title">Available Question Sets</h6>
+
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold text-white mb-1">Available Question Sets</h1>
+    <p class="text-sm text-slate-400">Browse question sets by course and view individual questions.</p>
+  </div>
+
+  <!-- Question Sets Card -->
+  <div class="glass-strong rounded-2xl overflow-hidden">
+
+    <!-- Desktop Table -->
+    <div class="hidden md:block">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gradient-to-r from-indigo-600/30 to-purple-600/20 border-b border-white/10">
+            <th class="text-left px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Course Name</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Total Questions</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Total Marks</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">View</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in courses %}
+          <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors duration-200 group">
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center group-hover:bg-indigo-500/20 transition-colors duration-300">
+                  <i class="fas fa-book text-xs text-indigo-400"></i>
+                </div>
+                <span class="text-sm font-semibold text-white">{{ c.course_name }}</span>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-bold text-cyan-400">
+                <i class="fas fa-list text-[10px]"></i>
+                {{ c.question_number }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold text-emerald-400">
+                <i class="fas fa-star text-[10px]"></i>
+                {{ c.total_marks }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <a href="{% url 'view-question' c.id %}"
+                 class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold hover:shadow-lg hover:shadow-indigo-500/25 hover:-translate-y-0.5 transition-all duration-300 no-underline group/btn">
+                <i class="fas fa-eye text-[10px] group-hover/btn:scale-110 transition-transform duration-200"></i>
+                View
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-    <table class="table table-hover table-bordered" id="dev-table">
-      <thead>
-        <tr>
 
-          <th>Course Name</th>
-          <th>Total Question</th>
-          <th>Total Marks</th>
-          <th>View</th>
-        </tr>
-      </thead>
+    <!-- Mobile Cards -->
+    <div class="md:hidden p-4 space-y-3">
       {% for c in courses %}
-      <tr>
+      <div class="glass rounded-xl p-4 hover:bg-white/[0.05] transition-all duration-300">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+            <i class="fas fa-book text-xs text-indigo-400"></i>
+          </div>
+          <span class="text-sm font-semibold text-white flex-1">{{ c.course_name }}</span>
+        </div>
 
-        <td> {{c.course_name}}</td>
-        <td>{{c.question_number}}</td>
-        <td>{{c.total_marks}}</td>
-        <td><a class="btn btn-primary btn-xs" style="border-radius: 0%;" href="{% url 'view-question' c.id  %}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-        
-      </tr>
+        <div class="grid grid-cols-2 gap-2 mb-3">
+          <div class="text-center p-2 rounded-lg bg-white/[0.02]">
+            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Questions</p>
+            <span class="text-xs font-bold text-cyan-400">{{ c.question_number }}</span>
+          </div>
+          <div class="text-center p-2 rounded-lg bg-white/[0.02]">
+            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Marks</p>
+            <span class="text-xs font-bold text-emerald-400">{{ c.total_marks }}</span>
+          </div>
+        </div>
+
+        <a href="{% url 'view-question' c.id %}"
+           class="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-xs font-bold hover:shadow-lg hover:shadow-indigo-500/25 transition-all duration-300 no-underline">
+          <i class="fas fa-eye text-[10px]"></i>
+          View Questions
+        </a>
+      </div>
       {% endfor %}
-    </table>
+    </div>
+
   </div>
 </div>
 
-<br><br><br><br><br><br>
 {% endblock content %}

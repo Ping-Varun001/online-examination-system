@@ -1,183 +1,94 @@
 {% extends 'teacher/teacherbase.html' %}
 {% block content %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="max-w-7xl mx-auto px-4 py-8">
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
-  <style>
-    body {
-      background: linear-gradient(135deg, #eef2f7, #f9fbfd);
-      font-family: "Inter", "Segoe UI", sans-serif;
-    }
-
-    a {
-      text-decoration: none !important;
-    }
-
-    .page-container {
-      margin-top: 70px;
-      margin-bottom: 60px;
-    }
-
-    .page-title {
-      text-align: center;
-      font-weight: 700;
-      font-size: 26px;
-      margin-bottom: 45px;
-      color: #1f2937;
-    }
-
-    .action-card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 40px 35px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-      transition: all 0.35s ease;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Top gradient accent */
-    .action-card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, #f59e0b, #f97316);
-    }
-
-    .action-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
-    }
-
-    .action-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 8px;
-    }
-
-    .action-subtitle {
-      font-size: 14px;
-      color: #6b7280;
-      margin-bottom: 25px;
-    }
-
-    .action-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      color: #ffffff;
-    }
-
-    .icon-add {
-      background: linear-gradient(135deg, #10b981, #22c55e);
-    }
-
-    .icon-view {
-      background: linear-gradient(135deg, #4c51bf, #667eea);
-    }
-
-    @media (max-width: 768px) {
-      .action-card {
-        padding: 32px 25px;
-        margin-bottom: 20px;
-      }
-
-      .page-title {
-        font-size: 22px;
-      }
-    }
-    .back-btn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.back-btn i {
-  margin-right: 6px;
-}
-
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
-}
-  </style>
-</head>
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
+  <!-- Header -->
+  <div class="mb-8">
+  <button
+    onclick="history.back()"
+    class="group inline-flex items-center gap-2 px-5 py-2.5 mb-6 rounded-2xl
+           bg-white/5 border border-white/10 text-slate-300
+           hover:bg-indigo-500/10 hover:border-indigo-500/30 hover:text-white
+           transition-all duration-300 text-sm font-medium shadow-lg shadow-black/20">
+    <i class="fas fa-arrow-left text-sm transition-transform duration-300
+              group-hover:-translate-x-1"></i>
+    <span>Back</span>
   </button>
-</div>
-<div class="container page-container">
 
-  <h2 class="page-title">Manage Questions</h2>
+  <div class="flex items-center gap-2 text-sm text-slate-500 mb-4">
+    <a href="/teacher/teacher-dashboard"><i class="fas fa-home text-xs"></i></a>
+    <span>/</span>
+    <span class="text-slate-300">Questions</span>
+  </div>
 
-  <div class="row">
-
-    <!-- ADD QUESTION -->
-    <div class="col-md-6 col-sm-12 mb-4">
-      <a href="teacher-add-question_list">
-        <div class="action-card">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <div class="action-title">Add Question</div>
-              <div class="action-subtitle">
-                Create new questions for your exams
-              </div>
-            </div>
-            <div class="action-icon icon-add">
-              <i class="fas fa-plus"></i>
-            </div>
-          </div>
-        </div>
-      </a>
+  <div class="flex items-center gap-4">
+    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 flex items-center justify-center shadow-xl">
+      <i class="fas fa-question text-white"></i>
     </div>
-
-    <!-- VIEW QUESTIONS -->
-    <div class="col-md-6 col-sm-12 mb-4">
-      <a href="teacher-view-question">
-        <div class="action-card">
-          <div class="d-flex justify-content-between align-items-center">
-            <div>
-              <div class="action-title">View Questions</div>
-              <div class="action-subtitle">
-                Browse, edit, and manage all questions
-              </div>
-            </div>
-            <div class="action-icon icon-view">
-              <i class="fas fa-eye"></i>
-            </div>
-          </div>
-        </div>
-      </a>
+    <div>
+      <h1 class="text-3xl font-bold text-white">Manage Questions</h1>
+      <p class="text-slate-400 text-sm">Create and manage exam questions</p>
     </div>
-
   </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <!-- Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <!-- ADD QUESTION -->
+    <a href="{% url 'teacher-add-question-list' %}">
+      <div class="flex items-center justify-between p-6 rounded-2xl
+                  bg-white/[0.03] border border-white/10
+                  backdrop-blur-xl hover:border-emerald-400/40
+                  hover:shadow-lg hover:shadow-emerald-500/10
+                  transition-all duration-300">
+
+        <div>
+          <h3 class="text-lg font-semibold text-white mb-1">
+            Add Question
+          </h3>
+          <p class="text-sm text-slate-400">
+            Create new questions and assign them to courses
+          </p>
+        </div>
+
+        <div class="w-14 h-14 flex items-center justify-center
+                    rounded-xl bg-emerald-500 text-white text-xl shadow-lg">
+          <i class="fas fa-plus"></i>
+        </div>
+
+      </div>
+    </a>
+
+    <!-- VIEW QUESTION -->
+    <a href="{% url 'teacher-view-question' %}">
+      <div class="flex items-center justify-between p-6 rounded-2xl
+                  bg-white/[0.03] border border-white/10
+                  backdrop-blur-xl hover:border-indigo-400/40
+                  hover:shadow-lg hover:shadow-indigo-500/10
+                  transition-all duration-300">
+
+        <div>
+          <h3 class="text-lg font-semibold text-white mb-1">
+            View Questions
+          </h3>
+          <p class="text-sm text-slate-400">
+            Browse, edit, and manage all existing questions
+          </p>
+        </div>
+
+        <div class="w-14 h-14 flex items-center justify-center
+                    rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-400
+                    text-white text-xl shadow-lg">
+          <i class="fas fa-eye"></i>
+        </div>
+
+      </div>
+    </a>
+
+  </div>
+
+</div>
 
 {% endblock content %}

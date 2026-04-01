@@ -1,93 +1,129 @@
 {% extends 'exam/adminbase.html' %}
 {% block content %}
-{%load static%}
+{% load static %}
 
-<head>
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<div class="animate-fade-up">
 
-  <style media="screen">
-    a:link {
-      text-decoration: none;
-    }
-
-    h6 {
-      text-align: center;
-    }
-
-    .row {
-      margin: 100px;
-    }
-    .back-btn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.back-btn i {
-  margin-right: 6px;
-}
-
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
-}
-  </style>
-</head>
-<br><br>
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
+  <!-- Back Button -->
+  <button onclick="history.back()"
+          class="group inline-flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/10 text-sm font-medium text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300 mb-6">
+    <i class="fas fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform duration-200"></i>
+    Back
   </button>
-</div>
-<div class="container">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h6 class="panel-title">Teachers</h6>
+
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold text-white mb-1">Teachers</h1>
+    <p class="text-sm text-slate-400">View, edit, and manage all approved teachers.</p>
+  </div>
+
+  <!-- Teachers Table Card -->
+  <div class="glass-strong rounded-2xl overflow-hidden">
+
+    <!-- Desktop Table -->
+    <div class="hidden md:block">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gradient-to-r from-indigo-600/30 to-blue-600/20 border-b border-white/10">
+            <th class="text-left px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Name</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Photo</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Contact</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Address</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in teachers %}
+          <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors duration-200 group">
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center group-hover:bg-indigo-500/20 transition-colors duration-300">
+                  <i class="fas fa-chalkboard-teacher text-xs text-indigo-400"></i>
+                </div>
+                <span class="text-sm font-semibold text-white">{{ t.get_name }}</span>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <div class="flex justify-center">
+                <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 p-0.5 overflow-hidden">
+                  <img src="{% static 'images/teacher.png' %}" alt="Profile"
+                       class="w-full h-full rounded-lg object-cover">
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-bold text-cyan-400">
+                <i class="fas fa-phone text-[10px]"></i>
+                {{ t.mobile }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <span class="text-sm text-slate-400">{{ t.address }}</span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <div class="flex items-center justify-center gap-2">
+                <a href="{% url 'update-teacher' t.id %}"
+                   class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 hover:bg-emerald-500/20 hover:text-emerald-300 transition-all duration-300 text-xs font-semibold no-underline group/btn">
+                  <i class="fas fa-edit text-[10px] group-hover/btn:scale-110 transition-transform duration-200"></i>
+                  Edit
+                </a>
+                <a href="{% url 'delete-teacher' t.id %}"
+                   class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 hover:bg-red-500/20 hover:text-red-300 transition-all duration-300 text-xs font-semibold no-underline group/btn">
+                  <i class="fas fa-trash text-[10px] group-hover/btn:scale-110 transition-transform duration-200"></i>
+                  Delete
+                </a>
+              </div>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
-    <table class="table table-hover table-bordered" id="dev-table">
-      <thead>
-        <tr>
 
-          <th>Name</th>
-          <th>Photo</th>
-          <th>Contact</th>
-          <th>Address</th>
-         
-          <th>Action</th>
-        </tr>
-      </thead>
+    <!-- Mobile Cards -->
+    <div class="md:hidden p-4 space-y-3">
       {% for t in teachers %}
-      <tr>
+      <div class="glass rounded-xl p-4 hover:bg-white/[0.05] transition-all duration-300">
 
-        <td> {{t.get_name}}</td>
-<td>
-  <img src="{% static 'images/teacher.png' %}"
-       alt="Profile Pic"
-       width="40"
-       height="40"
-       class="rounded-circle">
-</td>
-        <td>{{t.mobile}}</td>
-        <td>{{t.address}}</td>
-        
-        <td><a class="btn btn-success btn-xs" style="border-radius: 0%;" href="{% url 'update-teacher' t.id  %}"><span class="glyphicon glyphicon-edit"></span></a>
-        <a class="btn btn-danger btn-xs" style="border-radius: 0%;" href="{% url 'delete-teacher' t.id  %}"><span class="glyphicon glyphicon-trash"></span></a></td>
-      </tr>
+        <!-- Teacher Info -->
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 p-0.5 overflow-hidden flex-shrink-0">
+            <img src="{% static 'images/teacher.png' %}" alt="Profile"
+                 class="w-full h-full rounded-lg object-cover">
+          </div>
+          <div class="flex-1 min-w-0">
+            <p class="text-sm font-semibold text-white truncate">{{ t.get_name }}</p>
+            <div class="flex items-center gap-1 mt-0.5">
+              <i class="fas fa-phone text-[8px] text-cyan-400"></i>
+              <span class="text-[11px] text-cyan-400 font-medium">{{ t.mobile }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Address -->
+        <div class="p-2 rounded-lg bg-white/[0.02] mb-3">
+          <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Address</p>
+          <p class="text-xs text-slate-300">{{ t.address }}</p>
+        </div>
+
+        <!-- Actions -->
+        <div class="grid grid-cols-2 gap-2">
+          <a href="{% url 'update-teacher' t.id %}"
+             class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold transition-all duration-300 no-underline">
+            <i class="fas fa-edit text-[10px]"></i>
+            Edit
+          </a>
+          <a href="{% url 'delete-teacher' t.id %}"
+             class="flex items-center justify-center gap-2 px-3 py-2.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-bold transition-all duration-300 no-underline">
+            <i class="fas fa-trash text-[10px]"></i>
+            Delete
+          </a>
+        </div>
+      </div>
       {% endfor %}
-    </table>
+    </div>
+
   </div>
 </div>
 
-<br><br><br><br><br><br>
 {% endblock content %}

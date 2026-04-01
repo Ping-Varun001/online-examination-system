@@ -1,81 +1,115 @@
 {% extends 'teacher/teacherbase.html' %}
 {% block content %}
-{%load static%}
+{% load static %}
 
-<head>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-
-    <style media="screen">
-        a:link {
-            text-decoration: none;
-        }
-
-        h6 {
-            text-align: center;
-        }
-
-        .row {
-            margin: 100px;
-        }
-        .back-btn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.back-btn i {
-  margin-right: 6px;
-}
-
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
-}
-    </style>
-</head>
-<br><br>
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
+<!-- ================= PAGE HEADER ================= -->
+<div class="mb-8">
+  <button
+    onclick="history.back()"
+    class="group inline-flex items-center gap-2 px-5 py-2.5 mb-6 rounded-2xl
+           bg-white/5 border border-white/10 text-slate-300
+           hover:bg-indigo-500/10 hover:border-indigo-500/30 hover:text-white
+           transition-all duration-300 text-sm font-medium shadow-lg shadow-black/20">
+    <i class="fas fa-arrow-left text-sm transition-transform duration-300
+              group-hover:-translate-x-1"></i>
+    <span>Back</span>
   </button>
-</div>
-<div class="container">
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h6 class="panel-title">Available Questions</h6>
-        </div>
-        <table class="table table-hover table-bordered" id="dev-table">
-            <thead>
-                <tr>
 
-                    <th>Course</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            {% for c in courses %}
-            <tr>
+  <div class="flex items-center gap-2 text-sm text-slate-500 mb-4">
+    <a href="/teacher/teacher-dashboard"><i class="fas fa-home text-xs"></i></a>
+    <span>/</span>
+    <a href="/teacher/teacher-question">Questions</a>
+    <span>/</span>
+    <span class="text-slate-300">Select Course</span>
+  </div>
 
-                <td> {{c.course_name}}</td>
-                <td><a class="btn btn-primary btn-sm" style="border-radius: 0%;"
-                        href="{% url 'teacher-add-question' c.id  %}"><span class="glyphicon glyphicon-eye-open"></span> Add
-                        Question</a></td>
-
-            </tr>
-            {% endfor %}
-        </table>
+  <div class="flex items-center gap-4">
+    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-500 flex items-center justify-center shadow-xl">
+      <i class="fas fa-list text-white"></i>
     </div>
+    <div>
+      <h1 class="text-3xl font-bold text-white">Select Course</h1>
+      <p class="text-slate-400 text-sm">Choose course to add questions</p>
+    </div>
+  </div>
 </div>
 
-<br><br><br><br><br><br>
+<!-- ================= TABLE CARD ================= -->
+<div class="relative rounded-2xl overflow-hidden
+            bg-white/[0.03] backdrop-blur-xl
+            border border-white/[0.06]
+            shadow-xl shadow-black/20">
+
+  <!-- Header -->
+  <div class="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+    <h2 class="text-sm font-semibold text-white tracking-wide">
+      Available Courses
+    </h2>
+    <span class="text-xs text-slate-500">
+      {{ courses|length }} total
+    </span>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm text-left">
+
+      <!-- Table Head -->
+      <thead class="text-xs uppercase tracking-wider text-slate-500 bg-white/5">
+        <tr>
+          <th class="px-6 py-4">Course</th>
+          <th class="px-6 py-4 text-right">Action</th>
+        </tr>
+      </thead>
+
+      <!-- Table Body -->
+      <tbody class="divide-y divide-white/5">
+
+        {% for c in courses %}
+        <tr class="group hover:bg-white/[0.04] transition duration-300">
+
+          <!-- Course Name -->
+          <td class="px-6 py-4 text-slate-200 font-medium">
+            {{ c.course_name }}
+          </td>
+
+          <!-- Action -->
+          <td class="px-6 py-4 text-right">
+            <a href="{% url 'teacher-add-question' c.id %}"
+               class="inline-flex items-center gap-2 px-4 py-2 rounded-lg
+                      bg-indigo-500/10 text-indigo-400 text-xs font-medium
+                      border border-indigo-500/20
+                      hover:bg-indigo-500 hover:text-white hover:border-indigo-500
+                      hover:shadow-lg hover:shadow-indigo-500/25
+                      transition-all duration-300">
+
+              <i class="fas fa-plus text-[10px]"></i>
+              Add Question
+            </a>
+          </td>
+
+        </tr>
+        {% empty %}
+
+        <!-- Empty State -->
+        <tr>
+          <td colspan="2" class="px-6 py-12 text-center">
+            <div class="text-slate-500 mb-2">
+              <i class="fas fa-folder-open text-3xl"></i>
+            </div>
+            <p class="text-slate-400 text-sm">No courses available</p>
+          </td>
+        </tr>
+
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bottom Glow -->
+  <div class="absolute bottom-0 left-0 right-0 h-px
+              bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
+</div>
+
 {% endblock content %}

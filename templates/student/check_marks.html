@@ -2,244 +2,87 @@
 {% block content %}
 {% load static %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<div class="animate-fade-up">
 
-  <!-- Bootstrap 4 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold text-white mb-1">My Exam Results</h1>
+    <p class="text-sm text-slate-400">Your detailed performance history for this course.</p>
+  </div>
 
-  <!-- Font Awesome -->
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+  <!-- Results Card -->
+  <div class="glass-strong rounded-2xl overflow-hidden">
 
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-body {
-  font-family: 'Inter', sans-serif;
-  background: #f4f6fb;
-  margin: 0;
-  padding: 0;
-}
-
-a {
-  text-decoration: none !important;
-}
-
-/* ================= WRAPPER ================= */
-
-.page-wrapper {
-  min-height: 85vh;
-  padding: 30px;
-}
-
-/* ================= TITLE ================= */
-
-.page-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #1f2937;
-}
-
-/* ================= CARD ================= */
-
-.table-card {
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 25px;
-  box-shadow: 0 18px 45px rgba(0,0,0,0.12);
-  animation: fadeUp 0.6s ease;
-}
-
-/* ================= TABLE ================= */
-
-.table {
-  margin-bottom: 0;
-}
-
-.table thead {
-  background: linear-gradient(135deg, #2563eb, #60a5fa);
-  color: #ffffff;
-}
-
-.table thead th {
-  font-weight: 600;
-  text-align: center;
-  vertical-align: middle;
-  border: none;
-  font-size: 14px;
-}
-
-.table tbody td {
-  text-align: center;
-  vertical-align: middle;
-  border-top: 1px solid #e5e7eb;
-  font-size: 14px;
-}
-
-/* ================= COURSE NAME ================= */
-
-.course-name {
-  font-weight: 600;
-  color: #111827;
-  text-align: left;
-}
-
-/* ================= BADGES ================= */
-
-.badge-marks {
-  background: #10b981;
-  padding: 6px 12px;
-  border-radius: 14px;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.badge-attempt {
-  background: #f59e0b;
-  padding: 6px 12px;
-  border-radius: 14px;
-  color: #fff;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-/* ================= ANIMATION ================= */
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(25px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ================= TABLET ================= */
-
-@media (max-width: 992px) {
-  .page-wrapper {
-    padding: 25px;
-  }
-
-  .table-card {
-    padding: 22px;
-  }
-}
-
-/* ================= MOBILE RESPONSIVE ================= */
-
-@media (max-width: 576px) {
-
-  .page-wrapper {
-    padding: 12px;
-  }
-
-  .container-fluid {
-    padding: 0;
-  }
-
-  .page-title {
-    font-size: 20px;
-    text-align: center;
-  }
-
-  .table-card {
-    padding: 15px;
-    border-radius: 14px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-  }
-
-  .table thead th {
-    font-size: 12px;
-    padding: 8px;
-  }
-
-  .table tbody td {
-    font-size: 12px;
-    padding: 8px;
-  }
-
-  .badge-marks,
-  .badge-attempt {
-    font-size: 11px;
-    padding: 5px 10px;
-  }
-
-  .course-name {
-    font-size: 12px;
-  }
-}
-
-/* ================= EXTRA SMALL PHONES ================= */
-
-@media (max-width: 400px) {
-
-  .page-title {
-    font-size: 18px;
-  }
-
-  .table thead th,
-  .table tbody td {
-    font-size: 11px;
-    padding: 6px;
-  }
-
-  .badge-marks,
-  .badge-attempt {
-    font-size: 10px;
-    padding: 4px 8px;
-  }
-
-}
-</style>
-</head>
-
-<div class="page-wrapper">
-  <div class="container-fluid">
-
-    <div class="page-title text-center text-md-left">
-      My Exam Results
+    <!-- Desktop Table -->
+    <div class="hidden md:block">
+      <table class="w-full">
+        <thead>
+          <tr class="bg-gradient-to-r from-indigo-600/30 to-cyan-600/20 border-b border-white/10">
+            <th class="text-left px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Course</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Total Marks</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Attempt</th>
+            <th class="text-center px-6 py-4 text-xs font-bold text-slate-300 uppercase tracking-wider">Exam Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for t in results %}
+          <tr class="border-b border-white/5 hover:bg-white/[0.03] transition-colors duration-200 group">
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+                  <i class="fas fa-book text-xs text-indigo-400"></i>
+                </div>
+                <span class="text-sm font-semibold text-white">{{ t.exam }}</span>
+              </div>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-bold text-emerald-400">
+                <i class="fas fa-check-circle text-[10px]"></i>
+                {{ t.marks }} / {{ total_marks }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <span class="inline-flex items-center gap-1 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-bold text-amber-400">
+                <i class="fas fa-redo text-[10px]"></i>
+                Attempt {{ forloop.counter }}
+              </span>
+            </td>
+            <td class="px-6 py-4 text-center">
+              <span class="text-sm text-slate-400">{{ t.date }}</span>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
 
-    <div class="table-card">
+    <!-- Mobile Cards -->
+    <div class="md:hidden p-4 space-y-3">
+      {% for t in results %}
+      <div class="glass rounded-xl p-4 hover:bg-white/[0.05] transition-all duration-300">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-9 h-9 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center">
+            <i class="fas fa-book text-xs text-indigo-400"></i>
+          </div>
+          <span class="text-sm font-semibold text-white flex-1">{{ t.exam }}</span>
+        </div>
 
-      <!-- Bootstrap responsive wrapper -->
-      <div class="table-responsive">
-        <table class="table table-hover table-bordered mb-0">
-
-          <thead>
-            <tr>
-              <th class="text-nowrap">Course</th>
-              <th class="text-nowrap">Total Marks</th>
-              <th class="text-nowrap">Attempt</th>
-              <th class="text-nowrap">Exam Date</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {% for t in results %}
-            <tr>
-              <td class="course-name text-nowrap">{{ t.exam }}</td>
-
-              <td class="text-nowrap">
-                <span class="badge-marks">
-                  {{ t.marks }} / {{ total_marks }}
-                </span>
-              </td>
-
-              <td class="text-nowrap">
-                <span class="badge-attempt">
-                  Attempt {{ forloop.counter }}
-                </span>
-              </td>
-
-              <td class="text-nowrap">{{ t.date }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-
-        </table>
+        <div class="grid grid-cols-3 gap-2">
+          <div class="text-center p-2 rounded-lg bg-white/[0.02]">
+            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Marks</p>
+            <span class="text-xs font-bold text-emerald-400">{{ t.marks }} / {{ total_marks }}</span>
+          </div>
+          <div class="text-center p-2 rounded-lg bg-white/[0.02]">
+            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Attempt</p>
+            <span class="text-xs font-bold text-amber-400">#{{ forloop.counter }}</span>
+          </div>
+          <div class="text-center p-2 rounded-lg bg-white/[0.02]">
+            <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Date</p>
+            <span class="text-xs font-bold text-slate-300">{{ t.date }}</span>
+          </div>
+        </div>
       </div>
-
+      {% endfor %}
     </div>
 
   </div>

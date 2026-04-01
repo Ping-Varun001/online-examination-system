@@ -1,148 +1,312 @@
 {% extends 'teacher/teacherbase.html' %}
 {% block content %}
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ================= PAGE HEADER ================= -->
+<div class="mb-10">
+  <!-- Breadcrumb -->
+  <div class="flex items-center gap-2 text-sm text-slate-500 mb-4">
+    <i class="fas fa-home text-xs"></i>
+    <span>/</span>
+    <span class="text-slate-300">Dashboard</span>
+  </div>
 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Title Row -->
+  <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight">
+        Teacher Dashboard
+      </h1>
+      <p class="mt-1 text-sm text-slate-400">
+        Welcome back, <span class="text-indigo-400 font-medium">{{ request.user.first_name }}</span>. Here's your overview.
+      </p>
+    </div>
 
-  <style>
-    body {
-      background: linear-gradient(135deg, #eef2f7, #f9fbfd);
-      font-family: "Inter", "Segoe UI", sans-serif;
-    }
+    <!-- Date Badge -->
+    <div class="flex items-center gap-2 px-4 py-2 rounded-xl
+                bg-white/5 border border-white/10 text-sm text-slate-400
+                self-start sm:self-auto">
+      <i class="fas fa-calendar-alt text-indigo-400 text-xs"></i>
+      <span id="currentDate"></span>
+    </div>
+  </div>
+</div>
 
-    .dashboard-container {
-      margin-top: 70px;
-      margin-bottom: 60px;
-    }
+<!-- ================= STATS GRID ================= -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mb-10">
 
-    .dashboard-title {
-      text-align: center;
-      font-weight: 700;
-      font-size: 26px;
-      margin-bottom: 40px;
-      color: #1f2937;
-    }
+  <!-- CARD 1: Registered Students -->
+  <div class="group relative overflow-hidden rounded-2xl
+              bg-white/[0.03] backdrop-blur-xl
+              border border-white/[0.06]
+              hover:border-indigo-500/30 hover:bg-white/[0.06]
+              transition-all duration-500 hover:-translate-y-1
+              hover:shadow-2xl hover:shadow-indigo-500/10">
 
-    .stat-card {
-      background: #ffffff;
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
-      transition: all 0.3s ease;
-      height: 100%;
-    }
+    <!-- Ambient gradient (top-left corner glow) -->
+    <div class="absolute -top-12 -left-12 w-32 h-32 rounded-full
+                bg-indigo-500/20 blur-3xl opacity-0 group-hover:opacity-100
+                transition-opacity duration-700 pointer-events-none"></div>
 
-    .stat-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
-    }
-
-    .stat-title {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      color: #6b7280;
-      margin-bottom: 8px;
-    }
-
-    .stat-value {
-      font-size: 34px;
-      font-weight: 800;
-      color: #111827;
-    }
-
-    .stat-icon {
-      width: 55px;
-      height: 55px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 26px;
-      color: #ffffff;
-    }
-
-    .icon-student {
-      background: linear-gradient(135deg, #4c51bf, #667eea);
-    }
-
-    .icon-course {
-      background: linear-gradient(135deg, #10b981, #22c55e);
-    }
-
-    .icon-question {
-      background: linear-gradient(135deg, #f59e0b, #f97316);
-    }
-
-    @media (max-width: 768px) {
-      .stat-card {
-        margin-bottom: 20px;
-      }
-
-      .dashboard-title {
-        font-size: 22px;
-      }
-    }
-  </style>
-</head>
-
-<div class="container dashboard-container">
-
-  <h2 class="dashboard-title">Teacher Dashboard</h2>
-
-  <div class="row">
-
-    <div class="col-md-4 col-sm-12 mb-4">
-      <div class="stat-card">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="stat-title">Registered Students</div>
-            <div class="stat-value">{{ total_student }}</div>
+    <div class="relative p-6 sm:p-7">
+      <div class="flex items-start justify-between">
+        <div class="flex-1">
+          <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.15em]
+                    text-slate-500 group-hover:text-slate-400 transition-colors duration-300">
+            Registered Students
+          </p>
+          <p class="mt-3 text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            {{ total_student }}
+          </p>
+          <!-- Subtle trend indicator (decorative) -->
+          <div class="flex items-center gap-1.5 mt-3">
+            <div class="flex items-center gap-1 px-2 py-0.5 rounded-md
+                        bg-emerald-500/10 text-emerald-400 text-[11px] font-semibold">
+              <i class="fas fa-arrow-up text-[9px]"></i>
+              Active
+            </div>
+            <span class="text-[11px] text-slate-500">across all courses</span>
           </div>
-          <div class="stat-icon icon-student">
-            <i class="fas fa-user-graduate"></i>
+        </div>
+
+        <!-- Icon Container -->
+        <div class="flex-shrink-0 ml-4">
+          <div class="w-14 h-14 rounded-2xl
+                      bg-gradient-to-br from-indigo-500 to-violet-600
+                      flex items-center justify-center
+                      shadow-lg shadow-indigo-500/25
+                      group-hover:shadow-indigo-500/40
+                      group-hover:scale-110
+                      transition-all duration-500">
+            <i class="fas fa-user-graduate text-xl text-white"></i>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-4 col-sm-12 mb-4">
-      <div class="stat-card">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="stat-title">Total Courses</div>
-            <div class="stat-value">{{ total_course }}</div>
+      <!-- Bottom accent line -->
+      <div class="absolute bottom-0 left-0 right-0 h-px
+                  bg-gradient-to-r from-indigo-500/0 via-indigo-500/40 to-indigo-500/0
+                  opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    </div>
+  </div>
+
+  <!-- CARD 2: Total Courses -->
+  <div class="group relative overflow-hidden rounded-2xl
+              bg-white/[0.03] backdrop-blur-xl
+              border border-white/[0.06]
+              hover:border-emerald-500/30 hover:bg-white/[0.06]
+              transition-all duration-500 hover:-translate-y-1
+              hover:shadow-2xl hover:shadow-emerald-500/10">
+
+    <!-- Ambient gradient -->
+    <div class="absolute -top-12 -left-12 w-32 h-32 rounded-full
+                bg-emerald-500/20 blur-3xl opacity-0 group-hover:opacity-100
+                transition-opacity duration-700 pointer-events-none"></div>
+
+    <div class="relative p-6 sm:p-7">
+      <div class="flex items-start justify-between">
+        <div class="flex-1">
+          <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.15em]
+                    text-slate-500 group-hover:text-slate-400 transition-colors duration-300">
+            Total Courses
+          </p>
+          <p class="mt-3 text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            {{ total_course }}
+          </p>
+          <div class="flex items-center gap-1.5 mt-3">
+            <div class="flex items-center gap-1 px-2 py-0.5 rounded-md
+                        bg-emerald-500/10 text-emerald-400 text-[11px] font-semibold">
+              <i class="fas fa-check-circle text-[9px]"></i>
+              Published
+            </div>
+            <span class="text-[11px] text-slate-500">ready for exams</span>
           </div>
-          <div class="stat-icon icon-course">
-            <i class="fas fa-book"></i>
+        </div>
+
+        <div class="flex-shrink-0 ml-4">
+          <div class="w-14 h-14 rounded-2xl
+                      bg-gradient-to-br from-emerald-500 to-green-600
+                      flex items-center justify-center
+                      shadow-lg shadow-emerald-500/25
+                      group-hover:shadow-emerald-500/40
+                      group-hover:scale-110
+                      transition-all duration-500">
+            <i class="fas fa-book text-xl text-white"></i>
           </div>
         </div>
       </div>
-    </div>
 
-    <div class="col-md-4 col-sm-12 mb-4">
-      <div class="stat-card">
-        <div class="d-flex justify-content-between align-items-center">
-          <div>
-            <div class="stat-title">Total Questions</div>
-            <div class="stat-value">{{ total_question }}</div>
+      <div class="absolute bottom-0 left-0 right-0 h-px
+                  bg-gradient-to-r from-emerald-500/0 via-emerald-500/40 to-emerald-500/0
+                  opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    </div>
+  </div>
+
+  <!-- CARD 3: Total Questions -->
+  <div class="group relative overflow-hidden rounded-2xl
+              bg-white/[0.03] backdrop-blur-xl
+              border border-white/[0.06]
+              hover:border-amber-500/30 hover:bg-white/[0.06]
+              transition-all duration-500 hover:-translate-y-1
+              hover:shadow-2xl hover:shadow-amber-500/10
+              sm:col-span-2 lg:col-span-1">
+
+    <!-- Ambient gradient -->
+    <div class="absolute -top-12 -left-12 w-32 h-32 rounded-full
+                bg-amber-500/20 blur-3xl opacity-0 group-hover:opacity-100
+                transition-opacity duration-700 pointer-events-none"></div>
+
+    <div class="relative p-6 sm:p-7">
+      <div class="flex items-start justify-between">
+        <div class="flex-1">
+          <p class="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.15em]
+                    text-slate-500 group-hover:text-slate-400 transition-colors duration-300">
+            Total Questions
+          </p>
+          <p class="mt-3 text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            {{ total_question }}
+          </p>
+          <div class="flex items-center gap-1.5 mt-3">
+            <div class="flex items-center gap-1 px-2 py-0.5 rounded-md
+                        bg-amber-500/10 text-amber-400 text-[11px] font-semibold">
+              <i class="fas fa-database text-[9px]"></i>
+              In Bank
+            </div>
+            <span class="text-[11px] text-slate-500">across all courses</span>
           </div>
-          <div class="stat-icon icon-question">
-            <i class="fas fa-question-circle"></i>
+        </div>
+
+        <div class="flex-shrink-0 ml-4">
+          <div class="w-14 h-14 rounded-2xl
+                      bg-gradient-to-br from-amber-500 to-orange-600
+                      flex items-center justify-center
+                      shadow-lg shadow-amber-500/25
+                      group-hover:shadow-amber-500/40
+                      group-hover:scale-110
+                      transition-all duration-500">
+            <i class="fas fa-question-circle text-xl text-white"></i>
           </div>
         </div>
       </div>
+
+      <div class="absolute bottom-0 left-0 right-0 h-px
+                  bg-gradient-to-r from-amber-500/0 via-amber-500/40 to-amber-500/0
+                  opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
     </div>
+  </div>
+
+</div>
+
+<!-- ================= QUICK ACTIONS ================= -->
+<div class="mb-8">
+  <h2 class="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+    <i class="fas fa-bolt text-indigo-400 text-sm"></i>
+    Quick Actions
+  </h2>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+    <!-- Action 1 -->
+    <a href="/teacher/teacher-exam"
+       class="group flex items-center gap-4 p-4 rounded-xl
+              bg-white/[0.03] border border-white/[0.06]
+              hover:bg-indigo-500/10 hover:border-indigo-500/30
+              transition-all duration-300">
+      <div class="w-10 h-10 rounded-lg bg-indigo-500/10 flex items-center justify-center
+                  group-hover:bg-indigo-500/20 transition-colors duration-300">
+        <i class="fas fa-plus text-indigo-400 text-sm"></i>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-white group-hover:text-indigo-300
+                  transition-colors duration-300">Add Course</p>
+        <p class="text-[11px] text-slate-500">Create a new exam</p>
+      </div>
+      <i class="fas fa-chevron-right text-xs text-slate-600 ml-auto
+                group-hover:text-indigo-400 group-hover:translate-x-1
+                transition-all duration-300"></i>
+    </a>
+
+    <!-- Action 2 -->
+    <a href="/teacher/teacher-question"
+       class="group flex items-center gap-4 p-4 rounded-xl
+              bg-white/[0.03] border border-white/[0.06]
+              hover:bg-emerald-500/10 hover:border-emerald-500/30
+              transition-all duration-300">
+      <div class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center
+                  group-hover:bg-emerald-500/20 transition-colors duration-300">
+        <i class="fas fa-plus-circle text-emerald-400 text-sm"></i>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-white group-hover:text-emerald-300
+                  transition-colors duration-300">Add Questions</p>
+        <p class="text-[11px] text-slate-500">Build question bank</p>
+      </div>
+      <i class="fas fa-chevron-right text-xs text-slate-600 ml-auto
+                group-hover:text-emerald-400 group-hover:translate-x-1
+                transition-all duration-300"></i>
+    </a>
+
+    <!-- Action 3 -->
+    <a href="/teacher/teacher-view-results"
+       class="group flex items-center gap-4 p-4 rounded-xl
+              bg-white/[0.03] border border-white/[0.06]
+              hover:bg-cyan-500/10 hover:border-cyan-500/30
+              transition-all duration-300">
+      <div class="w-10 h-10 rounded-lg bg-cyan-500/10 flex items-center justify-center
+                  group-hover:bg-cyan-500/20 transition-colors duration-300">
+        <i class="fas fa-chart-line text-cyan-400 text-sm"></i>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-white group-hover:text-cyan-300
+                  transition-colors duration-300">View Results</p>
+        <p class="text-[11px] text-slate-500">Student performance</p>
+      </div>
+      <i class="fas fa-chevron-right text-xs text-slate-600 ml-auto
+                group-hover:text-cyan-400 group-hover:translate-x-1
+                transition-all duration-300"></i>
+    </a>
+
+    <!-- Action 4 -->
+    <a href="/teacher/teacher-dashboard"
+       class="group flex items-center gap-4 p-4 rounded-xl
+              bg-white/[0.03] border border-white/[0.06]
+              hover:bg-violet-500/10 hover:border-violet-500/30
+              transition-all duration-300">
+      <div class="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center
+                  group-hover:bg-violet-500/20 transition-colors duration-300">
+        <i class="fas fa-sync-alt text-violet-400 text-sm"></i>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-white group-hover:text-violet-300
+                  transition-colors duration-300">Refresh Data</p>
+        <p class="text-[11px] text-slate-500">Update statistics</p>
+      </div>
+      <i class="fas fa-chevron-right text-xs text-slate-600 ml-auto
+                group-hover:text-violet-400 group-hover:translate-x-1
+                transition-all duration-300"></i>
+    </a>
 
   </div>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<!-- ================= FOOTER NOTE ================= -->
+<div class="mt-8 pt-6 border-t border-white/5">
+  <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] text-slate-600">
+    <span class="flex items-center gap-1.5">
+      <i class="fas fa-shield-alt text-indigo-500/50"></i>
+      Data refreshes on every page load
+    </span>
+    <span>Online Exam Portal &copy; 2025</span>
+  </div>
+</div>
+
+<!-- ================= DATE SCRIPT ================= -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
+    const today = new Date().toLocaleDateString('en-US', options);
+    const el = document.getElementById("currentDate");
+    if (el) el.textContent = today;
+  });
+</script>
 
 {% endblock content %}

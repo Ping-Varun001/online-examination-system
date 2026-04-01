@@ -1,164 +1,309 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en" dir="ltr">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <title>Online Examination System</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          animation: {
+            'fade-up': 'fadeUp 0.8s ease-out',
+            'fade-up-delay': 'fadeUp 0.8s ease-out 0.2s both',
+            'fade-up-delay2': 'fadeUp 0.8s ease-out 0.4s both',
+            'fade-up-delay3': 'fadeUp 0.8s ease-out 0.6s both',
+            'float': 'float 6s ease-in-out infinite',
+            'float-delay': 'float 6s ease-in-out infinite 2s',
+            'float-delay2': 'float 6s ease-in-out infinite 4s',
+            'pulse-glow': 'pulseGlow 3s ease-in-out infinite',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(40px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(99,102,241,0.2)' },
+              '50%': { boxShadow: '0 0 40px rgba(99,102,241,0.4)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
 
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      
+    .glass {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
+    .glass-strong {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
 
-    /* Hero Section */
-    #section-jumbotron {
-      background-image: url("{% static 'images/bgimage.jpg' %}");
-      background-size: cover;
-      background-position: center;
-      min-height: 100vh;
-      position: relative;
-      display: flex;
-      align-items: center;
+    .input-dark {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.875rem;
+      transition: all 0.3s ease;
+      width: 100%;
+      outline: none;
     }
-
-    #section-jumbotron::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.65);
+    .input-dark:focus {
+      border-color: rgba(99, 102, 241, 0.5);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15), 0 0 20px rgba(99, 102, 241, 0.1);
+      background: rgba(255, 255, 255, 0.06);
     }
-
-    #section-jumbotron .container {
-      position: relative;
-      z-index: 2;
-      color: #fff;
-    }
-
-    .hero-title {
-      font-size: clamp(2rem, 5vw, 3.5rem);
-      font-weight: 700;
-      color: #17a2b8;
-    }
-
-    .hero-subtitle {
-      font-size: clamp(1.2rem, 4vw, 2.2rem);
-    }
-
-    .hero-desc {
-      max-width: 650px;
-      margin: auto;
-      font-size: 1.05rem;
-      opacity: 0.95;
-    }
-
-    /* Card Hover */
-    .feature-card {
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-
-    .feature-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-    }
+    .input-dark::placeholder { color: #64748b; }
+    textarea.input-dark { resize: none; }
   </style>
 </head>
 
-<body>
+<body class="bg-slate-950 font-sans text-slate-200 antialiased">
 
   {% include "exam/navbar.html" %}
 
-  <!-- HERO SECTION -->
-  <section id="section-jumbotron">
-    <div class="container text-center">
-      <h1 class="hero-title mb-3">Online Examination System</h1>
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
 
-      <p class="hero-subtitle d-none d-md-block mb-3">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0">
+      <img src="{% static 'images/bgimage.jpg' %}" alt="Background"
+           class="w-full h-full object-cover opacity-20">
+      <div class="absolute inset-0 bg-gradient-to-b from-slate-950/80 via-slate-950/90 to-slate-950"></div>
+    </div>
+
+    <!-- Floating Orbs -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-20 left-1/4 w-72 h-72 bg-indigo-500/10 rounded-full blur-3xl animate-float"></div>
+      <div class="absolute bottom-32 right-1/4 w-96 h-96 bg-cyan-500/8 rounded-full blur-3xl animate-float-delay"></div>
+      <div class="absolute top-1/2 left-10 w-48 h-48 bg-purple-500/8 rounded-full blur-3xl animate-float-delay2"></div>
+    </div>
+
+    <!-- Hero Content -->
+    <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+
+      <!-- Badge -->
+      <div class="animate-fade-up inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 mb-8">
+        <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+        <span class="text-xs font-semibold text-slate-300 uppercase tracking-wider">Secure Online Examination Platform</span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="animate-fade-up text-4xl sm:text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+        Online
+        <span class="bg-gradient-to-r from-indigo-400 via-cyan-400 to-indigo-400 bg-clip-text text-transparent">
+          Examination
+        </span>
+        <br>System
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="animate-fade-up-delay text-lg md:text-xl text-slate-300 mb-4 max-w-2xl mx-auto font-medium hidden md:block">
         Attend your examinations online!
       </p>
 
-      <p class="hero-desc mb-4">
+      <!-- Description -->
+      <p class="animate-fade-up-delay2 text-sm md:text-base text-slate-400 mb-10 max-w-xl mx-auto leading-relaxed">
         A modern platform that enables students to attend exams securely,
         efficiently, and from anywhere.
       </p>
 
-      <a href="/student/studentsignup"
-         class="btn btn-info btn-lg px-5 fw-semibold rounded-pill shadow">
-        <i class="fa fa-graduation-cap"></i> Sign Up as Student
-      </a>
+      <!-- CTA Button -->
+      <div class="animate-fade-up-delay3">
+        <a href="/student/studentsignup"
+           class="group inline-flex items-center gap-3 px-10 py-5 rounded-2xl bg-gradient-to-r from-indigo-600 to-cyan-500 text-white font-bold text-base hover:shadow-2xl hover:shadow-indigo-500/30 hover:-translate-y-1 transition-all duration-500 no-underline animate-pulse-glow">
+          <i class="fas fa-graduation-cap text-lg group-hover:scale-110 transition-transform duration-300"></i>
+          Sign Up as Student
+          <i class="fas fa-arrow-right text-sm group-hover:translate-x-1 transition-transform duration-300"></i>
+        </a>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div class="mt-16 animate-bounce">
+        <i class="fas fa-chevron-down text-slate-500 text-lg"></i>
+      </div>
     </div>
   </section>
 
-  <!-- FEATURES SECTION -->
-  <section class="py-5 bg-light">
-    <div class="container text-center">
+  <!-- ==================== FEATURES SECTION ==================== -->
+  <section class="relative py-20 md:py-28 px-4">
 
-      <h2 class="fw-bold mb-3">Why Choose Our Platform?</h2>
-      <p class="text-muted mb-5">
-        Designed for students and educators with simplicity and security
-      </p>
+    <!-- Background decoration -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+      <div class="absolute top-1/2 right-0 w-64 h-64 bg-indigo-500/5 rounded-full blur-3xl"></div>
+    </div>
 
-      <div class="row g-4">
+    <div class="max-w-6xl mx-auto relative z-10">
 
-        <div class="col-md-4">
-          <div class="card feature-card border-0 shadow h-100">
-            <div class="card-body">
-              <i class="fa fa-laptop fa-3x text-info mb-3"></i>
-              <h5 class="fw-semibold">Online Exams</h5>
-              <p class="text-muted">
-                Attempt exams anytime from anywhere using any device.
-              </p>
-            </div>
+      <!-- Section Header -->
+      <div class="text-center mb-16">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border border-white/10 mb-4">
+          <i class="fas fa-star text-[10px] text-indigo-400"></i>
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Features</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-4">
+          Why Choose Our
+          <span class="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">Platform?</span>
+        </h2>
+        <p class="text-slate-400 max-w-lg mx-auto">
+          Designed for students and educators with simplicity and security
+        </p>
+      </div>
+
+      <!-- Feature Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Feature 1: Online Exams -->
+        <div class="group glass-strong rounded-2xl p-8 hover:bg-white/[0.07] transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-indigo-500/10">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center mb-6 shadow-lg shadow-indigo-500/25 group-hover:shadow-indigo-500/40 group-hover:scale-110 transition-all duration-500">
+            <i class="fas fa-laptop text-xl text-white"></i>
           </div>
+          <h3 class="text-lg font-bold text-white mb-3 group-hover:text-indigo-300 transition-colors duration-300">Online Exams</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Attempt exams anytime from anywhere using any device.
+          </p>
+          <div class="w-full h-0.5 bg-gradient-to-r from-indigo-500/50 to-transparent mt-6 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </div>
 
-        <div class="col-md-4">
-          <div class="card feature-card border-0 shadow h-100">
-            <div class="card-body">
-              <i class="fa fa-clock-o fa-3x text-info mb-3"></i>
-              <h5 class="fw-semibold">Time Efficient</h5>
-              <p class="text-muted">
-                Automatic timers and smooth exam flow reduce stress.
-              </p>
-            </div>
+        <!-- Feature 2: Time Efficient -->
+        <div class="group glass-strong rounded-2xl p-8 hover:bg-white/[0.07] transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-cyan-500/10">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-cyan-500 to-teal-400 flex items-center justify-center mb-6 shadow-lg shadow-cyan-500/25 group-hover:shadow-cyan-500/40 group-hover:scale-110 transition-all duration-500">
+            <i class="fas fa-clock text-xl text-white"></i>
           </div>
+          <h3 class="text-lg font-bold text-white mb-3 group-hover:text-cyan-300 transition-colors duration-300">Time Efficient</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Automatic timers and smooth exam flow reduce stress.
+          </p>
+          <div class="w-full h-0.5 bg-gradient-to-r from-cyan-500/50 to-transparent mt-6 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </div>
 
-        <div class="col-md-4">
-          <div class="card feature-card border-0 shadow h-100">
-            <div class="card-body">
-              <i class="fa fa-bar-chart fa-3x text-info mb-3"></i>
-              <h5 class="fw-semibold">Instant Results</h5>
-              <p class="text-muted">
-                Get fast and transparent results after exam completion.
-              </p>
-            </div>
+        <!-- Feature 3: Instant Results -->
+        <div class="group glass-strong rounded-2xl p-8 hover:bg-white/[0.07] transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-emerald-500/10">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-400 flex items-center justify-center mb-6 shadow-lg shadow-emerald-500/25 group-hover:shadow-emerald-500/40 group-hover:scale-110 transition-all duration-500">
+            <i class="fas fa-chart-bar text-xl text-white"></i>
           </div>
+          <h3 class="text-lg font-bold text-white mb-3 group-hover:text-emerald-300 transition-colors duration-300">Instant Results</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Get fast and transparent results after exam completion.
+          </p>
+          <div class="w-full h-0.5 bg-gradient-to-r from-emerald-500/50 to-transparent mt-6 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </div>
 
       </div>
 
-      <div class="mt-5">
+      <!-- CTA -->
+      <div class="text-center mt-14">
         <a href="/student/studentsignup"
-           class="btn btn-info btn-lg px-5 fw-semibold rounded-pill shadow">
+           class="group inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-cyan-500 text-white font-bold text-sm hover:shadow-2xl hover:shadow-indigo-500/30 hover:-translate-y-1 transition-all duration-500 no-underline">
+          <i class="fas fa-rocket group-hover:scale-110 transition-transform duration-300"></i>
           Get Started Now
+          <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform duration-300"></i>
         </a>
       </div>
 
     </div>
   </section>
-  {% include "exam/contactus.html" %}
-  {% include "exam/footer.html" %}
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- ==================== CONTACT SECTION ==================== -->
+  <section class="relative py-20 px-4">
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+      <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent"></div>
+    </div>
+
+    <div class="max-w-3xl mx-auto relative z-10">
+
+      <!-- Section Header -->
+      <div class="text-center mb-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full glass border border-white/10 mb-4">
+          <i class="fas fa-headset text-[10px] text-cyan-400"></i>
+          <span class="text-[11px] font-bold text-slate-400 uppercase tracking-widest">Contact</span>
+        </div>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mb-3">
+          Get In
+          <span class="bg-gradient-to-r from-cyan-400 to-indigo-400 bg-clip-text text-transparent">Touch</span>
+        </h2>
+        <p class="text-slate-400">Need help? Reach out and we'll respond promptly.</p>
+      </div>
+
+      <!-- Contact Form Card -->
+      <div class="glass-strong rounded-2xl p-8 md:p-10 relative overflow-hidden">
+        <div class="absolute top-0 left-0 right-0 h-0.5 bg-gradient-to-r from-cyan-500 via-indigo-500 to-cyan-500"></div>
+
+        <form method="POST" autocomplete="off" class="space-y-5">
+          {% csrf_token %}
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Your Name *</label>
+              <input type="text" name="Name" class="input-dark" placeholder="John Doe" required>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Your Email *</label>
+              <input type="email" name="Email" class="input-dark" placeholder="john@example.com" required>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Phone Number *</label>
+              <input type="tel" name="Phone" class="input-dark" placeholder="9876543210" required
+                     pattern="[6-9]{1}[0-9]{9}" title="Enter valid 10-digit mobile number">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Institute *</label>
+              <input type="text" name="Institute" class="input-dark" placeholder="Your Organization" required>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Your Message *</label>
+            <textarea name="Message" rows="4" class="input-dark" placeholder="Tell us how we can help..." required></textarea>
+          </div>
+
+          <div class="text-center pt-2">
+            <button type="submit"
+                    class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-indigo-500 text-white font-bold text-sm hover:shadow-xl hover:shadow-cyan-500/25 hover:-translate-y-0.5 transition-all duration-300 group">
+              <i class="fas fa-paper-plane group-hover:translate-x-1 transition-transform duration-300"></i>
+              Request Free Consultation
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  {% include "exam/footer.html" %}
 
 </body>
 </html>

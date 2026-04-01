@@ -1,173 +1,157 @@
 <!DOCTYPE html>
 {% load widget_tweaks %}
-<html lang="en">
+<html lang="en" class="dark">
 
 <head>
   <meta charset="utf-8">
   <title>Student Signup</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap 4 -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { sans: ['Inter', 'sans-serif'] },
+          animation: {
+            'fade-up': 'fadeUp 0.7s ease-out',
+          },
+          keyframes: {
+            fadeUp: {
+              '0%': { opacity: '0', transform: 'translateY(30px)' },
+              '100%': { opacity: '1', transform: 'translateY(0)' },
+            },
+          },
+        },
+      },
+    }
+  </script>
 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+  <style>
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(30px);
+      -webkit-backdrop-filter: blur(30px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
     }
-
-    .signup-wrapper {
-      min-height: 85vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+    .input-dark {
+      background: rgba(255, 255, 255, 0.04) !important;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      color: #e2e8f0 !important;
+      border-radius: 0.75rem !important;
+      padding: 0.75rem 1rem !important;
+      font-size: 0.875rem !important;
+      transition: all 0.3s ease !important;
+      width: 100% !important;
+      height: auto !important;
     }
-
-    .signup-card {
-      background: #ffffff;
-      padding: 40px 45px;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 900px;
-      box-shadow: 0 20px 45px rgba(0,0,0,0.15);
-      animation: fadeUp 0.7s ease;
+    .input-dark:focus {
+      border-color: rgba(99, 102, 241, 0.5) !important;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15), 0 0 20px rgba(99, 102, 241, 0.1) !important;
+      outline: none !important;
+      background: rgba(255, 255, 255, 0.06) !important;
     }
-
-    .signup-title {
-      text-align: center;
-      font-size: 28px;
-      font-weight: 700;
-      color: #1f2937;
-      margin-bottom: 30px;
-    }
-
-    label {
-      font-weight: 500;
-      font-size: 14px;
-      color: #374151;
-    }
-
-    .form-control {
-      height: 46px;
-      border-radius: 12px;
-      border: 1px solid #d1d5db;
-      font-size: 14px;
-      padding-left: 14px;
-    }
-
-    .form-control:focus {
-      border-color: #2563eb;
-      box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
-    }
-
-    input[type="file"].form-control {
-      padding-top: 8px;
-    }
-
-    .btn-signup {
-      margin-top: 25px;
-      padding: 14px;
-      font-size: 16px;
-      font-weight: 600;
-      width: 100%;
-      border-radius: 30px;
-      border: none;
-      background: linear-gradient(135deg, #10b981, #34d399);
-      color: #ffffff;
-      transition: 0.3s ease;
-    }
-
-    .btn-signup:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 25px rgba(16,185,129,0.4);
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .signup-card {
-        padding: 35px 25px;
-      }
+    .input-dark::placeholder {
+      color: #64748b !important;
     }
   </style>
 </head>
 
-<body>
+<body class="bg-slate-950 font-sans text-slate-200 antialiased min-h-screen flex flex-col">
 
-{% include "exam/navbar.html" %}
+  {% include "exam/navbar.html" %}
 
-<div class="signup-wrapper">
-  <div class="signup-card">
-
-    <div class="signup-title">Student Registration</div>
-
-    <form method="POST" autocomplete="on">
-      {% csrf_token %}
-
-      <!-- Name -->
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label>First Name</label>
-          {% render_field userForm.first_name class="form-control" placeholder="First Name" %}
-        </div>
-        <div class="form-group col-md-6">
-          <label>Last Name</label>
-          {% render_field userForm.last_name class="form-control" placeholder="Last Name" %}
-        </div>
-      </div>
-
-      <!-- Contact -->
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label>Contact Number</label>
-          {% render_field studentForm.mobile class="form-control" placeholder="Contact Number" %}
-        </div>
-        <div class="form-group col-md-6">
-          <label>Address</label>
-          {% render_field studentForm.address class="form-control" placeholder="Address" %}
-        </div>
-      </div>
-
-      <!-- Login -->
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label>Username</label>
-          {% render_field userForm.username class="form-control" placeholder="Username" %}
-        </div>
-        <div class="form-group col-md-6">
-          <label>Password</label>
-          {% render_field userForm.password class="form-control" placeholder="Password" %}
-        </div>
-      </div>
-
-
-      <button type="submit" class="btn-signup">
-        Create Account
-      </button>
-
-      <div class="register-box" style="align-items: center; justify-content: center; display: flex; margin-top: 15px;">
-      Already Have an account?
-      <a href="{% url 'studentlogin' %}"> Login Here</a>
-    </div>
-    </form>
-
+  <!-- Background Orbs -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-emerald-500/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/4 left-1/4 w-80 h-80 bg-indigo-500/5 rounded-full blur-3xl"></div>
   </div>
-</div>
 
-{% include "exam/footer.html" %}
+  <!-- Signup Section -->
+  <div class="flex-1 flex items-center justify-center px-4 py-16 md:py-20">
+    <div class="glass-card rounded-3xl p-8 md:p-10 w-full max-w-3xl animate-fade-up shadow-2xl shadow-black/20 relative overflow-hidden">
+
+      <!-- Decorative gradient bar -->
+      <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 via-teal-400 to-emerald-500"></div>
+
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-emerald-500/25">
+          <i class="fas fa-user-plus text-xl text-white"></i>
+        </div>
+        <h1 class="text-2xl font-bold text-white">Student Registration</h1>
+        <p class="text-sm text-slate-400 mt-1">Create your account to get started</p>
+      </div>
+
+      <!-- Form -->
+      <form method="POST" autocomplete="on" class="space-y-5">
+        {% csrf_token %}
+
+        <!-- Name Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">First Name</label>
+            {% render_field userForm.first_name class="input-dark" placeholder="First Name" %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Last Name</label>
+            {% render_field userForm.last_name class="input-dark" placeholder="Last Name" %}
+          </div>
+        </div>
+
+        <!-- Contact Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Contact Number</label>
+            {% render_field studentForm.mobile class="input-dark" placeholder="Contact Number" %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Address</label>
+            {% render_field studentForm.address class="input-dark" placeholder="Address" %}
+          </div>
+        </div>
+
+        <!-- Login Row -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Username</label>
+            {% render_field userForm.username class="input-dark" placeholder="Username" %}
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Password</label>
+            {% render_field userForm.password class="input-dark" placeholder="Password" %}
+          </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit"
+                class="w-full flex items-center justify-center gap-2 py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-400 text-white font-bold text-sm hover:shadow-xl hover:shadow-emerald-500/25 hover:-translate-y-0.5 transition-all duration-300 mt-2 group">
+          <i class="fas fa-check-circle group-hover:scale-110 transition-transform duration-200"></i>
+          Create Account
+        </button>
+
+        <!-- Login Link -->
+        <div class="text-center pt-2">
+          <p class="text-sm text-slate-400">
+            Already have an account?
+            <a href="{% url 'studentlogin' %}" class="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors duration-200 no-underline">
+              Login Here
+            </a>
+          </p>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  {% include "exam/footer.html" %}
 
 </body>
 </html>

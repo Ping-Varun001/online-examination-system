@@ -2,132 +2,136 @@
 {% load static %}
 {% block content %}
 
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ================= HEADER ================= -->
+<!-- ================= PAGE HEADER ================= -->
+<div class="mb-8">
 
-  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-
-  <style>
-    body {
-      background-color: #f5f7fa;
-    }
-
-    .page-container {
-      margin-top: 70px;
-      margin-bottom: 50px;
-    }
-
-    .custom-card {
-      background: #ffffff;
-      border-radius: 6px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      padding: 20px;
-    }
-
-    .card-title {
-      text-align: center;
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      color: #333;
-    }
-
-    table th {
-      background-color: #f1f3f6;
-      text-align: center;
-      white-space: nowrap;
-    }
-
-    table td {
-      text-align: center;
-      vertical-align: middle !important;
-    }
-
-    .btn-view {
-      background: #5bc0de;
-      color: white;
-      border-radius: 4px;
-      padding: 6px 12px;
-    }
-
-    .btn-view:hover {
-      background: #31b0d5;
-      color: white;
-    }
-    .back-btn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.back-btn i {
-  margin-right: 6px;
-}
-
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
-}
-  </style>
-</head>
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
+  <!-- Back Button -->
+  <button
+    onclick="history.back()"
+    class="group inline-flex items-center gap-2 px-5 py-2.5 mb-6 rounded-2xl
+           bg-white/5 border border-white/10 text-slate-300
+           hover:bg-indigo-500/10 hover:border-indigo-500/30 hover:text-white
+           transition-all duration-300 text-sm font-medium shadow-lg shadow-black/20">
+    <i class="fas fa-arrow-left text-sm transition-transform duration-300
+              group-hover:-translate-x-1"></i>
+    <span>Back</span>
   </button>
-</div>
-<div class="container page-container">
-  <div class="row">
-    <div class="col-md-10 col-md-offset-1 col-sm-12">
-      <div class="custom-card">
 
-        <div class="card-title">
-          Student Results
-        </div>
+  <!-- Breadcrumb -->
+  <div class="flex items-center gap-2 text-sm text-slate-500 mb-4">
+    <a href="/teacher/teacher-dashboard" class="hover:text-indigo-400">
+      <i class="fas fa-home text-xs"></i>
+    </a>
+    <span>/</span>
+    <span class="text-slate-300">Results</span>
+  </div>
 
-        <div class="table-responsive">
-          <table class="table table-hover">
-            <thead>
-              <tr>
-                <th>Subject</th>
-                <th>Total Marks</th>
-                <th>Students Attempted</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for item in course_data %}
-              <tr>
-                <td>{{ item.course.course_name }}</td>
-                <td>{{ item.course.total_marks }}</td>
-                <td>{{ item.attempted }}</td>
-                <td>
-                  <a href="{% url 'teacher_view_subject_results' item.course.id %}"
-                     class="btn btn-view btn-sm">
-                    View Results
-                  </a>
-                </td>
-              </tr>
-              {% empty %}
-              <tr>
-                <td colspan="4">No subjects found</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-        </div>
-
-      </div>
+  <!-- Title -->
+  <div class="flex items-center gap-4">
+    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-violet-500 to-indigo-600
+                flex items-center justify-center shadow-xl shadow-violet-500/30">
+      <i class="fas fa-chart-bar text-white text-lg"></i>
+    </div>
+    <div>
+      <h1 class="text-2xl sm:text-3xl font-bold text-white">Student Results</h1>
+      <p class="text-slate-400 text-sm mt-1">View performance of students across courses.</p>
     </div>
   </div>
+
+</div>
+
+<!-- ================= TABLE CARD ================= -->
+<div class="relative overflow-hidden rounded-2xl
+            bg-white/[0.03] backdrop-blur-xl
+            border border-white/[0.06]
+            shadow-2xl shadow-black/20">
+
+  <!-- Header -->
+  <div class="px-6 py-5 border-b border-white/[0.06] flex items-center justify-between">
+    <h2 class="text-sm font-semibold text-white">Course Results</h2>
+    <span class="text-xs text-slate-500">
+      {{ course_data|length }} courses
+    </span>
+  </div>
+
+  <!-- Table -->
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+
+      <!-- Head -->
+      <thead class="bg-white/[0.04] text-slate-500 uppercase text-xs">
+        <tr>
+          <th class="px-6 py-4 text-left">Subject</th>
+          <th class="px-6 py-4 text-center">Total Marks</th>
+          <th class="px-6 py-4 text-center">Attempts</th>
+          <th class="px-6 py-4 text-center">Action</th>
+        </tr>
+      </thead>
+
+      <!-- Body -->
+      <tbody class="divide-y divide-white/[0.05]">
+
+        {% for item in course_data %}
+        <tr class="hover:bg-white/[0.04] transition duration-300">
+
+          <!-- Subject -->
+          <td class="px-6 py-4 text-slate-200 font-medium">
+            {{ item.course.course_name }}
+          </td>
+
+          <!-- Total Marks -->
+          <td class="px-6 py-4 text-center">
+            <span class="px-3 py-1 rounded-lg
+                         bg-indigo-500/10 text-indigo-300 font-semibold">
+              {{ item.course.total_marks }}
+            </span>
+          </td>
+
+          <!-- Attempts -->
+          <td class="px-6 py-4 text-center">
+            <span class="px-3 py-1 rounded-lg
+                         bg-emerald-500/10 text-emerald-300 font-semibold">
+              {{ item.attempted }}
+            </span>
+          </td>
+
+          <!-- Action -->
+          <td class="px-6 py-4 text-center">
+            <a href="{% url 'teacher_view_subject_results' item.course.id %}"
+               class="inline-flex items-center gap-2 px-4 py-2 rounded-lg
+                      bg-indigo-500/10 text-indigo-400 text-xs font-medium
+                      border border-indigo-500/20
+                      hover:bg-indigo-500 hover:text-white hover:border-indigo-500
+                      hover:shadow-lg hover:shadow-indigo-500/25
+                      transition-all duration-300">
+
+              <i class="fas fa-chart-bar text-[10px]"></i>
+              View Results
+            </a>
+          </td>
+
+        </tr>
+
+        {% empty %}
+        <!-- Empty State -->
+        <tr>
+          <td colspan="4" class="text-center py-16">
+            <div class="text-slate-500 mb-2">
+              <i class="fas fa-chart-line text-3xl"></i>
+            </div>
+            <p class="text-slate-400 text-sm">No subjects found</p>
+          </td>
+        </tr>
+        {% endfor %}
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Bottom Glow -->
+  <div class="absolute bottom-0 left-0 right-0 h-px
+              bg-gradient-to-r from-transparent via-indigo-500/30 to-transparent"></div>
 </div>
 
 {% endblock content %}

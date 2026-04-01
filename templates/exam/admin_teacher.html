@@ -2,212 +2,108 @@
 {% load widget_tweaks %}
 {% block content %}
 
+<div class="animate-fade-up">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <style type="text/css">
-  a:link {
-  text-decoration: none;
-}
-
-body {
-  background: #f8fafc;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* Back Button */
-.back-btn {
-  background: #ffffff;
-  border: 1px solid #e5e7eb;
-  padding: 8px 18px;
-  border-radius: 12px;
-  font-size: 14px;
-  font-weight: 500;
-  color: #374151;
-  transition: all 0.3s ease;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-}
-
-.back-btn i {
-  margin-right: 6px;
-}
-
-.back-btn:hover {
-  background: #2563eb;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgba(37,99,235,0.25);
-}
-
-/* Modern Cards */
-.card {
-  border: none;
-  border-radius: 20px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
-  transition: all 0.35s ease;
-  overflow: hidden;
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-}
-
-.card .card-block {
-  padding: 32px;
-}
-
-.order-card h6 {
-  font-weight: 600;
-  font-size: 13px;
-  letter-spacing: 1px;
-  opacity: 0.9;
-}
-
-.order-card h2 {
-  font-weight: 700;
-  font-size: 28px;
-  margin-top: 12px;
-}
-
-.order-card i {
-  font-size: 26px;
-  opacity: 0.9;
-}
-
-/* Icon spacing fix */
-.f-left {
-  margin-right: 10px;
-}
-
-/* Modern Gradients */
-.bg-c-blue {
-  background: linear-gradient(135deg, #3b82f6, #1e40af);
-  color: #fff;
-}
-
-.bg-c-green {
-  background: linear-gradient(135deg, #10b981, #047857);
-  color: #fff;
-}
-
-.bg-c-yellow {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #fff;
-}
-
-.bg-c-pink {
-  background: linear-gradient(135deg, #ef4444, #b91c1c);
-  color: #fff;
-}
-
-.container {
-  margin-top: 30px;
-}
-
-@media (max-width: 768px) {
-  .card .card-block {
-    padding: 25px;
-  }
-
-  .order-card h2 {
-    font-size: 22px;
-  }
-}
-
-
-@media (max-width: 576px) {
-
-  .container {
-    padding-left: 15px;
-    padding-right: 15px;
-  }
-
-  .row {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  .col-md-4 {
-    width: 100%;
-    max-width: 100%;
-    flex: 0 0 100%;
-    margin-bottom: 20px;
-  }
-
-  .card .card-block {
-    padding: 22px;
-  }
-
-  .order-card h2 {
-    font-size: 20px;
-  }
-
-  .order-card h6 {
-    font-size: 12px;
-  }
-}
-</style>
-
-  </head>
-<br><br>
-<!-- Back Button -->
-<div class="container mt-4">
-  <button onclick="history.back()" class="back-btn">
-    <i class="fa fa-arrow-left"></i> Back
+  <!-- Back Button -->
+  <button onclick="history.back()"
+          class="group inline-flex items-center gap-2 px-4 py-2 rounded-xl glass border border-white/10 text-sm font-medium text-slate-400 hover:text-white hover:bg-white/10 transition-all duration-300 mb-6">
+    <i class="fas fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform duration-200"></i>
+    Back
   </button>
-</div>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-4 col-xl-4">
-        <a href="admin-view-teacher" style="text-decoration: none;color:white;">
-        <div class="card bg-c-blue order-card">
-          <div class="card-block">
-            <h6 class="m-b-20"> Total Approved Teacher </h6>
-            <h2 class="text-right"><i class="fas fa-chalkboard-teacher f-left"></i><span>{{total_teacher}}</span></h2>
-          </div>
-        </div>
-      </a>
-      </div>
-  
-      <div class="col-md-4 col-xl-4">
-        <a href="admin-view-pending-teacher" style="text-decoration: none;color:white;">
-        <div class="card bg-c-yellow order-card">
-          <div class="card-block">
-            <h6 class="m-b-20">Total Pending Teacher </h6>
-            <h2 class="text-right"><i class="fas fa-sync-alt f-left"></i><span>{{pending_teacher}}</span></h2>
-          </div>
-        </div>
-      </a>
-      </div>
-  
-      <div class="col-md-4 col-xl-4">
-        <a href="admin-view-teacher-salary" style="text-decoration: none;color:white;">
-        <div class="card bg-c-green order-card">
-          <div class="card-block">
-            <h6 class="m-b-20">Total Teacher Salary</h6>
-            <h2 class="text-right"><i class="fas fa-dollar-sign f-left"></i><span>${{salary}}</span></h2>
-          </div>
-        </div>
-      </a>
-      </div>
-  
-     
-    </div>
+  <!-- Page Header -->
+  <div class="mb-8">
+    <h1 class="text-2xl md:text-3xl font-bold text-white mb-1">Teacher Management</h1>
+    <p class="text-sm text-slate-400">Manage approved teachers, pending approvals, and salaries.</p>
   </div>
 
+  <!-- Stats Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-<br><br><br><br><br><br><br><br><br><br>
+    <!-- Total Approved Teachers -->
+    <a href="admin-view-teacher" class="group no-underline">
+      <div class="glass-strong rounded-2xl p-6 hover:bg-white/[0.07] transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-indigo-500/10 relative overflow-hidden">
 
-<script src="http://netdna.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script>
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-500 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
+        <div class="flex items-start justify-between mb-5">
+          <div>
+            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Total Approved Teachers</p>
+            <p class="text-4xl font-extrabold text-white mt-2">{{ total_teacher }}</p>
+          </div>
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-indigo-500 to-blue-500 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:shadow-indigo-500/50 group-hover:scale-110 transition-all duration-500">
+            <i class="fas fa-chalkboard-teacher text-xl text-white"></i>
+          </div>
+        </div>
+
+        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden mb-3">
+          <div class="h-full w-3/4 bg-gradient-to-r from-indigo-500 to-blue-400 rounded-full"></div>
+        </div>
+
+        <div class="flex items-center gap-2 text-indigo-400 group-hover:text-indigo-300 transition-colors duration-300">
+          <span class="text-sm font-semibold">View Teachers</span>
+          <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform duration-300"></i>
+        </div>
+      </div>
+    </a>
+
+    <!-- Total Pending Teachers -->
+    <a href="admin-view-pending-teacher" class="group no-underline">
+      <div class="glass-strong rounded-2xl p-6 hover:bg-white/[0.07] transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-amber-500/10 relative overflow-hidden">
+
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-amber-500 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        <div class="flex items-start justify-between mb-5">
+          <div>
+            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Total Pending Teachers</p>
+            <p class="text-4xl font-extrabold text-white mt-2">{{ pending_teacher }}</p>
+          </div>
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-500 to-orange-400 flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:shadow-amber-500/50 group-hover:scale-110 transition-all duration-500">
+            <i class="fas fa-sync-alt text-xl text-white"></i>
+          </div>
+        </div>
+
+        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden mb-3">
+          <div class="h-full w-1/2 bg-gradient-to-r from-amber-500 to-orange-400 rounded-full"></div>
+        </div>
+
+        <div class="flex items-center gap-2 text-amber-400 group-hover:text-amber-300 transition-colors duration-300">
+          <span class="text-sm font-semibold">Review Pending</span>
+          <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform duration-300"></i>
+        </div>
+      </div>
+    </a>
+
+    <!-- Total Teacher Salary -->
+    <a href="admin-view-teacher-salary" class="group no-underline">
+      <div class="glass-strong rounded-2xl p-6 hover:bg-white/[0.07] transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-emerald-500/10 relative overflow-hidden">
+
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500 to-teal-400 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+        <div class="flex items-start justify-between mb-5">
+          <div>
+            <p class="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-1">Total Teacher Salary</p>
+            <p class="text-4xl font-extrabold text-white mt-2">
+              <span class="text-emerald-400">$</span>{{ salary }}
+            </p>
+          </div>
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center shadow-lg shadow-emerald-500/25 group-hover:shadow-emerald-500/50 group-hover:scale-110 transition-all duration-500">
+            <i class="fas fa-dollar-sign text-xl text-white"></i>
+          </div>
+        </div>
+
+        <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden mb-3">
+          <div class="h-full w-2/3 bg-gradient-to-r from-emerald-500 to-teal-400 rounded-full"></div>
+        </div>
+
+        <div class="flex items-center gap-2 text-emerald-400 group-hover:text-emerald-300 transition-colors duration-300">
+          <span class="text-sm font-semibold">View Salaries</span>
+          <i class="fas fa-arrow-right text-xs group-hover:translate-x-1 transition-transform duration-300"></i>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</div>
 
 {% endblock content %}

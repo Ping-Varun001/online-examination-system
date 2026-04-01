@@ -8,11 +8,44 @@ from django.conf import settings
 from datetime import date, timedelta
 from exam import models as QMODEL
 from teacher import models as TMODEL
+from django.contrib.auth import authenticate, login
+from .models import Student
+
+def student_login_view(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+
+            # ❌ BLOCK non-students
+            if not user.groups.filter(name='STUDENT').exists():
+                return render(request, 'student/studentlogin.html', {
+                    'error': 'You are not registered as a student'
+                })
+
+            login(request, user)
+
+            # ✅ OPTIONAL approval check
+            student = Student.objects.get(user=user)
+            if hasattr(student, 'is_approved') and not student.is_approved:
+                return render(request, 'student/approval_wait.html')
+
+            return redirect('student-dashboard')
+
+        else:
+            return render(request, 'student/studentlogin.html', {
+                'error': 'Invalid username or password'
+            })
+
+    return render(request, 'student/studentlogin.html')
 
 #for showing signup/login button for student
 def studentclick_view(request): 
     if request.user.is_authenticated:
-        return HttpResponseRedirect('afterlogin')
+        return HttpResponseRedirect('student-dashboard')
     return render(request,'student/studentclick.html')
 
 def student_signup_view(request):
