@@ -2,16 +2,9 @@
 {% load widget_tweaks %}
 {% block content %}
 
-<!-- ================= HEADER ================= -->
 <div class="mb-8">
-  <button
-    onclick="history.back()"
-    class="group inline-flex items-center gap-2 px-5 py-2.5 mb-6 rounded-2xl
-           bg-white/5 border border-white/10 text-slate-300
-           hover:bg-indigo-500/10 hover:border-indigo-500/30 hover:text-white
-           transition-all duration-300 text-sm font-medium shadow-lg shadow-black/20">
-    <i class="fas fa-arrow-left text-sm transition-transform duration-300
-              group-hover:-translate-x-1"></i>
+  <button onclick="history.back()" class="group inline-flex items-center gap-2 px-5 py-2.5 mb-6 rounded-2xl bg-white/5 border border-white/10 text-slate-300 hover:bg-indigo-500/10 hover:border-indigo-500/30 hover:text-white transition-all duration-300 text-sm font-medium shadow-lg shadow-black/20">
+    <i class="fas fa-arrow-left text-sm transition-transform duration-300 group-hover:-translate-x-1"></i>
     <span>Back</span>
   </button>
 
@@ -34,124 +27,66 @@
   </div>
 </div>
 
-<!-- ================= FORM ================= -->
 <form method="POST" autocomplete="off">
   {% csrf_token %}
   {{ formset.management_form }}
 
   <div class="space-y-8">
-
     {% for form in formset %}
-    <!-- ================= QUESTION CARD ================= -->
-    <div class="group relative rounded-2xl
-                bg-white/[0.03] backdrop-blur-xl
-                border border-white/[0.06]
-                hover:border-indigo-500/30 hover:bg-white/[0.05]
-                transition-all duration-500">
+    <div class="group relative rounded-2xl bg-white/[0.03] backdrop-blur-xl border border-white/[0.06] hover:border-indigo-500/30 hover:bg-white/[0.05] transition-all duration-500">
 
-      <!-- Glow -->
-      <div class="absolute -top-10 -left-10 w-32 h-32 rounded-full
-                  bg-indigo-500/20 blur-3xl opacity-0
-                  group-hover:opacity-100 transition duration-700"></div>
+      <div class="absolute -top-10 -left-10 w-32 h-32 rounded-full bg-indigo-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition duration-700"></div>
 
       <div class="relative p-6 sm:p-8">
 
-        <!-- Question Title -->
         <h3 class="text-lg font-semibold text-white mb-6">
-          Question {{ forloop.counter|add:start_index }}
+          Question {{ forloop.counter }}
         </h3>
 
-        <!-- Question -->
         <div class="mb-5">
           <label class="block text-sm text-slate-400 mb-2">Question</label>
-          {% render_field form.question|attr:'required:true'
-              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10
-                     text-slate-200 placeholder-slate-500 text-sm
-                     focus:outline-none focus:ring-2 focus:ring-indigo-500/40
-                     focus:border-indigo-500 transition" 
-              placeholder="Enter the question" %}
+          {% render_field form.question class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition" placeholder="Enter the question" %}
         </div>
 
-        <!-- Marks -->
         <div class="mb-5">
           <label class="block text-sm text-slate-400 mb-2">Marks</label>
-          {% render_field form.marks|attr:'required:true'
-              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10
-                     text-slate-200 placeholder-slate-500 text-sm
-                     focus:outline-none focus:ring-2 focus:ring-indigo-500/40
-                     focus:border-indigo-500 transition"
-              placeholder="Enter marks" %}
+          {% render_field form.marks class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 placeholder-slate-500 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition" placeholder="Enter marks" %}
         </div>
 
-        <!-- Options Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
-
           <div>
             <label class="block text-sm text-slate-400 mb-2">Option 1</label>
-            {% render_field form.option1|attr:'required:true'
-                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10
-                       text-slate-200 placeholder-slate-500 text-sm
-                       focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
-                placeholder="Option 1" %}
+            {% render_field form.option1 class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 placeholder-slate-500 text-sm focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500" placeholder="Option 1" %}
           </div>
-
           <div>
             <label class="block text-sm text-slate-400 mb-2">Option 2</label>
-            {% render_field form.option2|attr:'required:true'
-                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10
-                       text-slate-200 placeholder-slate-500 text-sm
-                       focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
-                placeholder="Option 2" %}
+            {% render_field form.option2 class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 placeholder-slate-500 text-sm focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500" placeholder="Option 2" %}
           </div>
-
           <div>
             <label class="block text-sm text-slate-400 mb-2">Option 3</label>
-            {% render_field form.option3|attr:'required:true'
-                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10
-                       text-slate-200 placeholder-slate-500 text-sm
-                       focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
-                placeholder="Option 3" %}
+            {% render_field form.option3 class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 placeholder-slate-500 text-sm focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500" placeholder="Option 3" %}
           </div>
-
           <div>
             <label class="block text-sm text-slate-400 mb-2">Option 4</label>
-            {% render_field form.option4|attr:'required:true'
-                class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10
-                       text-slate-200 placeholder-slate-500 text-sm
-                       focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500"
-                placeholder="Option 4" %}
+            {% render_field form.option4 class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 placeholder-slate-500 text-sm focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500" placeholder="Option 4" %}
           </div>
-
         </div>
 
-        <!-- Correct Answer -->
         <div>
           <label class="block text-sm text-slate-400 mb-2">Correct Answer</label>
-          {% render_field form.answer|attr:'required:true'
-              class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10
-                     text-slate-200 text-sm
-                     focus:outline-none focus:ring-2 focus:ring-indigo-500/40
-                     focus:border-indigo-500 transition" %}
+          {% render_field form.answer class="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500/40 focus:border-indigo-500 transition" %}
         </div>
 
       </div>
     </div>
-
     {% endfor %}
-
   </div>
 
-  <!-- ================= SUBMIT ================= -->
   <div class="mt-10 flex justify-end">
-    <button type="submit"
-            class="px-6 py-3 rounded-xl
-                   bg-indigo-500 text-white font-medium text-sm
-                   hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-500/30
-                   transition-all duration-300">
+    <button type="submit" class="px-6 py-3 rounded-xl bg-indigo-500 text-white font-medium text-sm hover:bg-indigo-600 hover:shadow-lg hover:shadow-indigo-500/30 transition-all duration-300">
       Submit Questions
     </button>
   </div>
-
 </form>
 
 {% endblock content %}
